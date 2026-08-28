@@ -41,7 +41,7 @@ export const CommunityCategoryCard: React.FC<CommunityCategoryCardProps> = ({ ca
         </div>
 
         <button
-          onClick={() => openModal('join')}
+          onClick={() => openModal('community')}
           className="inline-flex items-center gap-1.5 bg-indigo-600 text-white px-4 py-2 rounded-xl text-xs font-semibold hover:bg-indigo-700 transition-all shadow-sm active:scale-95"
         >
           <span>Join Circle</span>
