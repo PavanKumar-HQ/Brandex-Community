@@ -78,8 +78,16 @@ export const RegistrationModal: React.FC = () => {
   const handleNext = () => {
     setErrorMsg('');
     if (step === 1) {
-      if (!formData.name || !formData.email) {
-        setErrorMsg('Please provide both your name and email address to proceed.');
+      if (!formData.name.trim()) {
+        setErrorMsg('Please provide your full name to proceed.');
+        return;
+      }
+      if (!formData.email.trim()) {
+        setErrorMsg('Please provide your email address to proceed.');
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+        setErrorMsg('Please provide a valid email address (e.g., maya@example.org).');
         return;
       }
     }
@@ -217,16 +225,16 @@ export const RegistrationModal: React.FC = () => {
 
                     <div className="space-y-4">
                       <div>
-                        <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">Full Name *</label>
-                        <input type="text" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="e.g. Maya Lin" className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all shadow-sm" />
+                        <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Full Name *</label>
+                        <input type="text" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="e.g. Maya Lin" className="w-full bg-slate-50 border border-slate-300 rounded-xl p-4 text-slate-900 text-sm focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:bg-white transition-all shadow-sm placeholder:text-slate-400" />
                       </div>
                       <div>
-                        <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">Email Address *</label>
-                        <input type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="maya@example.org" className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all shadow-sm" />
+                        <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Email Address *</label>
+                        <input type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="maya@example.org" className="w-full bg-slate-50 border border-slate-300 rounded-xl p-4 text-slate-900 text-sm focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:bg-white transition-all shadow-sm placeholder:text-slate-400" />
                       </div>
                       <div>
-                        <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">Organization / School (Optional)</label>
-                        <input type="text" value={formData.organization} onChange={(e) => setFormData({ ...formData, organization: e.target.value })} placeholder="e.g. University of Tech" className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all shadow-sm" />
+                        <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Organization / School (Optional)</label>
+                        <input type="text" value={formData.organization} onChange={(e) => setFormData({ ...formData, organization: e.target.value })} placeholder="e.g. University of Tech" className="w-full bg-slate-50 border border-slate-300 rounded-xl p-4 text-slate-900 text-sm focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:bg-white transition-all shadow-sm placeholder:text-slate-400" />
                       </div>
                     </div>
                   </div>

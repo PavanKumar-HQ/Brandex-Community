@@ -15,11 +15,11 @@ export const EventCard: React.FC<EventCardProps> = ({ event, onRegisterClick }) 
       
       {/* Date & Title */}
       <div className="flex items-center gap-5 flex-1 min-w-0">
-        <div className="bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 flex flex-col items-center justify-center text-center shrink-0 w-20">
-          <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest">
+        <div className="bg-indigo-50/60 border border-indigo-100 rounded-xl px-4 py-2.5 flex flex-col items-center justify-center text-center shrink-0 min-w-[96px] shadow-sm">
+          <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">
             {event.date.split(' ')[0]}
           </span>
-          <span className="text-xl font-display font-black text-slate-900 leading-none">
+          <span className="text-base font-display font-black text-slate-900 leading-tight">
             {event.date.split(' ')[1]?.replace(',', '') || 'TBD'}
           </span>
         </div>

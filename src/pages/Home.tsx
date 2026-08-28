@@ -15,6 +15,38 @@ import { MediaPlaceholderCard } from '../components/ui/MediaPlaceholders';
 import { getTrainingPrograms, getEvents, getMedia, getCommunities, getStories, getAchievements } from '../repositories/repository';
 import { TrainingProgram, Event, Media, Community, Story, Achievement } from '../models/types';
 
+const TypewriterText: React.FC<{ words: string[] }> = ({ words }) => {
+  const [index, setIndex] = useState(0);
+  const [subIndex, setSubIndex] = useState(0);
+  const [reverse, setReverse] = useState(false);
+
+  useEffect(() => {
+    if (subIndex === words[index].length + 1 && !reverse) {
+      const timeout = setTimeout(() => setReverse(true), 1600);
+      return () => clearTimeout(timeout);
+    }
+
+    if (subIndex === 0 && reverse) {
+      setReverse(false);
+      setIndex((prev) => (prev + 1) % words.length);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setSubIndex((prev) => prev + (reverse ? -1 : 1));
+    }, reverse ? 40 : 100);
+
+    return () => clearTimeout(timeout);
+  }, [subIndex, index, reverse, words]);
+
+  return (
+    <span className="text-indigo-600 inline-flex items-center">
+      <span>{words[index].substring(0, subIndex)}</span>
+      <span className="animate-pulse ml-0.5 text-indigo-500 font-normal">|</span>
+    </span>
+  );
+};
+
 export const Home: React.FC = () => {
   const { openModal } = useRegistration();
   const [featuredTraining, setFeaturedTraining] = useState<TrainingProgram[]>([]);
@@ -77,7 +109,7 @@ export const Home: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-12 sm:space-y-16 pb-12 pt-16 sm:pt-20 bg-white text-slate-900">
+    <div className="space-y-16 sm:space-y-24 pb-12 pt-24 sm:pt-32 bg-white text-slate-900">
       
       {/* ==========================================
           01. HERO SECTION (High Quality Institutional Media + Messaging)
@@ -92,9 +124,13 @@ export const Home: React.FC = () => {
               Brandex Community & Education
             </span>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-black text-slate-900 tracking-tight leading-[1.05]">
-              Organize. <br className="hidden sm:block"/>Publish. <br className="hidden sm:block"/>Showcase.
-            </h1>
+            <div className="min-h-[160px] sm:min-h-[200px]">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-black text-slate-900 tracking-tight leading-[1.05]">
+                Organize. <br className="hidden sm:block"/>
+                Publish. <br className="hidden sm:block"/>
+                <TypewriterText words={["Showcase.", "Educate.", "Empower.", "Scale."]} />
+              </h1>
+            </div>
 
             <p className="text-lg sm:text-xl text-slate-600 max-w-lg leading-relaxed font-medium">
               The digital home showcasing technology communities, educational workshops, student achievements, and live events.
@@ -346,15 +382,18 @@ export const Home: React.FC = () => {
             tag="MEDIA VAULT"
             title="Video Recordings & Highlights"
             subtitle="Explore recorded keynote talks, technical workshops, and video archives."
-            actionText="Media Vault"
+            actionText="Explore Media Vault"
             actionPath="/media"
+            asButton={true}
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+          <div className="overflow-x-auto pb-4 pt-2 -mx-4 px-4 sm:mx-0 sm:px-0 flex gap-6 scrollbar-none snap-x">
             {featuredMedia.map((m, idx) => (
-              <FadeIn key={m.id} delay={idx * 0.1}>
-                <MediaCard media={m} onPlayClick={openVideo} />
-              </FadeIn>
+              <div key={m.id} className="w-[300px] sm:w-[360px] shrink-0 snap-start">
+                <FadeIn delay={idx * 0.1}>
+                  <MediaCard media={m} onPlayClick={openVideo} />
+                </FadeIn>
+              </div>
             ))}
           </div>
         </section>

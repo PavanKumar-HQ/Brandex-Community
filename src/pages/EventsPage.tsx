@@ -38,6 +38,11 @@ export const EventsPage: React.FC = () => {
         tag="Brandex Summits & Gatherings"
         title="Events & Summits Timeline"
         description="Live technical summits, hands-on buildathons, school series workshops (e.g. Geniusphere Series), and cybersecurity capture-the-flag wargames."
+        widgetTitle="Events.Calendar"
+        widgetStatLabel="Upcoming Events"
+        widgetStatValue="12"
+        widgetStatusLabel="Registration"
+        widgetStatusText="Open for RSVPs"
       />
 
       {/* Split Tabs */}

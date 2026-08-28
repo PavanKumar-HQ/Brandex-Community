@@ -47,6 +47,11 @@ export const BlogPage: React.FC = () => {
         tag="Engineering & Community Blog"
         title="Insights from the Brandex Ecosystem"
         description="Technical deep dives, community announcements, and thoughts on the future of technology education."
+        widgetTitle="Brandex.Blog"
+        widgetStatLabel="Published Articles"
+        widgetStatValue="142"
+        widgetStatusLabel="Newsletter"
+        widgetStatusText="Delivered Weekly"
       />
 
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

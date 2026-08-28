@@ -63,37 +63,39 @@ export const TrainingDetailPage: React.FC = () => {
 
       {/* Hero Header */}
       <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
-        <div className="border border-slate-200 bg-white p-8 sm:p-12 rounded-2xl space-y-6 shadow-sm">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="text-xs uppercase text-indigo-600 bg-indigo-50 border border-indigo-200 px-3 py-1 font-semibold rounded">
-              [{program.category}]
-            </span>
-            <span className="text-xs text-slate-700 bg-slate-100 border border-slate-200 px-3 py-1 font-semibold rounded flex items-center gap-1.5">
-              <BarChart className="w-3.5 h-3.5 text-slate-500" />
-              {program.level}
-            </span>
-            <span className="text-xs text-slate-500 font-semibold flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5 text-indigo-600" />
-              {program.duration}
-            </span>
+        <div className="border border-slate-200 bg-white p-8 sm:p-12 rounded-2xl shadow-sm flex flex-col md:flex-row md:items-end justify-between gap-8">
+          <div className="space-y-6 flex-1">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="text-xs uppercase text-indigo-600 bg-indigo-50 border border-indigo-200 px-3 py-1 font-semibold rounded">
+                [{program.category}]
+              </span>
+              <span className="text-xs text-slate-700 bg-slate-100 border border-slate-200 px-3 py-1 font-semibold rounded flex items-center gap-1.5">
+                <BarChart className="w-3.5 h-3.5 text-slate-500" />
+                {program.level}
+              </span>
+              <span className="text-xs text-slate-500 font-semibold flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 text-indigo-600" />
+                {program.duration}
+              </span>
+            </div>
+
+            <h1 className="text-3xl sm:text-5xl font-display font-bold text-slate-900 max-w-4xl leading-tight">
+              {program.title}
+            </h1>
+
+            <p className="text-base text-slate-600 max-w-3xl leading-relaxed">
+              {program.description}
+            </p>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-display font-bold text-slate-900 max-w-4xl leading-tight">
-            {program.title}
-          </h1>
-
-          <p className="text-base text-slate-600 max-w-3xl leading-relaxed">
-            {program.description}
-          </p>
-
-          <div className="pt-4 flex flex-wrap items-center gap-4">
-              <button
-                onClick={() => openModal('enroll')}
-                className="inline-flex items-center gap-2 bg-indigo-600 text-white px-6 py-3.5 rounded-xl text-xs font-semibold hover:bg-indigo-700 transition-all shadow-sm"
-              >
-                <span>Enroll in Cohort</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
+          <div className="shrink-0 pt-4 md:pt-0 border-t md:border-t-0 border-slate-100">
+            <button
+              onClick={() => openModal('enroll')}
+              className="w-full md:w-auto inline-flex items-center justify-center gap-2.5 bg-indigo-600 text-white px-8 py-4 rounded-xl text-sm font-bold hover:bg-indigo-700 transition-all shadow-md hover:shadow-lg active:scale-95 whitespace-nowrap"
+            >
+              <span>Enroll in Cohort</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </section>

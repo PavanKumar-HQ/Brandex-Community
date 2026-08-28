@@ -18,6 +18,7 @@ import { StoriesPage } from './pages/StoriesPage';
 import { StoryDetailPage } from './pages/StoryDetailPage';
 import { BlogPage } from './pages/BlogPage';
 import { AboutPage } from './pages/AboutPage';
+import { BrandAmbassadorPage } from './pages/BrandAmbassadorPage';
 import { AppDashboardPage } from './pages/AppDashboardPage';
 import { AdminDashboardPage } from './pages/AdminDashboardPage';
 import { RegistrationModal } from './components/ui/RegistrationModal';
@@ -65,6 +66,7 @@ export const App: React.FC = () => {
               <Route path="/stories/:slug" element={<PageWrapper><StoryDetailPage /></PageWrapper>} />
               <Route path="/blog" element={<PageWrapper><BlogPage /></PageWrapper>} />
               <Route path="/about" element={<PageWrapper><AboutPage /></PageWrapper>} />
+              <Route path="/ambassador" element={<PageWrapper><BrandAmbassadorPage /></PageWrapper>} />
               <Route path="/app/dashboard" element={<PageWrapper><AppDashboardPage /></PageWrapper>} />
               <Route path="/admin" element={<PageWrapper><AdminDashboardPage /></PageWrapper>} />
             </Routes>

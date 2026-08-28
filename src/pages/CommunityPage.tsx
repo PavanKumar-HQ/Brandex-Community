@@ -36,6 +36,11 @@ export const CommunityPage: React.FC = () => {
         tag="Brandex Circles & Guilds"
         title="Specialized Technology Circles"
         description="Connect with developers, researchers, and creators across dedicated circles in Autonomous AI, Zero-Trust Cybersecurity, and High-Concurrency Systems."
+        widgetTitle="Community.Guilds"
+        widgetStatLabel="Total Discussions"
+        widgetStatValue="3,492"
+        widgetStatusLabel="Guild Activity"
+        widgetStatusText="High engagement"
         gradientFrom="text-violet-600"
         gradientTo="bg-violet-50"
       />

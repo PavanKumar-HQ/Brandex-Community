@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { ArrowRight, CheckCircle2, Shield, Users, Target, Compass } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Shield, Users, Target, Compass, Linkedin, Twitter, Github, Mail } from 'lucide-react';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { PageHero } from '../components/ui/PageHero';
 import { BackButton } from '../components/ui/BackButton';
@@ -42,6 +42,11 @@ export const AboutPage: React.FC = () => {
         tag="ABOUT BRANDEX ECOSYSTEM"
         title="Building the Digital Home of an Emerging Technology Community."
         description="Brandex was founded to eliminate the disconnect between static computer science education and the rapid pace of real-world technology engineering."
+        widgetTitle="Brandex.Network"
+        widgetStatLabel="Active Members"
+        widgetStatValue="1,204"
+        widgetStatusLabel="System Status"
+        widgetStatusText="All systems operational"
         gradientFrom="text-indigo-600"
         gradientTo="bg-indigo-50"
       />
@@ -115,39 +120,77 @@ export const AboutPage: React.FC = () => {
         <SectionHeading
           tag="LEADERSHIP"
           title="Meet the Founders"
-          subtitle="The visionary team bridging the gap between education and production-level engineering."
+          subtitle="The visionary team behind Brandex, bridging the gap between education and real-world technology engineering."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Founder 1 */}
-          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-6 hover:shadow-md transition-shadow">
-            <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-white shadow-sm shrink-0 bg-indigo-100 flex items-center justify-center">
-              <Users className="w-10 h-10 text-indigo-300" />
-            </div>
-            <div className="space-y-3 text-center md:text-left">
-              <div>
-                <h3 className="font-display font-bold text-2xl text-slate-900">Founder Name 1</h3>
-                <span className="text-indigo-600 font-semibold text-sm">Co-Founder & Lead Engineer</span>
+          <div className="bg-gradient-to-b from-slate-50 to-white border border-slate-200 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 hover:shadow-xl hover:border-indigo-300 transition-all duration-300 group">
+            <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-2 border-indigo-100 shadow-md shrink-0 bg-indigo-50 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+              <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600 to-indigo-400 opacity-90 flex items-center justify-center text-white font-display font-black text-3xl">
+                BX
               </div>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Visionary leader focused on building high-performance engineering teams and designing robust system architectures. Passionate about empowering the next generation of technologists.
+            </div>
+            <div className="space-y-4 text-center sm:text-left flex-1">
+              <div>
+                <span className="inline-block px-2.5 py-0.5 bg-indigo-50 text-indigo-700 text-[10px] font-bold rounded-full uppercase tracking-wider mb-1">Co-Founder</span>
+                <h3 className="font-display font-bold text-2xl text-slate-900">Pavan Kumar</h3>
+                <span className="text-slate-500 font-medium text-xs">Chief Technology Officer & Lead Architect</span>
+              </div>
+              <p className="text-slate-600 text-xs leading-relaxed">
+                Visionary builder driving Brandex's platform engineering, agentic AI research, and scalable community architecture. Dedicated to creating real-world builder ecosystems.
               </p>
+              
+              {/* Profile Links */}
+              <div className="pt-2 flex items-center justify-center sm:justify-start gap-3 text-slate-400">
+                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="p-2 bg-slate-100 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors" title="LinkedIn Profile">
+                  <Linkedin className="w-4 h-4" />
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noreferrer" className="p-2 bg-slate-100 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors" title="Twitter / X">
+                  <Twitter className="w-4 h-4" />
+                </a>
+                <a href="https://github.com/PavanKumar-HQ" target="_blank" rel="noreferrer" className="p-2 bg-slate-100 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors" title="GitHub">
+                  <Github className="w-4 h-4" />
+                </a>
+                <a href="mailto:contact@brandex.co.in" className="p-2 bg-slate-100 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors" title="Email Founder">
+                  <Mail className="w-4 h-4" />
+                </a>
+              </div>
             </div>
           </div>
 
           {/* Founder 2 */}
-          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-6 hover:shadow-md transition-shadow">
-            <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-white shadow-sm shrink-0 bg-blue-100 flex items-center justify-center">
-              <Users className="w-10 h-10 text-blue-300" />
-            </div>
-            <div className="space-y-3 text-center md:text-left">
-              <div>
-                <h3 className="font-display font-bold text-2xl text-slate-900">Founder Name 2</h3>
-                <span className="text-blue-600 font-semibold text-sm">Co-Founder & Head of Education</span>
+          <div className="bg-gradient-to-b from-slate-50 to-white border border-slate-200 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 hover:shadow-xl hover:border-indigo-300 transition-all duration-300 group">
+            <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-2 border-indigo-100 shadow-md shrink-0 bg-indigo-50 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+              <div className="absolute inset-0 bg-gradient-to-tr from-violet-600 to-indigo-500 opacity-90 flex items-center justify-center text-white font-display font-black text-3xl">
+                BX
               </div>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Expert in curriculum design, community building, and bridging the gap between academic theory and practical, real-world application for students and professionals alike.
+            </div>
+            <div className="space-y-4 text-center sm:text-left flex-1">
+              <div>
+                <span className="inline-block px-2.5 py-0.5 bg-indigo-50 text-indigo-700 text-[10px] font-bold rounded-full uppercase tracking-wider mb-1">Co-Founder</span>
+                <h3 className="font-display font-bold text-2xl text-slate-900">Co-Founder & Director</h3>
+                <span className="text-slate-500 font-medium text-xs">Head of Education & Ecosystem Operations</span>
+              </div>
+              <p className="text-slate-600 text-xs leading-relaxed">
+                Pioneering technology education initiatives, institutional partnerships, and Geniusphere workshop series across high schools and university networks.
               </p>
+              
+              {/* Profile Links */}
+              <div className="pt-2 flex items-center justify-center sm:justify-start gap-3 text-slate-400">
+                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="p-2 bg-slate-100 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors" title="LinkedIn Profile">
+                  <Linkedin className="w-4 h-4" />
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noreferrer" className="p-2 bg-slate-100 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors" title="Twitter / X">
+                  <Twitter className="w-4 h-4" />
+                </a>
+                <a href="https://github.com" target="_blank" rel="noreferrer" className="p-2 bg-slate-100 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors" title="GitHub">
+                  <Github className="w-4 h-4" />
+                </a>
+                <a href="mailto:contact@brandex.co.in" className="p-2 bg-slate-100 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors" title="Email Founder">
+                  <Mail className="w-4 h-4" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
