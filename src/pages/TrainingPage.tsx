@@ -4,6 +4,7 @@ import { Filter, SlidersHorizontal, BookOpen, Clock, BarChart, ArrowRight } from
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { PageHero } from '../components/ui/PageHero';
 import { TrainingCard } from '../components/cards/TrainingCard';
+import { BackButton } from '../components/ui/BackButton';
 import { EmptyState } from '../components/ui/EmptyState';
 import { getTrainingPrograms } from '../repositories/repository';
 import { TrainingProgram } from '../models/types';
@@ -34,6 +35,7 @@ export const TrainingPage: React.FC = () => {
 
   return (
     <div className="space-y-16 sm:space-y-24 pb-20 pt-24 sm:pt-28 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
+      <BackButton />
       
       {/* Training Hero */}
       <PageHero 

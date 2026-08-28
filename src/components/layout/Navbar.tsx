@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Menu, ArrowRight } from 'lucide-react';
 import { MobileNavigation } from './MobileNavigation';
+import { useRegistration } from '../../contexts/RegistrationContext';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { openModal } = useRegistration();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,12 +23,12 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
     { name: 'Community', path: '/community' },
     { name: 'Education', path: '/education' },
     { name: 'Training', path: '/training' },
     { name: 'Events', path: '/events' },
     { name: 'Blog', path: '/blog' },
-    { name: 'About', path: '/about' },
   ];
 
   return (
@@ -84,23 +86,23 @@ export const Navbar: React.FC = () => {
 
           {/* Desktop Action Buttons */}
           <div className="hidden md:flex items-center space-x-3">
-            <NavLink
-              to="/join"
+            <button
+              onClick={() => openModal()}
               className="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-indigo-700 transition-all shadow-sm active:scale-95"
             >
               <span>Join Brandex</span>
               <ArrowRight className="w-4 h-4" />
-            </NavLink>
+            </button>
           </div>
 
           {/* Mobile Menu Trigger */}
           <div className="flex items-center gap-2 md:hidden">
-            <NavLink
-              to="/join"
+            <button
+              onClick={() => openModal()}
               className="bg-indigo-600 text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold"
             >
               Join
-            </NavLink>
+            </button>
 
             <button
               onClick={() => setMobileMenuOpen(true)}

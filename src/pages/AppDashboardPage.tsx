@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { User, Calendar, BookOpen, FileText, Settings, Bell, Shield, ArrowUpRight } from 'lucide-react';
+import { useRegistration } from '../contexts/RegistrationContext';
 import { getTrainingPrograms, getEvents, getResources } from '../repositories/repository';
 import { TrainingProgram, Event, Resource } from '../models/types';
 
 export const AppDashboardPage: React.FC = () => {
+  const { openModal } = useRegistration();
   const [enrolledPrograms, setEnrolledPrograms] = useState<TrainingProgram[]>([]);
   const [rsvpdEvents, setRsvpdEvents] = useState<Event[]>([]);
   const [savedResources, setSavedResources] = useState<Resource[]>([]);
@@ -49,12 +51,12 @@ export const AppDashboardPage: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <NavLink
-            to="/join?type=community"
+          <button
+            onClick={() => openModal('community')}
             className="border-2 border-[#0f142e] px-4 py-2 font-mono text-xs uppercase font-bold text-[#0f142e] hover:bg-[#f1f5f9]"
           >
             Edit Profile
-          </NavLink>
+          </button>
         </div>
       </div>
 

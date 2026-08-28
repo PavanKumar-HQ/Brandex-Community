@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { X, ArrowRight } from 'lucide-react';
+import { useRegistration } from '../../contexts/RegistrationContext';
 
 interface MobileNavigationProps {
   isOpen: boolean;
@@ -8,16 +9,18 @@ interface MobileNavigationProps {
 }
 
 export const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onClose }) => {
+  const { openModal } = useRegistration();
+
   if (!isOpen) return null;
 
   const navLinks = [
     { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
     { name: 'Community', path: '/community' },
     { name: 'Education', path: '/education' },
     { name: 'Training', path: '/training' },
     { name: 'Events', path: '/events' },
     { name: 'Media', path: '/media' },
-    { name: 'About', path: '/about' },
   ];
 
   return (
@@ -58,14 +61,16 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onCl
 
         {/* CTAs */}
         <div className="pt-6 border-t border-slate-200 space-y-3">
-          <NavLink
-            to="/join"
-            onClick={onClose}
+          <button
+            onClick={() => {
+              openModal('community');
+              onClose();
+            }}
             className="w-full flex items-center justify-center gap-2 bg-indigo-600 text-white px-6 py-3.5 rounded-xl text-base font-semibold shadow-sm"
           >
             <span>Join Brandex</span>
             <ArrowRight className="w-5 h-5" />
-          </NavLink>
+          </button>
           
           <NavLink
             to="/app/dashboard"

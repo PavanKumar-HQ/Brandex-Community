@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { ArrowRight, CheckCircle2, Shield, Users, Target, Compass } from 'lucide-react';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { PageHero } from '../components/ui/PageHero';
+import { BackButton } from '../components/ui/BackButton';
 
 export const AboutPage: React.FC = () => {
   const principles = [
@@ -33,7 +34,8 @@ export const AboutPage: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-16 sm:space-y-24 pb-20 pt-24 sm:pt-28 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
+    <div className="space-y-12 sm:space-y-16 pb-12 pt-16 sm:pt-20 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
+      <BackButton />
       
       {/* About Hero */}
       <PageHero 
@@ -105,6 +107,49 @@ export const AboutPage: React.FC = () => {
               </p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Founders & Leadership Section */}
+      <section className="space-y-8 pt-10 border-t border-slate-200">
+        <SectionHeading
+          tag="LEADERSHIP"
+          title="Meet the Founders"
+          subtitle="The visionary team bridging the gap between education and production-level engineering."
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {/* Founder 1 */}
+          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-6 hover:shadow-md transition-shadow">
+            <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-white shadow-sm shrink-0 bg-indigo-100 flex items-center justify-center">
+              <Users className="w-10 h-10 text-indigo-300" />
+            </div>
+            <div className="space-y-3 text-center md:text-left">
+              <div>
+                <h3 className="font-display font-bold text-2xl text-slate-900">Founder Name 1</h3>
+                <span className="text-indigo-600 font-semibold text-sm">Co-Founder & Lead Engineer</span>
+              </div>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Visionary leader focused on building high-performance engineering teams and designing robust system architectures. Passionate about empowering the next generation of technologists.
+              </p>
+            </div>
+          </div>
+
+          {/* Founder 2 */}
+          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-6 hover:shadow-md transition-shadow">
+            <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-white shadow-sm shrink-0 bg-blue-100 flex items-center justify-center">
+              <Users className="w-10 h-10 text-blue-300" />
+            </div>
+            <div className="space-y-3 text-center md:text-left">
+              <div>
+                <h3 className="font-display font-bold text-2xl text-slate-900">Founder Name 2</h3>
+                <span className="text-blue-600 font-semibold text-sm">Co-Founder & Head of Education</span>
+              </div>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Expert in curriculum design, community building, and bridging the gap between academic theory and practical, real-world application for students and professionals alike.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

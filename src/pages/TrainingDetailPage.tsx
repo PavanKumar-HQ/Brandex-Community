@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, NavLink, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Clock, BarChart, CheckCircle2, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
+import { useRegistration } from '../contexts/RegistrationContext';
 import { getTrainingProgramBySlug, getTrainingPrograms } from '../repositories/repository';
 import { TrainingProgram } from '../models/types';
 import { EmptyState } from '../components/ui/EmptyState';
 import { TrainingCard } from '../components/cards/TrainingCard';
+import { BackButton } from '../components/ui/BackButton';
 
 export const TrainingDetailPage: React.FC = () => {
+  const { openModal } = useRegistration();
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const [program, setProgram] = useState<TrainingProgram | null>(null);
@@ -56,15 +59,7 @@ export const TrainingDetailPage: React.FC = () => {
     <div className="space-y-16 pb-20 pt-28 bg-white">
       
       {/* Top Back Link */}
-      <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
-        <NavLink
-          to="/training"
-          className="inline-flex items-center gap-2 text-xs uppercase font-bold text-[#0f142e] hover:underline transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back to Training Catalog</span>
-        </NavLink>
-      </div>
+      <BackButton />
 
       {/* Hero Header */}
       <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
@@ -92,15 +87,13 @@ export const TrainingDetailPage: React.FC = () => {
           </p>
 
           <div className="pt-4 flex flex-wrap items-center gap-4">
-            <a
-              href={program.registrationUrl || '/join'}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 bg-indigo-600 text-white px-6 py-3.5 rounded-xl text-xs font-semibold hover:bg-indigo-700 transition-all shadow-sm"
-            >
-              <span>Register / Apply for Cohort</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
+              <button
+                onClick={() => openModal('enroll')}
+                className="inline-flex items-center gap-2 bg-indigo-600 text-white px-6 py-3.5 rounded-xl text-xs font-semibold hover:bg-indigo-700 transition-all shadow-sm"
+              >
+                <span>Enroll in Cohort</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
           </div>
         </div>
       </section>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Play, Image as ImageIcon, Video, Filter, Maximize2 } from 'lucide-react';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { MediaCard } from '../components/cards/MediaCard';
+import { BackButton } from '../components/ui/BackButton';
 import { VideoModalPlayer } from '../components/ui/VideoModalPlayer';
 import { PhotoLightboxModal } from '../components/showcase/PhotoLightboxModal';
 import { EmptyState } from '../components/ui/EmptyState';
@@ -72,7 +73,8 @@ export const MediaPage: React.FC = () => {
   const filters = ['ALL', 'PHOTOS', 'VIDEOS', 'ARTIFICIAL INTELLIGENCE', 'CYBERSECURITY', 'EDUCATION'];
 
   return (
-    <div className="space-y-16 pb-20 pt-28 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white">
+    <div className="space-y-16 sm:space-y-24 pb-20 pt-24 sm:pt-28 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
+      <BackButton />
       
       {/* Hero Header */}
       <div className="space-y-4 max-w-3xl">

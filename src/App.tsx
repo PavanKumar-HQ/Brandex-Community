@@ -18,9 +18,9 @@ import { StoriesPage } from './pages/StoriesPage';
 import { StoryDetailPage } from './pages/StoryDetailPage';
 import { BlogPage } from './pages/BlogPage';
 import { AboutPage } from './pages/AboutPage';
-import { JoinPage } from './pages/JoinPage';
 import { AppDashboardPage } from './pages/AppDashboardPage';
 import { AdminDashboardPage } from './pages/AdminDashboardPage';
+import { RegistrationModal } from './components/ui/RegistrationModal';
 
 // Page Transition Wrapper Component
 const PageWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -65,7 +65,6 @@ export const App: React.FC = () => {
               <Route path="/stories/:slug" element={<PageWrapper><StoryDetailPage /></PageWrapper>} />
               <Route path="/blog" element={<PageWrapper><BlogPage /></PageWrapper>} />
               <Route path="/about" element={<PageWrapper><AboutPage /></PageWrapper>} />
-              <Route path="/join" element={<PageWrapper><JoinPage /></PageWrapper>} />
               <Route path="/app/dashboard" element={<PageWrapper><AppDashboardPage /></PageWrapper>} />
               <Route path="/admin" element={<PageWrapper><AdminDashboardPage /></PageWrapper>} />
             </Routes>
@@ -73,6 +72,7 @@ export const App: React.FC = () => {
         </Suspense>
       </main>
 
+      <RegistrationModal />
       <Footer />
     </div>
   );

@@ -4,6 +4,7 @@ import { Calendar, MapPin, Users, ArrowRight } from 'lucide-react';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { PageHero } from '../components/ui/PageHero';
 import { EventCard } from '../components/cards/EventCard';
+import { BackButton } from '../components/ui/BackButton';
 import { EventRegistrationModal } from '../components/events/EventRegistrationModal';
 import { EmptyState } from '../components/ui/EmptyState';
 import { getEvents } from '../repositories/repository';
@@ -29,7 +30,8 @@ export const EventsPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-16 sm:space-y-24 pb-20 pt-24 sm:pt-28 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
+    <div className="space-y-12 sm:space-y-16 pb-12 pt-16 sm:pt-20 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
+      <BackButton />
       
       {/* Hero Header */}
       <PageHero 

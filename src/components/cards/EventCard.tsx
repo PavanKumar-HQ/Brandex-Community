@@ -11,71 +11,55 @@ interface EventCardProps {
 
 export const EventCard: React.FC<EventCardProps> = ({ event, onRegisterClick }) => {
   return (
-    <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden flex flex-col md:flex-row items-stretch group hover:border-indigo-300 hover:shadow-lg transition-all duration-200">
+    <div className="bg-white border border-slate-200 rounded-xl overflow-hidden flex flex-col md:flex-row items-center justify-between group hover:border-indigo-300 hover:shadow-md transition-all duration-200 p-4 gap-4">
       
-      {/* Date Block (Left Sidebar) */}
-      <div className="bg-slate-50 border-r border-slate-200 px-6 py-8 flex flex-col items-center justify-center min-w-[120px] text-center shrink-0">
-        <span className="text-sm font-bold text-indigo-600 uppercase tracking-widest mb-1">
-          {event.date.split(' ')[0]} {/* Assumes format like "Aug 18, 2026" */}
-        </span>
-        <span className="text-3xl font-display font-black text-slate-900 leading-none">
-          {event.date.split(' ')[1]?.replace(',', '') || 'TBD'}
-        </span>
-      </div>
+      {/* Date & Title */}
+      <div className="flex items-center gap-5 flex-1 min-w-0">
+        <div className="bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 flex flex-col items-center justify-center text-center shrink-0 w-20">
+          <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest">
+            {event.date.split(' ')[0]}
+          </span>
+          <span className="text-xl font-display font-black text-slate-900 leading-none">
+            {event.date.split(' ')[1]?.replace(',', '') || 'TBD'}
+          </span>
+        </div>
 
-      {/* Body Content */}
-      <div className="p-6 md:p-8 flex-1 flex flex-col justify-between">
-        <div className="space-y-3">
-          <div className="flex flex-wrap items-center gap-3 text-xs font-semibold">
-            <span className="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md uppercase tracking-wider">
-              {event.type}
-            </span>
-            <span className="flex items-center gap-1.5 text-slate-500">
-              <MapPin className="w-3.5 h-3.5" />
-              {event.location.split(',')[0]}
-            </span>
-            {event.isPast ? (
-              <span className="text-slate-400 bg-slate-50 px-2 py-0.5 rounded border border-slate-200">PAST</span>
-            ) : (
-              <span className="text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">UPCOMING</span>
-            )}
+        <div className="space-y-1 min-w-0 flex-1">
+          <div className="flex items-center gap-2 text-[10px] font-semibold text-slate-500 uppercase tracking-wider">
+            <span className="bg-slate-100 px-2 py-0.5 rounded text-slate-700">{event.type}</span>
+            <span className="flex items-center gap-1 truncate"><MapPin className="w-3 h-3" /> {event.location.split(',')[0]}</span>
           </div>
-
-          <NavLink to={`/events/${event.slug}`} className="block group-hover:text-indigo-600 transition-colors">
-            <h3 className="font-display font-bold text-xl md:text-2xl text-slate-900 leading-tight">
+          <NavLink to={`/events/${event.slug}`} className="block group-hover:text-indigo-600 transition-colors truncate">
+            <h3 className="font-display font-bold text-lg text-slate-900 truncate">
               {event.title}
             </h3>
           </NavLink>
-
-          <p className="text-sm text-slate-600 line-clamp-2 leading-relaxed max-w-2xl">
-            {event.shortDescription}
-          </p>
         </div>
       </div>
 
-      {/* Action Area (Right Side) */}
-      <div className="p-6 md:p-8 bg-slate-50/50 flex flex-col items-start md:items-end justify-center border-t md:border-t-0 md:border-l border-slate-100 min-w-[200px]">
+      {/* Action Area */}
+      <div className="flex items-center gap-4 shrink-0 w-full md:w-auto mt-4 md:mt-0 pt-4 md:pt-0 border-t md:border-t-0 border-slate-100">
+        <div className="hidden md:flex items-center gap-1.5 text-xs text-slate-500 font-medium whitespace-nowrap">
+          <Users className="w-3.5 h-3.5" />
+          <span>{event.registeredCount || 184}</span>
+        </div>
         {event.isPast ? (
           <NavLink
             to={`/events/${event.slug}`}
-            className="w-full inline-flex items-center justify-center gap-2 bg-white text-slate-800 border border-slate-200 px-5 py-3 rounded-xl text-sm font-semibold hover:bg-slate-50 transition-colors shadow-sm"
+            className="w-full md:w-auto inline-flex items-center justify-center gap-1.5 bg-slate-50 text-slate-700 border border-slate-200 px-4 py-2 rounded-lg text-xs font-semibold hover:bg-slate-100 transition-colors"
           >
-            <span>View Archive</span>
-            <ArrowRight className="w-4 h-4" />
+            <span>Archive</span>
+            <ArrowRight className="w-3.5 h-3.5" />
           </NavLink>
         ) : (
           <button
             onClick={() => onRegisterClick && onRegisterClick(event)}
-            className="w-full inline-flex items-center justify-center gap-2 bg-indigo-600 text-white px-5 py-3 rounded-xl text-sm font-semibold hover:bg-indigo-700 transition-all shadow-sm active:scale-95"
+            className="w-full md:w-auto inline-flex items-center justify-center gap-1.5 bg-indigo-600 text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-indigo-700 transition-all shadow-sm active:scale-95"
           >
-            <span>RSVP Event</span>
-            <ArrowRight className="w-4 h-4" />
+            <span>RSVP</span>
+            <ArrowRight className="w-3.5 h-3.5" />
           </button>
         )}
-        <div className="mt-3 flex items-center justify-center w-full gap-1.5 text-xs text-slate-500 font-medium">
-          <Users className="w-3.5 h-3.5" />
-          <span>{event.registeredCount || 184} Attending</span>
-        </div>
       </div>
 
     </div>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Users, MessageSquare, ArrowRight, Shield, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, MessageSquare, Terminal, HeartHandshake, Shield, Users, Compass, Code, Layout, Blocks, Briefcase } from 'lucide-react';
 import { SectionHeading } from '../components/ui/SectionHeading';
+import { BackButton } from '../components/ui/BackButton';
 import { PageHero } from '../components/ui/PageHero';
 import { CommunityCategoryCard } from '../components/cards/CommunityCategoryCard';
 import { EmptyState } from '../components/ui/EmptyState';
@@ -28,6 +29,7 @@ export const CommunityPage: React.FC = () => {
 
   return (
     <div className="space-y-16 sm:space-y-24 pb-20 pt-24 sm:pt-28 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
+      <BackButton />
       
       {/* Hero Header */}
       <PageHero 

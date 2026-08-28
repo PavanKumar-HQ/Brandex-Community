@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { ArrowRight, Users, MessageSquare } from 'lucide-react';
+import { useRegistration } from '../../contexts/RegistrationContext';
 import { CommunityCategory } from '../../models/types';
 
 interface CommunityCategoryCardProps {
@@ -8,6 +9,7 @@ interface CommunityCategoryCardProps {
 }
 
 export const CommunityCategoryCard: React.FC<CommunityCategoryCardProps> = ({ category }) => {
+  const { openModal } = useRegistration();
   return (
     <div className="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col justify-between group hover:border-indigo-300 hover:shadow-xl transition-all duration-200">
       <div className="space-y-4">
@@ -38,13 +40,13 @@ export const CommunityCategoryCard: React.FC<CommunityCategoryCardProps> = ({ ca
           </span>
         </div>
 
-        <NavLink
-          to={`/community?category=${category.slug}`}
+        <button
+          onClick={() => openModal('join')}
           className="inline-flex items-center gap-1.5 bg-indigo-600 text-white px-4 py-2 rounded-xl text-xs font-semibold hover:bg-indigo-700 transition-all shadow-sm active:scale-95"
         >
           <span>Join Circle</span>
           <ArrowRight className="w-3.5 h-3.5" />
-        </NavLink>
+        </button>
       </div>
     </div>
   );

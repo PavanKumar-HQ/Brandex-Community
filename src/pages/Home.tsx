@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ArrowRight, Calendar, Users, BookOpen, Terminal, Play, MessageSquare, Award, BookText } from 'lucide-react';
+import { useRegistration } from '../contexts/RegistrationContext';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { Marquee } from '../components/layout/Marquee';
+import { FadeIn } from '../components/ui/FadeIn';
 import { TrainingCard } from '../components/cards/TrainingCard';
 import { EventCard } from '../components/cards/EventCard';
 import { MediaCard } from '../components/cards/MediaCard';
@@ -14,6 +16,7 @@ import { getTrainingPrograms, getEvents, getMedia, getCommunities, getStories, g
 import { TrainingProgram, Event, Media, Community, Story, Achievement } from '../models/types';
 
 export const Home: React.FC = () => {
+  const { openModal } = useRegistration();
   const [featuredTraining, setFeaturedTraining] = useState<TrainingProgram[]>([]);
   const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([]);
   const [pastEvents, setPastEvents] = useState<Event[]>([]);
@@ -74,7 +77,7 @@ export const Home: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-16 sm:space-y-24 pb-20 pt-24 sm:pt-28 bg-white text-slate-900">
+    <div className="space-y-12 sm:space-y-16 pb-12 pt-16 sm:pt-20 bg-white text-slate-900">
       
       {/* ==========================================
           01. HERO SECTION (High Quality Institutional Media + Messaging)
@@ -98,13 +101,13 @@ export const Home: React.FC = () => {
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-4">
-              <NavLink
-                to="/join?type=community"
+              <button
+                onClick={() => openModal('community')}
                 className="btn-primary px-8 py-4"
               >
                 <span>Join Ecosystem</span>
                 <ArrowRight className="w-5 h-5" />
-              </NavLink>
+              </button>
 
               <NavLink
                 to="/education"
@@ -120,7 +123,7 @@ export const Home: React.FC = () => {
             {/* Decorative background blur */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-indigo-100 to-purple-50 rounded-full blur-3xl -z-10 opacity-70"></div>
             
-            <div className="relative bg-white rounded-[2rem] p-4 shadow-2xl border border-slate-100 rotate-2 hover:rotate-0 transition-transform duration-500">
+            <div className="relative bg-white rounded-[2rem] p-4 shadow-2xl border border-slate-100 transition-transform duration-500 hover-lift">
               <div className="rounded-[1.5rem] overflow-hidden relative">
                 <MediaPlaceholderCard
                   type="image"
@@ -160,17 +163,21 @@ export const Home: React.FC = () => {
       {/* ==========================================
           02. IMPACT / STATISTICS (Configurable Admin Telemetry)
          ========================================== */}
-      <ImpactStatisticsSection />
+      <div className="bg-slate-50/50">
+        <ImpactStatisticsSection />
+      </div>
 
       {/* ==========================================
           03. WHAT BRANDEX OFFERS
          ========================================== */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
-        <SectionHeading
-          tag="SHOWCASE PILLARS"
-          title="Four Pillars of Brandex"
-          subtitle="Discover community initiatives, education pathways, technical training, and live events."
-        />
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-10">
+        <FadeIn>
+          <SectionHeading
+            tag="SHOWCASE PILLARS"
+            title="Four Pillars of Brandex"
+            subtitle="Discover community initiatives, education pathways, technical training, and live events."
+          />
+        </FadeIn>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
@@ -202,33 +209,34 @@ export const Home: React.FC = () => {
               icon: Calendar,
               color: 'text-emerald-600 bg-emerald-50',
             },
-          ].map((pillar) => (
-            <NavLink
-              key={pillar.title}
-              to={pillar.path}
-              className="bg-white border border-slate-200 rounded-xl p-6 flex flex-col justify-between group hover:border-indigo-300 hover:shadow-lg transition-all duration-200"
-            >
-              <div className="space-y-4">
-                <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${pillar.color}`}>
-                  <pillar.icon className="w-5 h-5" />
+          ].map((pillar, idx) => (
+            <FadeIn key={pillar.title} delay={idx * 0.1}>
+              <NavLink
+                to={pillar.path}
+                className="bg-white border border-slate-200 rounded-xl p-6 flex flex-col justify-between group hover:border-indigo-300 hover:shadow-lg transition-all duration-200 h-full"
+              >
+                <div className="space-y-4">
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${pillar.color}`}>
+                    <pillar.icon className="w-5 h-5" />
+                  </div>
+                  
+                  <h3 className="font-display font-bold text-xl text-slate-900 group-hover:text-indigo-600 transition-colors">
+                    {pillar.title}
+                  </h3>
+
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    {pillar.desc}
+                  </p>
                 </div>
-                
-                <h3 className="font-display font-bold text-xl text-slate-900 group-hover:text-indigo-600 transition-colors">
-                  {pillar.title}
-                </h3>
 
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  {pillar.desc}
-                </p>
-              </div>
-
-              <div className="pt-4 flex items-center justify-between mt-auto">
-                <span className="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg text-xs font-semibold group-hover:bg-indigo-700 transition-colors shadow-sm w-full justify-center">
-                  Explore {pillar.title}
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </span>
-              </div>
-            </NavLink>
+                <div className="pt-4 flex items-center justify-between mt-auto">
+                  <span className="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg text-xs font-semibold group-hover:bg-indigo-700 transition-colors shadow-sm w-full justify-center">
+                    Explore {pillar.title}
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </div>
+              </NavLink>
+            </FadeIn>
           ))}
         </div>
       </section>
@@ -236,41 +244,49 @@ export const Home: React.FC = () => {
       {/* ==========================================
           04. UPCOMING EVENTS
          ========================================== */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
-        <SectionHeading
-          tag="UPCOMING EVENTS"
-          title="Scheduled Summits & School Series"
-          subtitle="Explore upcoming events and register via external URLs."
-          actionText="View All Events"
-          actionPath="/events"
-        />
+      <div className="bg-slate-50/50 py-10">
+        <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
+          <FadeIn>
+            <SectionHeading
+              tag="UPCOMING EVENTS"
+              title="Scheduled Summits & School Series"
+              subtitle="Explore upcoming events and register via external URLs."
+              actionText="View All Events"
+              actionPath="/events"
+            />
+          </FadeIn>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {upcomingEvents.map((evt) => (
-            <EventCard key={evt.id} event={evt} onRegisterClick={openRsvp} />
-          ))}
-        </div>
-      </section>
+          <div className="grid grid-cols-1 gap-4 max-w-4xl mx-auto mt-8">
+            {upcomingEvents.map((evt, idx) => (
+              <FadeIn key={evt.id} delay={idx * 0.1}>
+                <EventCard event={evt} onRegisterClick={openRsvp} />
+              </FadeIn>
+            ))}
+          </div>
+        </section>
+      </div>
 
       {/* ==========================================
           05. STORIES & ACHIEVEMENTS SHOWCASE
          ========================================== */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
-        <SectionHeading
-          tag="STORIES & ACHIEVEMENTS"
-          title="Impact Stories & Recognitions"
-          subtitle="Documenting student achievements, workshop breakthroughs, and community awards."
-          actionText="Read Stories"
-          actionPath="/stories"
-        />
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-10">
+        <FadeIn>
+          <SectionHeading
+            tag="STORIES & ACHIEVEMENTS"
+            title="Impact Stories & Recognitions"
+            subtitle="Documenting student achievements, workshop breakthroughs, and community awards."
+            actionText="Read Stories"
+            actionPath="/stories"
+          />
+        </FadeIn>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-8">
           {/* Stories Column */}
           <div className="lg:col-span-7 space-y-6">
-            {stories.map((story) => (
-              <NavLink
-                key={story.id}
-                to={`/stories/${story.slug}`}
+            {stories.map((story, idx) => (
+              <FadeIn key={story.id} delay={idx * 0.1}>
+                <NavLink
+                  to={`/stories/${story.slug}`}
                 className="bg-white border border-slate-200 rounded-xl p-5 flex flex-col sm:flex-row gap-5 hover:border-indigo-300 hover:shadow-md transition-all group"
               >
                 <img
@@ -290,6 +306,7 @@ export const Home: React.FC = () => {
                   </p>
                 </div>
               </NavLink>
+              </FadeIn>
             ))}
           </div>
 
@@ -323,47 +340,53 @@ export const Home: React.FC = () => {
       {/* ==========================================
           06. BRANDEX IN ACTION (MEDIA HUB)
          ========================================== */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
-        <SectionHeading
-          tag="MEDIA VAULT"
-          title="Video Recordings & Highlights"
-          subtitle="Explore recorded keynote talks, technical workshops, and video archives."
-          actionText="Media Vault"
-          actionPath="/media"
-        />
+      <div className="bg-slate-50/50 py-10">
+        <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
+          <SectionHeading
+            tag="MEDIA VAULT"
+            title="Video Recordings & Highlights"
+            subtitle="Explore recorded keynote talks, technical workshops, and video archives."
+            actionText="Media Vault"
+            actionPath="/media"
+          />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {featuredMedia.map((m) => (
-            <MediaCard key={m.id} media={m} onPlayClick={openVideo} />
-          ))}
-        </div>
-      </section>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+            {featuredMedia.map((m, idx) => (
+              <FadeIn key={m.id} delay={idx * 0.1}>
+                <MediaCard media={m} onPlayClick={openVideo} />
+              </FadeIn>
+            ))}
+          </div>
+        </section>
+      </div>
 
       {/* ==========================================
           07. FINAL JOIN CTA
          ========================================== */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
-        <div className="bg-slate-900 text-white rounded-2xl p-8 sm:p-12 text-center space-y-6 shadow-xl relative overflow-hidden">
-          <div className="max-w-2xl mx-auto space-y-3">
-            <span className="inline-block px-3 py-1 bg-indigo-500/20 text-indigo-300 text-xs font-semibold rounded-full uppercase tracking-wider">
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-10">
+        <div className="bg-indigo-50/50 border border-indigo-100 rounded-2xl p-8 sm:p-12 text-center space-y-6 shadow-sm relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-100/30 to-purple-100/30 mix-blend-overlay pointer-events-none"></div>
+          
+          <div className="relative max-w-2xl mx-auto space-y-3 z-10">
+            <span className="inline-block px-3 py-1 bg-white text-indigo-600 text-xs font-semibold rounded-full uppercase tracking-wider border border-indigo-100 shadow-sm">
               Get Connected
             </span>
-            <h2 className="text-3xl sm:text-4xl font-display font-bold">
+            <h2 className="text-3xl sm:text-4xl font-display font-bold text-slate-900">
               Join the Brandex Showcase Ecosystem
             </h2>
-            <p className="text-sm text-slate-300 leading-relaxed">
+            <p className="text-sm text-slate-600 leading-relaxed">
               Participate in upcoming workshops, explore community initiatives, and connect with peers.
             </p>
           </div>
 
-          <div className="pt-2 flex justify-center">
-            <NavLink
-              to="/join?type=community"
-              className="inline-flex items-center gap-2 bg-indigo-600 text-white px-8 py-3.5 rounded-xl font-semibold text-sm hover:bg-indigo-500 transition-all shadow-md"
+          <div className="relative pt-2 flex justify-center z-10">
+            <button
+              onClick={() => openModal('community')}
+              className="btn-primary"
             >
               <span>Get Started</span>
               <ArrowRight className="w-4 h-4" />
-            </NavLink>
+            </button>
           </div>
         </div>
       </section>

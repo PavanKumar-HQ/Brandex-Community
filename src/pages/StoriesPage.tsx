@@ -4,6 +4,7 @@ import { Calendar, User, ArrowRight, BookOpen } from 'lucide-react';
 import { getStories } from '../repositories/repository';
 import { Story } from '../models/types';
 import { SectionHeading } from '../components/ui/SectionHeading';
+import { BackButton } from '../components/ui/BackButton';
 import { EmptyState } from '../components/ui/EmptyState';
 
 export const StoriesPage: React.FC = () => {
@@ -25,7 +26,8 @@ export const StoriesPage: React.FC = () => {
     : stories.filter(s => s.category.toLowerCase() === selectedCategory.toLowerCase());
 
   return (
-    <div className="space-y-16 pb-20 pt-28 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white">
+    <div className="space-y-16 pb-20 pt-28 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
+      <BackButton />
       
       {/* Header */}
       <div className="space-y-4 max-w-3xl">

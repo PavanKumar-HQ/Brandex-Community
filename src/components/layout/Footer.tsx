@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Github, Twitter, Linkedin, Youtube, Mail, MapPin, Phone, ArrowUpRight, ShieldCheck } from 'lucide-react';
+import { Github, Twitter, Linkedin, Youtube, Mail, MapPin, Phone, ArrowUpRight, ShieldCheck, Instagram, Clock, MessageCircle } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -29,12 +29,15 @@ export const Footer: React.FC = () => {
               The digital showcase and education platform for emerging technology communities, school workshops, research initiatives, and live events.
             </p>
 
-            <div className="pt-2 flex items-center gap-3">
+            <div className="pt-2 flex flex-wrap items-center gap-3">
               {[
                 { icon: Github, href: 'https://github.com/PavanKumar-HQ/Brandex-Community', label: 'GitHub' },
-                { icon: Twitter, href: 'https://twitter.com/brandex', label: 'Twitter' },
+                { icon: Twitter, href: 'https://twitter.com/brandex', label: 'Twitter (X)' },
                 { icon: Linkedin, href: 'https://linkedin.com/company/brandex', label: 'LinkedIn' },
-                { icon: Youtube, href: 'https://youtube.com/@brandex', label: 'YouTube' },
+                { icon: Instagram, href: 'https://instagram.com/brandex', label: 'Instagram' },
+                { icon: MessageCircle, href: 'https://reddit.com/r/brandex', label: 'Reddit' },
+                { icon: Phone, href: 'https://wa.me/919480944727', label: 'WhatsApp' },
+                { icon: MessageCircle, href: 'https://discord.gg/brandex', label: 'Discord' },
               ].map((s, idx) => (
                 <a
                   key={idx}
@@ -98,20 +101,24 @@ export const Footer: React.FC = () => {
               Location & Contact
             </h4>
             
-            <div className="space-y-2 text-xs text-slate-400 font-medium">
-              <div className="flex items-start gap-2">
+            <div className="space-y-3 text-xs text-slate-400 font-medium">
+              <div className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
-                <span>Brandex Main Campus, Berlin, Germany</span>
+                <span className="leading-relaxed">#121, 13th Main M.C. Layout<br/>Vijaynagar, Bangalore - 560040</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-indigo-400 shrink-0" />
-                <a href="mailto:hello@brandex.org" className="hover:text-white transition-colors">
-                  hello@brandex.org
+                <a href="mailto:brandexhq@gmail.com" className="hover:text-white transition-colors">
+                  brandexhq@gmail.com
                 </a>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-indigo-400 shrink-0" />
-                <span>+49 30 901820</span>
+                <span>+91 94809 44727</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Clock className="w-4 h-4 text-indigo-400 shrink-0" />
+                <span>Mon - Fri, 9:00 AM - 6:00 PM</span>
               </div>
             </div>
 
@@ -130,8 +137,9 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
-          <div>
-            © {currentYear} Brandex Ecosystem. All rights reserved. Registered Technology & Education Showcase.
+          <div className="space-y-1 text-center sm:text-left">
+            <div>© {currentYear} Brandex. All Rights Reserved. Built for Business.</div>
+            <div>GSTIN: 29OGNPS8060K1Z5</div>
           </div>
 
           <div className="flex items-center space-x-6 text-xs font-medium">

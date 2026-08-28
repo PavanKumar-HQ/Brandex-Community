@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { GraduationCap, BookOpen, Award, Layers, ArrowRight, Clock, CheckCircle2, School, Building2, Download } from 'lucide-react';
+import { useRegistration } from '../contexts/RegistrationContext';
 import { SectionHeading } from '../components/ui/SectionHeading';
+import { BackButton } from '../components/ui/BackButton';
 import { getWorkshops, getResources } from '../repositories/repository';
 import { Workshop, Resource } from '../models/types';
 
 export const EducationPage: React.FC = () => {
+  const { openModal } = useRegistration();
   const [workshops, setWorkshops] = useState<Workshop[]>([]);
   const [resources, setResources] = useState<Resource[]>([]);
 
@@ -29,7 +32,6 @@ export const EducationPage: React.FC = () => {
       desc: 'Introductory programming logic, robotics foundation, and algorithmic thinking for secondary school students (e.g. Geniusphere Series).',
       outcomes: ['Algorithmic Logic Foundations', 'Web & App Prototyping', 'Team Mentorship'],
       ctaText: 'Inquire for School Cohort',
-      path: '/events',
       accentBg: 'bg-indigo-50/70 border-indigo-100',
       badgeBg: 'bg-indigo-600 text-white',
     },
@@ -41,7 +43,6 @@ export const EducationPage: React.FC = () => {
       desc: 'Advanced research partnerships, open-source thesis mentorship, and high-performance computing lab collaborations.',
       outcomes: ['Research Paper Mentorship', 'Open Source Contributions', 'Lab Architecture'],
       ctaText: 'Explore University Track',
-      path: '/community',
       accentBg: 'bg-blue-50/70 border-blue-100',
       badgeBg: 'bg-blue-600 text-white',
     },
@@ -53,7 +54,6 @@ export const EducationPage: React.FC = () => {
       desc: 'Upskilling cohorts for software engineers, cybersecurity professionals, and design leads looking to master production engineering.',
       outcomes: ['Production Architecture', 'Zero-Trust Hardening', 'System Concurrency'],
       ctaText: 'View Professional Courses',
-      path: '/training',
       accentBg: 'bg-purple-50/70 border-purple-100',
       badgeBg: 'bg-purple-600 text-white',
     },
@@ -64,15 +64,15 @@ export const EducationPage: React.FC = () => {
       icon: BookOpen,
       desc: 'Intensive single-day and multi-hour practical build sessions with expert feedback and live coding teardowns.',
       outcomes: ['Live System Teardowns', 'Code Review Feedback', 'Runnable Portfolio Artifacts'],
-      ctaText: 'Browse Workshop Schedule',
-      path: '/media',
+      ctaText: 'Register for Workshops',
       accentBg: 'bg-emerald-50/70 border-emerald-100',
       badgeBg: 'bg-emerald-600 text-white',
     },
   ];
 
   return (
-    <div className="space-y-16 sm:space-y-24 pb-20 pt-24 sm:pt-28 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
+    <div className="space-y-12 sm:space-y-16 pb-12 pt-16 sm:pt-20 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
+      <BackButton />
       
       {/* Hero Header */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center border-b border-slate-200 pb-16">
@@ -98,19 +98,20 @@ export const EducationPage: React.FC = () => {
               <ArrowRight className="w-4 h-4" />
             </NavLink>
 
-            <NavLink
-              to="/join?type=enroll"
+            <button
+              onClick={() => openModal('enroll')}
               className="inline-flex items-center gap-2 bg-slate-100 text-slate-800 border border-slate-200 px-6 py-3.5 rounded-xl font-semibold text-sm hover:bg-slate-200 transition-colors"
             >
               <span>Inquire for Institution Cohort</span>
-            </NavLink>
+            </button>
           </div>
         </div>
 
         {/* Hero Visual Right Side */}
-        <div className="lg:col-span-5 bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-3xl p-8 space-y-6 shadow-xl relative overflow-hidden">
-          <div className="space-y-3">
-            <span className="text-xs font-semibold uppercase text-indigo-300 tracking-wider">
+        <div className="lg:col-span-5 bg-slate-900 text-white border border-slate-800 rounded-3xl p-8 space-y-6 shadow-xl relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 to-purple-500/10 mix-blend-screen pointer-events-none"></div>
+          <div className="space-y-3 relative z-10">
+            <span className="text-xs font-semibold uppercase text-indigo-400 tracking-wider">
               Educational Impact
             </span>
             <h3 className="text-2xl font-display font-bold text-white">
@@ -121,11 +122,11 @@ export const EducationPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="pt-4 border-t border-indigo-900/60 flex items-center justify-between">
-            <span className="text-xs font-semibold text-indigo-400">NEXT SESSION: 18 AUGUST 2026</span>
+          <div className="pt-4 border-t border-slate-800 flex items-center justify-between relative z-10">
+            <span className="text-xs font-semibold text-indigo-300">NEXT SESSION: 18 AUGUST 2026</span>
             <NavLink
               to="/events/geniusphere-school-series-2026"
-              className="inline-flex items-center gap-1.5 bg-white text-slate-900 px-4 py-2 rounded-xl text-xs font-bold hover:bg-slate-100 transition-colors shadow-sm"
+              className="inline-flex items-center gap-1.5 bg-white text-slate-900 px-4 py-2 rounded-xl text-xs font-bold hover:bg-slate-50 transition-colors shadow-sm border border-slate-200"
             >
               <span>View Event Details</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -188,13 +189,13 @@ export const EducationPage: React.FC = () => {
 
               {/* Right Column: Prominent CTA Button */}
               <div className="lg:col-span-3 flex justify-start lg:justify-end">
-                <NavLink
-                  to={pw.path}
-                  className="inline-flex items-center gap-2 bg-indigo-600 text-white px-5 py-3 rounded-xl text-xs font-semibold hover:bg-indigo-700 transition-all shadow-md active:scale-95"
+                <button
+                  onClick={() => openModal('enroll')}
+                  className="btn-primary"
                 >
                   <span>{pw.ctaText}</span>
                   <ArrowRight className="w-4 h-4" />
-                </NavLink>
+                </button>
               </div>
             </div>
           ))}
@@ -234,13 +235,13 @@ export const EducationPage: React.FC = () => {
 
               <div className="pt-4 border-t border-slate-200/80 flex items-center justify-between">
                 <span className="text-xs text-slate-600 font-medium">Instructor: <strong className="text-slate-900">{ws.instructor}</strong></span>
-                <NavLink
-                  to="/join?type=enroll"
+                <button
+                  onClick={() => openModal('enroll')}
                   className="inline-flex items-center gap-1.5 bg-indigo-600 text-white px-4 py-2 rounded-xl text-xs font-semibold hover:bg-indigo-700 transition-colors shadow-sm"
                 >
                   <span>Register Session</span>
                   <ArrowRight className="w-3.5 h-3.5" />
-                </NavLink>
+                </button>
               </div>
             </div>
           ))}
@@ -248,40 +249,42 @@ export const EducationPage: React.FC = () => {
       </section>
 
       {/* Blueprints & Research Papers */}
-      <section className="bg-slate-900 text-white rounded-3xl p-8 sm:p-12 space-y-8 shadow-xl">
-        <div className="max-w-2xl space-y-2">
-          <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider">OPEN ARCHITECTURE</span>
-          <h2 className="text-3xl font-display font-bold text-white">Downloadable Blueprints & Research Papers</h2>
-          <p className="text-sm text-slate-300">Open-source reference architecture guides, vector DB benchmarks, and zero-trust audit checklists.</p>
-        </div>
+      <div className="bg-slate-50/50 py-10 -mx-4 sm:-mx-8 lg:-mx-12 xl:-mx-24 px-4 sm:px-8 lg:px-12 xl:px-24">
+        <section className="bg-indigo-50/50 border border-indigo-100 rounded-3xl p-8 sm:p-12 space-y-8 shadow-sm">
+          <div className="max-w-2xl space-y-2">
+            <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">OPEN ARCHITECTURE</span>
+            <h2 className="text-3xl font-display font-bold text-slate-900">Downloadable Blueprints & Research Papers</h2>
+            <p className="text-sm text-slate-600">Open-source reference architecture guides, vector DB benchmarks, and zero-trust audit checklists.</p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {resources.map((res) => (
-            <div key={res.id} className="bg-slate-800/90 border border-slate-700/80 rounded-2xl p-6 space-y-4 flex flex-col justify-between">
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-semibold text-indigo-300 bg-indigo-950/80 px-2.5 py-0.5 rounded border border-indigo-800/50">
-                    {res.type}
-                  </span>
-                  <span className="text-slate-400 font-medium">{res.fileSize}</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {resources.map((res) => (
+              <div key={res.id} className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 flex flex-col justify-between hover-lift">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-semibold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded border border-indigo-100">
+                      {res.type}
+                    </span>
+                    <span className="text-slate-500 font-medium">{res.fileSize}</span>
+                  </div>
+                  <h4 className="font-display font-bold text-base text-slate-900">{res.title}</h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">{res.description}</p>
                 </div>
-                <h4 className="font-display font-bold text-base text-white">{res.title}</h4>
-                <p className="text-xs text-slate-300 leading-relaxed">{res.description}</p>
-              </div>
 
-              <div className="pt-2">
-                <NavLink
-                  to="/join?type=enroll"
-                  className="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-indigo-500 transition-all shadow-sm"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>Download Free Blueprint</span>
-                </NavLink>
+                <div className="pt-2">
+                  <button
+                    onClick={() => openModal('enroll')}
+                    className="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-indigo-500 transition-all shadow-sm"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span>Download Free Blueprint</span>
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      </div>
 
     </div>
   );
