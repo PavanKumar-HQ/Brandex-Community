@@ -163,9 +163,9 @@ export const Home: React.FC = () => {
               <div className="rounded-[1.5rem] overflow-hidden relative">
                 <MediaPlaceholderCard
                   type="image"
-                  src="/brandex-full-logo.png"
-                  title="Brandex Technology Summit"
-                  category="Featured Event"
+                  src="/brandex-hero-logo.png"
+                  title="Brandex Technology Ecosystem"
+                  category="Featured Platform"
                   aspectRatio="video"
                 />
                 

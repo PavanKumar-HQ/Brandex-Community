@@ -126,10 +126,8 @@ export const AboutPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Founder 1 */}
           <div className="bg-gradient-to-b from-slate-50 to-white border border-slate-200 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 hover:shadow-xl hover:border-indigo-300 transition-all duration-300 group">
-            <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-2 border-indigo-100 shadow-md shrink-0 bg-indigo-50 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-              <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600 to-indigo-400 opacity-90 flex items-center justify-center text-white font-display font-black text-3xl">
-                BX
-              </div>
+            <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-2 border-indigo-100 shadow-md shrink-0 bg-slate-900 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+              <img src="/brandex-dp.png" alt="Pavan Kumar" className="w-full h-full object-cover p-2 bg-slate-950" />
             </div>
             <div className="space-y-4 text-center sm:text-left flex-1">
               <div>
@@ -161,10 +159,8 @@ export const AboutPage: React.FC = () => {
 
           {/* Founder 2 */}
           <div className="bg-gradient-to-b from-slate-50 to-white border border-slate-200 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 hover:shadow-xl hover:border-indigo-300 transition-all duration-300 group">
-            <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-2 border-indigo-100 shadow-md shrink-0 bg-indigo-50 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-              <div className="absolute inset-0 bg-gradient-to-tr from-violet-600 to-indigo-500 opacity-90 flex items-center justify-center text-white font-display font-black text-3xl">
-                BX
-              </div>
+            <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-2 border-indigo-100 shadow-md shrink-0 bg-slate-900 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+              <img src="/brandex-dp.png" alt="Co-Founder" className="w-full h-full object-cover p-2 bg-slate-950" />
             </div>
             <div className="space-y-4 text-center sm:text-left flex-1">
               <div>
