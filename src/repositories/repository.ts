@@ -16,7 +16,9 @@ import {
   Resource,
   Member,
   EventRegistration,
-  AuditLog
+  AuditLog,
+  Opportunity,
+  Enquiry
 } from '../models/types';
 import {
   mockInstitution,
@@ -33,6 +35,8 @@ import {
   mockWorkshops,
   mockResources,
   mockMembers,
+  mockOpportunities,
+  mockEnquiries,
   defaultInstitutionId
 } from '../data/mockData';
 import { extractYouTubeId, getYouTubeThumbnailUrl } from '../utils/youtube';
@@ -43,6 +47,8 @@ let statisticStore: Statistic[] = [...mockStatistics];
 let communityStore: Community[] = [...mockCommunities];
 let eventStore: Event[] = [...mockEvents];
 let photoStore: Photo[] = [...mockPhotos];
+let opportunityStore: Opportunity[] = [...mockOpportunities];
+let enquiryStore: Enquiry[] = [...mockEnquiries];
 let videoStore: YouTubeVideo[] = [...mockVideos];
 let achievementStore: Achievement[] = [...mockAchievements];
 let storyStore: Story[] = [...mockStories];
@@ -732,3 +738,86 @@ export async function registerForEvent(data: Partial<EventRegistration>): Promis
 export async function getAllRegistrationsAdmin(): Promise<EventRegistration[]> {
   return Promise.resolve([...registrationStore]);
 }
+
+/* ==========================================
+   OPPORTUNITIES
+   ========================================== */
+
+export async function getOpportunities(): Promise<Opportunity[]> {
+  const published = opportunityStore.filter(o => o.status === 'published');
+  return Promise.resolve(published);
+}
+
+export async function getAllOpportunitiesAdmin(): Promise<Opportunity[]> {
+  return Promise.resolve([...opportunityStore]);
+}
+
+export async function createOpportunity(data: Partial<Opportunity>): Promise<Opportunity> {
+  const opp: Opportunity = {
+    id: `opp-${Date.now()}`,
+    title: data.title || 'New Opportunity',
+    type: data.type || 'circle_seat',
+    category: data.category || 'General',
+    description: data.description || '',
+    deadline: data.deadline,
+    seatsTotal: data.seatsTotal || 10,
+    seatsFilled: data.seatsFilled || 0,
+    requirements: data.requirements || [],
+    actionText: data.actionText || 'Apply',
+    actionUrl: data.actionUrl || '/community',
+    status: data.status || 'published'
+  };
+  opportunityStore.unshift(opp);
+  await logAuditAction('create', 'opportunity', opp.id);
+  return Promise.resolve(opp);
+}
+
+/* ==========================================
+   ENQUIRIES (Lean Lifecycle)
+   ========================================== */
+
+export async function getEnquiries(): Promise<Enquiry[]> {
+  return Promise.resolve([...enquiryStore]);
+}
+
+export async function createEnquiry(data: Omit<Enquiry, 'id' | 'createdAt' | 'expiresAt' | 'status'>): Promise<Enquiry> {
+  const now = new Date();
+  const expires = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000); // 30 days expiry
+  const enq: Enquiry = {
+    id: `enq-${Date.now()}`,
+    type: data.type,
+    orgName: data.orgName,
+    contactName: data.contactName,
+    email: data.email,
+    phone: data.phone,
+    message: data.message,
+    status: 'new',
+    adminNotes: data.adminNotes || '',
+    createdAt: now.toISOString(),
+    expiresAt: expires.toISOString()
+  };
+  enquiryStore.unshift(enq);
+  await logAuditAction('create', 'enquiry', enq.id, enq.email);
+  return Promise.resolve(enq);
+}
+
+export async function updateEnquiryStatus(id: string, status: Enquiry['status'], adminNotes?: string): Promise<Enquiry | null> {
+  const idx = enquiryStore.findIndex(e => e.id === id);
+  if (idx === -1) return Promise.resolve(null);
+  enquiryStore[idx] = {
+    ...enquiryStore[idx],
+    status,
+    ...(adminNotes !== undefined ? { adminNotes } : {})
+  };
+  await logAuditAction('update', 'enquiry', id, `status:${status}`);
+  return Promise.resolve(enquiryStore[idx]);
+}
+
+export async function deleteEnquiry(id: string): Promise<boolean> {
+  const idx = enquiryStore.findIndex(e => e.id === id);
+  if (idx === -1) return Promise.resolve(false);
+  enquiryStore.splice(idx, 1);
+  await logAuditAction('archive', 'enquiry', id);
+  return Promise.resolve(true);
+}
+

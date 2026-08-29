@@ -102,15 +102,19 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2 text-xs font-medium">
               {[
+                { name: 'Live "Now" Pulse', path: '/now' },
+                { name: 'Living Timeline', path: '/timeline' },
+                { name: 'Work With Brandex', path: '/work-with-us' },
                 { name: 'Community Circles', path: '/community' },
+                { name: 'Community Guidelines', path: '/community/guidelines' },
                 { name: 'Education Pathways', path: '/education' },
                 { name: 'Technical Training', path: '/training' },
                 { name: 'Events & Summits', path: '/events' },
+                { name: 'Global Search', path: '/search' },
                 { name: 'Campus Ambassadors', path: '/ambassador' },
-                { name: 'Media & Photo Vault', path: '/media' },
                 { name: 'Impact Stories', path: '/stories' },
+                { name: 'Careers & Status', path: '/careers' },
                 { name: 'About Brandex', path: '/about' },
-                { name: 'Careers', path: '/careers' },
               ].map((link) => (
                 <li key={link.path}>
                   <NavLink
@@ -134,8 +138,9 @@ export const Footer: React.FC = () => {
               <li>Cybersecurity & Defense</li>
               <li>Distributed Systems</li>
               <li>Design & Swiss UX</li>
-              <li>School Series</li>
-              <li>Fintech Engineering</li>
+              <li>Geniusphere Series</li>
+              <li>Student Wargames</li>
+              <li>Ambassador Chapters</li>
             </ul>
           </div>
 

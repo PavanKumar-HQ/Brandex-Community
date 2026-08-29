@@ -27,12 +27,15 @@ import {
   archiveAchievement,
   createAnnouncement,
   archiveAnnouncement,
-  updateStatistic
+  updateStatistic,
+  getEnquiries,
+  updateEnquiryStatus,
+  deleteEnquiry
 } from '../repositories/repository';
-import { Event, TrainingProgram, Photo, YouTubeVideo, Community, Story, Achievement, Announcement, Statistic, AuditLog } from '../models/types';
+import { Event, TrainingProgram, Photo, YouTubeVideo, Community, Story, Achievement, Announcement, Statistic, AuditLog, Enquiry } from '../models/types';
 
 export const AdminDashboardPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'events' | 'communities' | 'photos' | 'videos' | 'training' | 'stories' | 'achievements' | 'announcements' | 'statistics' | 'audit'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'events' | 'communities' | 'photos' | 'videos' | 'training' | 'stories' | 'achievements' | 'announcements' | 'statistics' | 'enquiries' | 'audit'>('dashboard');
 
   const [events, setEvents] = useState<Event[]>([]);
   const [communities, setCommunities] = useState<Community[]>([]);
@@ -43,6 +46,7 @@ export const AdminDashboardPage: React.FC = () => {
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [statistics, setStatistics] = useState<Statistic[]>([]);
+  const [enquiries, setEnquiries] = useState<Enquiry[]>([]);
   const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
 
   const [notification, setNotification] = useState<string>('');
@@ -79,6 +83,9 @@ export const AdminDashboardPage: React.FC = () => {
     const stats = await getAllStatisticsAdmin();
     setStatistics(stats);
 
+    const enqs = await getEnquiries();
+    setEnquiries(enqs);
+
     const logs = await getAuditLogs();
     setAuditLogs(logs);
   }
@@ -86,6 +93,29 @@ export const AdminDashboardPage: React.FC = () => {
   const showNotification = (msg: string) => {
     setNotification(msg);
     setTimeout(() => setNotification(''), 3000);
+  };
+
+  // Enquiry Handlers
+  const handleUpdateEnquiryStatus = async (id: string, status: Enquiry['status']) => {
+    await updateEnquiryStatus(id, status);
+    showNotification(`Enquiry status changed to ${status.toUpperCase()}`);
+    loadAdminData();
+  };
+
+  const handleSaveEnquiryNotes = async (id: string, notes: string) => {
+    const current = enquiries.find(e => e.id === id);
+    if (!current) return;
+    await updateEnquiryStatus(id, current.status, notes);
+    showNotification(`Notes saved for enquiry #${id}`);
+    loadAdminData();
+  };
+
+  const handleDeleteEnquiry = async (id: string) => {
+    if (window.confirm('Delete this enquiry record?')) {
+      await deleteEnquiry(id);
+      showNotification(`Enquiry #${id} deleted.`);
+      loadAdminData();
+    }
   };
 
   // Event Handlers
@@ -232,6 +262,7 @@ export const AdminDashboardPage: React.FC = () => {
           { key: 'achievements', label: `Achievements (${achievements.length})` },
           { key: 'training', label: `Training (${trainingList.length})` },
           { key: 'statistics', label: `Telemetry (${statistics.length})` },
+          { key: 'enquiries', label: `Enquiries (${enquiries.length})` },
           { key: 'audit', label: `Audit Log (${auditLogs.length})` },
         ].map((tab) => (
           <button
@@ -436,6 +467,153 @@ export const AdminDashboardPage: React.FC = () => {
               </div>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* TAB: ENQUIRIES MANAGEMENT (Lean 30-day lifecycle) */}
+      {activeTab === 'enquiries' && (
+        <div className="space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 className="font-display font-bold text-xl text-slate-900">
+                Institutional & Business Enquiries
+              </h2>
+              <p className="text-xs text-slate-500">
+                Lean lifecycle: <code className="text-indigo-600 font-bold">new → reviewed → contacted → closed</code>. Auto-scheduled for 30-day privacy closure.
+              </p>
+            </div>
+            <span className="text-xs font-semibold px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full border border-indigo-100 self-start sm:self-auto">
+              Total Enquiries: {enquiries.length}
+            </span>
+          </div>
+
+          {enquiries.length === 0 ? (
+            <div className="p-8 text-center bg-slate-50 border border-slate-200 rounded-2xl text-slate-500 text-xs">
+              No active enquiries logged in the system.
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {enquiries.map((enq) => {
+                const isNew = enq.status === 'new';
+                const isReviewed = enq.status === 'reviewed';
+                const isContacted = enq.status === 'contacted';
+                const isClosed = enq.status === 'closed';
+
+                const daysLeft = Math.max(
+                  0,
+                  Math.ceil((new Date(enq.expiresAt).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
+                );
+
+                return (
+                  <div
+                    key={enq.id}
+                    className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-sm hover:border-slate-300 transition-all"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                      <div className="flex items-center gap-2.5">
+                        <span className="font-mono text-xs font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
+                          {enq.id}
+                        </span>
+                        <span className="text-xs font-bold uppercase text-indigo-700 bg-indigo-50 border border-indigo-100 px-2.5 py-0.5 rounded-full">
+                          {enq.type}
+                        </span>
+                        <span
+                          className={`text-xs font-bold uppercase px-2.5 py-0.5 rounded-full ${
+                            isNew ? 'bg-amber-100 text-amber-800' :
+                            isReviewed ? 'bg-blue-100 text-blue-800' :
+                            isContacted ? 'bg-purple-100 text-purple-800' :
+                            'bg-emerald-100 text-emerald-800'
+                          }`}
+                        >
+                          {enq.status}
+                        </span>
+                      </div>
+
+                      <div className="text-xs text-slate-400 font-medium flex items-center gap-3">
+                        <span>Submitted: {new Date(enq.createdAt).toLocaleDateString()}</span>
+                        <span className="text-amber-600 font-semibold">{daysLeft} days before auto-cleanup</span>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                      <div>
+                        <span className="text-slate-400 font-medium block">Organization:</span>
+                        <strong className="text-slate-900 text-sm">{enq.orgName}</strong>
+                      </div>
+                      <div>
+                        <span className="text-slate-400 font-medium block">Contact Person:</span>
+                        <strong className="text-slate-900 text-sm">{enq.contactName}</strong>
+                      </div>
+                      <div>
+                        <span className="text-slate-400 font-medium block">Contact Info:</span>
+                        <div className="text-slate-700 font-medium">
+                          <a href={`mailto:${enq.email}`} className="text-indigo-600 hover:underline">{enq.email}</a>
+                          {enq.phone && <span className="block text-slate-500">{enq.phone}</span>}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-3.5 bg-slate-50 border border-slate-200/80 rounded-xl text-xs text-slate-700 leading-relaxed whitespace-pre-line">
+                      <strong className="text-slate-900 block mb-1">Enquiry Scope:</strong>
+                      {enq.message}
+                    </div>
+
+                    {/* Admin Notes Box */}
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2">
+                      <div className="flex-1 w-full text-xs">
+                        <span className="font-semibold text-slate-700 block mb-1">Administrative Follow-up Notes:</span>
+                        <input
+                          type="text"
+                          defaultValue={enq.adminNotes || ''}
+                          placeholder="Add team action notes (e.g. Sent syllabus PDF on Aug 29)..."
+                          onBlur={(e) => handleSaveEnquiryNotes(enq.id, e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 focus:bg-white transition-colors"
+                        />
+                      </div>
+
+                      {/* Status Transition Action Buttons */}
+                      <div className="flex items-center gap-1.5 shrink-0 self-end sm:self-center">
+                        <button
+                          onClick={() => handleUpdateEnquiryStatus(enq.id, 'reviewed')}
+                          disabled={isReviewed}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+                            isReviewed ? 'bg-blue-600 text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                          }`}
+                        >
+                          Reviewed
+                        </button>
+                        <button
+                          onClick={() => handleUpdateEnquiryStatus(enq.id, 'contacted')}
+                          disabled={isContacted}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+                            isContacted ? 'bg-purple-600 text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                          }`}
+                        >
+                          Contacted
+                        </button>
+                        <button
+                          onClick={() => handleUpdateEnquiryStatus(enq.id, 'closed')}
+                          disabled={isClosed}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+                            isClosed ? 'bg-emerald-600 text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                          }`}
+                        >
+                          Closed
+                        </button>
+                        <button
+                          onClick={() => handleDeleteEnquiry(enq.id)}
+                          className="p-1.5 text-red-600 hover:bg-red-50 rounded-lg text-xs font-semibold transition-colors"
+                          title="Delete Enquiry"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       )}
 

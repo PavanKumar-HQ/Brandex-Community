@@ -6,9 +6,14 @@ import { Footer } from './components/layout/Footer';
 import { PageLoadingScreen } from './components/layout/PageLoadingScreen';
 import { ThemeProvider } from './contexts/ThemeContext';
 
-// Lazy Loaded Page Components
+// Page Components
 import { Home } from './pages/Home';
+import { NowPage } from './pages/NowPage';
+import { TimelinePage } from './pages/TimelinePage';
+import { WorkWithBrandexPage } from './pages/WorkWithBrandexPage';
 import { CommunityPage } from './pages/CommunityPage';
+import { CommunityGuidelinesPage } from './pages/CommunityGuidelinesPage';
+import { SearchPage } from './pages/SearchPage';
 import { EducationPage } from './pages/EducationPage';
 import { TrainingPage } from './pages/TrainingPage';
 import { TrainingDetailPage } from './pages/TrainingDetailPage';
@@ -26,6 +31,7 @@ import { ContactPage } from './pages/ContactPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { CareersPage } from './pages/CareersPage';
 import { RegistrationModal } from './components/ui/RegistrationModal';
+import { PersistentJoinCTA } from './components/ui/PersistentJoinCTA';
 
 // Page Transition Wrapper Component
 const PageWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -72,7 +78,7 @@ export const App: React.FC = () => {
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen flex flex-col bg-white dark:bg-[#030712] text-brand-dark selection:bg-indigo-600 selection:text-white font-sans transition-colors duration-300">
+      <div className="min-h-screen flex flex-col bg-white text-brand-dark selection:bg-indigo-600 selection:text-white font-sans transition-colors duration-300">
         <Navbar />
 
         <main className="flex-1 flex flex-col w-full max-w-[1400px] mx-auto">
@@ -80,7 +86,12 @@ export const App: React.FC = () => {
             <AnimatePresence mode="wait">
               <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
+                <Route path="/now" element={<PageWrapper><NowPage /></PageWrapper>} />
+                <Route path="/timeline" element={<PageWrapper><TimelinePage /></PageWrapper>} />
+                <Route path="/work-with-us" element={<PageWrapper><WorkWithBrandexPage /></PageWrapper>} />
+                <Route path="/search" element={<PageWrapper><SearchPage /></PageWrapper>} />
                 <Route path="/community" element={<PageWrapper><CommunityPage /></PageWrapper>} />
+                <Route path="/community/guidelines" element={<PageWrapper><CommunityGuidelinesPage /></PageWrapper>} />
                 <Route path="/education" element={<PageWrapper><EducationPage /></PageWrapper>} />
                 <Route path="/training" element={<PageWrapper><TrainingPage /></PageWrapper>} />
                 <Route path="/training/:slug" element={<PageWrapper><TrainingDetailPage /></PageWrapper>} />
@@ -104,6 +115,7 @@ export const App: React.FC = () => {
           </Suspense>
         </main>
 
+        <PersistentJoinCTA />
         <RegistrationModal />
         <Footer />
       </div>

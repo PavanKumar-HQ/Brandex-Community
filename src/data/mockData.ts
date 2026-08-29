@@ -13,7 +13,9 @@ import {
   Discussion,
   Workshop,
   Resource,
-  Member
+  Member,
+  Opportunity,
+  Enquiry
 } from '../models/types';
 import { extractYouTubeId } from '../utils/youtube';
 
@@ -545,3 +547,105 @@ export const mockMembers: Member[] = [
     bio: 'Lead AI Researcher.',
   }
 ];
+
+export const mockOpportunities: Opportunity[] = [
+  {
+    id: 'opp-1',
+    title: 'Geniusphere AI Agent Circle — Cohort 04 Lead',
+    type: 'circle_seat',
+    category: 'Artificial Intelligence',
+    description: 'Open seats for student researchers to co-lead weekly autonomous multi-agent sprint sessions and mentor secondary school teams.',
+    deadline: '15 September 2026',
+    seatsTotal: 12,
+    seatsFilled: 8,
+    requirements: ['Python / TypeScript basics', 'Interest in LLM workflows', '2 hrs / week commitment'],
+    actionText: 'Apply for Seat',
+    actionUrl: '/community',
+    status: 'published'
+  },
+  {
+    id: 'opp-2',
+    title: 'Brandex Bangalore Campus Ambassador 2026',
+    type: 'ambassador_slot',
+    category: 'Leadership & Outreach',
+    description: 'Represent Brandex at your university or secondary school. Organize local coding labs and receive official sponsorships.',
+    deadline: '30 September 2026',
+    seatsTotal: 25,
+    seatsFilled: 19,
+    requirements: ['Active student enrollment', 'Passion for tech education', 'Leadership drive'],
+    actionText: 'Join Ambassador Guild',
+    actionUrl: '/ambassador',
+    status: 'published'
+  },
+  {
+    id: 'opp-3',
+    title: 'Red-Team Wargame Defense Volunteer Lead',
+    type: 'volunteer',
+    category: 'Cybersecurity',
+    description: 'Help coordinate simulated vulnerability scenarios, telemetry dashboards, and participant debriefs for the upcoming summit.',
+    deadline: '10 October 2026',
+    seatsTotal: 6,
+    seatsFilled: 4,
+    requirements: ['Linux & networking basics', 'CTF / Security enthusiasm'],
+    actionText: 'Volunteer with Team',
+    actionUrl: '/contact',
+    status: 'published'
+  },
+  {
+    id: 'opp-4',
+    title: 'UX Systems & Accessibility Research Fellow',
+    type: 'circle_seat',
+    category: 'Design & Systems',
+    description: 'Participate in real-world user research sprints, crafting accessible design systems for open educational platforms.',
+    deadline: '20 October 2026',
+    seatsTotal: 8,
+    seatsFilled: 3,
+    requirements: ['Figma familiarity', 'Interest in inclusive web design'],
+    actionText: 'Claim Research Slot',
+    actionUrl: '/community',
+    status: 'published'
+  }
+];
+
+export const mockEnquiries: Enquiry[] = [
+  {
+    id: 'enq-101',
+    type: 'school',
+    orgName: 'Vignan Academy of Sciences',
+    contactName: 'Prof. Ramesh Rao',
+    email: 'ramesh.rao@vignan.edu.in',
+    phone: '+91 98450 11223',
+    message: 'We would like to introduce the Geniusphere coding syllabus and host a 2-day AI workshop for our Grade 11-12 students.',
+    status: 'reviewed',
+    adminNotes: 'Contacted dean on phone; sent syllabus curriculum PDF. Follow up next Monday.',
+    createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+    expiresAt: new Date(Date.now() + 28 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 'enq-102',
+    type: 'corporate',
+    orgName: 'Nexus Cloud Systems Pvt Ltd',
+    contactName: 'Ananya Deshmukh',
+    email: 'ananya.d@nexuscloud.io',
+    phone: '+91 99887 66554',
+    message: 'Looking for a custom security wargame training track for our 30-member junior backend engineering team.',
+    status: 'new',
+    adminNotes: '',
+    createdAt: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(),
+    expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 'enq-103',
+    type: 'sponsorship',
+    orgName: 'Bangalore Dev Labs',
+    contactName: 'Karthik Sundaram',
+    email: 'karthik@bangaloredevlabs.com',
+    phone: '+91 91234 56789',
+    message: 'Interested in sponsoring prize tracks and providing server infrastructure for the Autumn 2026 Summit.',
+    status: 'contacted',
+    adminNotes: 'Intro call complete; tier 2 sponsorship agreement sent for review.',
+    createdAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString(),
+    expiresAt: new Date(Date.now() + 24 * 24 * 60 * 60 * 1000).toISOString()
+  }
+];
+

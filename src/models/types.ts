@@ -314,3 +314,38 @@ export interface AuditLog {
   entityId: string;
   timestamp: string;
 }
+
+export type OpportunityType = 'circle_seat' | 'workshop_slot' | 'ambassador_slot' | 'volunteer';
+
+export interface Opportunity {
+  id: string;
+  title: string;
+  type: OpportunityType;
+  category: string;
+  description: string;
+  deadline?: string;
+  seatsTotal: number;
+  seatsFilled: number;
+  requirements?: string[];
+  actionUrl?: string;
+  actionText?: string;
+  status: ContentStatus;
+}
+
+export type EnquiryType = 'school' | 'corporate' | 'workshop' | 'sponsorship' | 'partnership' | 'training';
+export type EnquiryStatus = 'new' | 'reviewed' | 'contacted' | 'closed';
+
+export interface Enquiry {
+  id: string;
+  type: EnquiryType;
+  orgName: string;
+  contactName: string;
+  email: string;
+  phone?: string;
+  message: string;
+  status: EnquiryStatus;
+  adminNotes?: string;
+  createdAt: string;
+  expiresAt: string;
+}
+
