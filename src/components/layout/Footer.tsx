@@ -51,11 +51,11 @@ export const Footer: React.FC = () => {
     <footer className="bg-slate-900 text-slate-300 border-t border-slate-800 pt-16 pb-12 font-sans w-full">
       <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 space-y-12">
         
-        {/* Top Grid */}
+        {/* Top Grid: 3 balanced sections */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
           
-          {/* Column 1: Brand & Manifesto (4 cols) */}
-          <div className="lg:col-span-4 space-y-4">
+          {/* Column 1: Brand & Socials (5 cols) */}
+          <div className="lg:col-span-5 space-y-5">
             <NavLink to="/" className="inline-flex items-center gap-3 group">
               <img
                 src="/brandex-logo.webp"
@@ -67,11 +67,11 @@ export const Footer: React.FC = () => {
               </span>
             </NavLink>
 
-            <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
-              The digital showcase and education platform for emerging technology communities, school workshops, research initiatives, and live events.
+            <p className="text-xs text-slate-400 leading-relaxed max-w-md">
+              The digital showcase and education platform for emerging technology communities, school workshops, student research cohorts, and live engineering summits.
             </p>
 
-            <div className="pt-2 flex flex-wrap items-center gap-3">
+            <div className="pt-1 flex flex-wrap items-center gap-3">
               {[
                 { icon: GithubIcon, href: 'https://github.com/PavanKumar-HQ/Brandex-Community', label: 'GitHub', hoverClass: 'hover:bg-white hover:text-[#181717] hover:border-white' },
                 { icon: XIcon, href: 'https://twitter.com/brandex', label: 'Twitter (X)', hoverClass: 'hover:bg-white hover:text-black hover:border-white' },
@@ -87,20 +87,33 @@ export const Footer: React.FC = () => {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={s.label}
-                  className={`w-10 h-10 rounded-full bg-slate-800/80 border border-slate-700/50 text-slate-400 flex items-center justify-center transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/10 ${s.hoverClass}`}
+                  className={`w-9 h-9 rounded-full bg-slate-800/80 border border-slate-700/50 text-slate-400 flex items-center justify-center transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/10 ${s.hoverClass}`}
                 >
-                  <s.icon className="w-5 h-5 shrink-0" />
+                  <s.icon className="w-4 h-4 shrink-0" />
                 </a>
               ))}
             </div>
+
+            {/* Brandex Parent HQ Backlink Chip */}
+            <div className="pt-2">
+              <a
+                href="https://www.brandex.co.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 text-slate-300 hover:text-white text-xs transition-colors"
+              >
+                <span>Visit Official Brandex Portal (brandex.co.in)</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
+              </a>
+            </div>
           </div>
 
-          {/* Column 2: Showcase Quick Links (3 cols) */}
-          <div className="lg:col-span-3 space-y-3">
+          {/* Column 2: Platform Directory & Navigation (4 cols) */}
+          <div className="lg:col-span-4 space-y-3">
             <h4 className="font-display font-bold text-sm text-white uppercase tracking-wider">
-              Showcase Platform
+              Platform Directory
             </h4>
-            <ul className="space-y-2 text-xs font-medium">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-xs font-medium">
               {[
                 { name: 'Work With Brandex', path: '/work-with-us' },
                 { name: 'Application Status', path: '/status' },
@@ -115,77 +128,57 @@ export const Footer: React.FC = () => {
                 { name: 'Impact Stories', path: '/stories' },
                 { name: 'Careers & Team', path: '/careers' },
                 { name: 'About Brandex', path: '/about' },
+                { name: 'Parent Ecosystem', path: '/brandex' },
               ].map((link) => (
-                <li key={link.path}>
-                  <NavLink
-                    to={link.path}
-                    className="text-slate-400 hover:text-white transition-colors flex items-center gap-1.5"
-                  >
-                    <span>{link.name}</span>
-                  </NavLink>
-                </li>
+                <NavLink
+                  key={link.path}
+                  to={link.path}
+                  className="text-slate-400 hover:text-white transition-colors py-0.5 truncate"
+                >
+                  {link.name}
+                </NavLink>
               ))}
-            </ul>
+            </div>
           </div>
 
-          {/* Column 3: Domain Categories (2 cols) */}
-          <div className="lg:col-span-2 space-y-3">
-            <h4 className="font-display font-bold text-sm text-white uppercase tracking-wider">
-              Domains
-            </h4>
-            <ul className="space-y-2 text-xs font-medium text-slate-400">
-              <li>Artificial Intelligence</li>
-              <li>Cybersecurity & Defense</li>
-              <li>Distributed Systems</li>
-              <li>Design & Swiss UX</li>
-              <li>Geniusphere Series</li>
-              <li>Student Wargames</li>
-              <li>Ambassador Chapters</li>
-            </ul>
-          </div>
-
-          {/* Column 4: Contact & Verification (3 cols) */}
+          {/* Column 3: Location & Corporate Info (3 cols) */}
           <div className="lg:col-span-3 space-y-4">
             <h4 className="font-display font-bold text-sm text-white uppercase tracking-wider">
               Location & Contact
             </h4>
             
             <div className="space-y-3 text-xs text-slate-400 font-medium">
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
                 <span className="leading-relaxed">#121, 13th main Binny layout<br/>Vijaynagar Bangalore-560040</span>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-indigo-400 shrink-0" />
                 <a href="mailto:brandexhq@gmail.com" className="hover:text-white transition-colors">
                   brandexhq@gmail.com
                 </a>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-indigo-400 shrink-0" />
                 <span className="text-slate-300 font-mono">+91 99868 80072</span>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5">
                 <ArrowUpRight className="w-4 h-4 text-indigo-400 shrink-0" />
                 <a 
                   href="https://www.brandex.co.in/" 
                   target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="hover:text-white transition-colors text-indigo-400"
+                  rel="noopener" 
+                  className="hover:text-white transition-colors text-indigo-300 font-medium"
                 >
                   www.brandex.co.in
                 </a>
               </div>
             </div>
 
-            <div className="p-3 bg-slate-800/80 border border-slate-700/60 rounded-xl space-y-1">
-              <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-semibold">
-                <ShieldCheck className="w-4 h-4" />
-                <span>GST Registered: 29OGNPS8060K1Z5</span>
-              </div>
-              <p className="text-[11px] text-slate-400 leading-snug">
-                Official digital ecosystem for Brandex technology initiatives.
-              </p>
+            {/* Subtle Minimal Entity & Verification Note */}
+            <div className="pt-2 text-[11px] text-slate-500 font-mono flex items-center gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-slate-400" />
+              <span>GST Registered: 29OGNPS8060K1Z5</span>
             </div>
           </div>
 
@@ -193,19 +186,19 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between text-xs text-slate-400 gap-6">
-          <div className="space-y-1 text-center md:text-left md:w-1/3">
+          <div className="space-y-0.5 text-center md:text-left md:w-1/3">
             <div>© {currentYear} Brandex. All Rights Reserved.</div>
-            <div className="text-slate-400 font-mono text-[11px]">GSTIN: 29OGNPS8060K1Z5</div>
+            <div className="text-slate-500 font-mono text-[11px]">Entity ID: 29OGNPS8060K1Z5</div>
           </div>
 
           <div className="flex justify-center md:w-1/3">
             <a 
               href="https://www.brandex.co.in/" 
               target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 opacity-90 hover:opacity-100 transition-opacity"
+              rel="noopener"
+              className="flex items-center gap-3 opacity-90 hover:opacity-100 transition-opacity group"
             >
-              <span className="text-xs text-slate-300 font-bold tracking-widest">A PRODUCT OF</span>
+              <span className="text-xs text-slate-400 group-hover:text-slate-200 font-bold tracking-widest transition-colors">A PRODUCT OF</span>
               <img src="/brandex-footer-logo.webp" alt="Brandex Logo" className="h-6" />
             </a>
           </div>

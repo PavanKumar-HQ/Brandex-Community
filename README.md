@@ -54,7 +54,7 @@ src/
 ├── components/          # Reusable UI cards, modally dynamic forms, and layouts
 │   ├── cards/           # TrainingCard, MediaCard, StoryCard
 │   ├── layout/          # Fixed Navbar, Footer, Mobile Navigation drawers
-│   └── ui/              # PageHero, SectionHeading, BackButton, Modals
+│   └── ui/              # PageHero, SectionHeading, Breadcrumb, Modals
 ├── data/                # Mock data layer feeding the repositories
 ├── contexts/            # Modal and telemetry application state contexts
 ├── models/              # TypeScript interface types and data schemas

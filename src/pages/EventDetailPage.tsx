@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, NavLink, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Calendar, MapPin, Clock, Users, ArrowUpRight, Play, CheckCircle } from 'lucide-react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Calendar, MapPin, Clock, Users, ArrowUpRight, Play, CheckCircle } from 'lucide-react';
 import { getEventBySlug } from '../repositories/repository';
 import { Event } from '../models/types';
 import { EventRegistrationModal } from '../components/events/EventRegistrationModal';
 import { MediaPlaceholderCard } from '../components/ui/MediaPlaceholders';
 import { EmptyState } from '../components/ui/EmptyState';
+import { Breadcrumb } from '../components/ui/Breadcrumb';
 
 export const EventDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -38,15 +39,9 @@ export const EventDetailPage: React.FC = () => {
   return (
     <div className="space-y-8 sm:space-y-12 pb-16 pt-20 bg-white">
       
-      {/* Back Link */}
+      {/* Breadcrumb Navigation */}
       <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
-        <NavLink
-          to="/events"
-          className="inline-flex items-center gap-2 font-mono text-xs uppercase font-bold text-[#0f142e] hover:underline transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back to Events Timeline</span>
-        </NavLink>
+        <Breadcrumb items={[{ label: 'Events', path: '/events' }, { label: event.title }]} />
       </div>
 
       {/* Hero Poster & Header */}

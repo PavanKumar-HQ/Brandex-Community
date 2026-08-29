@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { ArrowRight, CheckCircle2, Shield, Users, Target, Compass, Linkedin, Twitter, Github, Mail, BookOpen, Terminal, Share2, Layers, Briefcase, HeartHandshake } from 'lucide-react';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { PageHero } from '../components/ui/PageHero';
-import { BackButton } from '../components/ui/BackButton';
+import { Breadcrumb } from '../components/ui/Breadcrumb';
 
 export const AboutPage: React.FC = () => {
   useSEO("About Our Vision", "Learn the story of Brandex. Founded by Pavan Kumar.S and Sathvik.N to enhance real-world tech sharing and open-source welfare.");
@@ -43,8 +43,8 @@ export const AboutPage: React.FC = () => {
 
   return (
     <div className="space-y-6 pb-16 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
-      <BackButton />
-      
+      <Breadcrumb items={[{ label: 'About Brandex' }]} />
+
       {/* About Hero */}
       <PageHero 
         tag="ABOUT BRANDEX ECOSYSTEM"

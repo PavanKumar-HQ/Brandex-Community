@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSEO } from '../hooks/useSEO';
-import { BackButton } from '../components/ui/BackButton';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { PageHero } from '../components/ui/PageHero';
 import { ShareButton } from '../components/ui/ShareButton';
@@ -24,11 +23,9 @@ export const CommunityGuidelinesPage: React.FC = () => {
   return (
     <div className="space-y-10 pb-20 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
       <div className="flex items-center justify-between">
-        <BackButton />
+        <Breadcrumb items={[{ label: 'Community', path: '/community' }, { label: 'Guidelines' }]} className="mb-0" />
         <ShareButton title="Brandex Community Guidelines & Code of Conduct" />
       </div>
-
-      <Breadcrumb items={[{ label: 'Community', path: '/community' }, { label: 'Guidelines' }]} />
 
       {/* Hero */}
       <PageHero

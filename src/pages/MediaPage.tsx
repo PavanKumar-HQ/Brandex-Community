@@ -2,8 +2,8 @@ import { useSEO } from '../hooks/useSEO';
 import React, { useEffect, useState } from 'react';
 import { Play, Image as ImageIcon, Video, Filter, Maximize2 } from 'lucide-react';
 import { SectionHeading } from '../components/ui/SectionHeading';
+import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { MediaCard } from '../components/cards/MediaCard';
-import { BackButton } from '../components/ui/BackButton';
 import { VideoModalPlayer } from '../components/ui/VideoModalPlayer';
 import { PhotoLightboxModal } from '../components/showcase/PhotoLightboxModal';
 import { EmptyState } from '../components/ui/EmptyState';
@@ -76,8 +76,8 @@ export const MediaPage: React.FC = () => {
 
   return (
     <div className="space-y-6 pb-16 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
-      <BackButton />
-      
+      <Breadcrumb items={[{ label: 'Media Vault' }]} />
+
       {/* Hero Header */}
       <div className="space-y-4 max-w-3xl">
         <span className="inline-block px-3 py-1 bg-indigo-50 text-indigo-600 text-xs font-semibold rounded-full uppercase tracking-wider">

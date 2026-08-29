@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { GraduationCap, BookOpen, Award, Layers, ArrowRight, Clock, CheckCircle2, School, Building2, Download } from 'lucide-react';
 import { useRegistration } from '../contexts/RegistrationContext';
 import { SectionHeading } from '../components/ui/SectionHeading';
-import { BackButton } from '../components/ui/BackButton';
+import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { getWorkshops, getResources } from '../repositories/repository';
 import { Workshop, Resource } from '../models/types';
 
@@ -74,8 +74,8 @@ export const EducationPage: React.FC = () => {
 
   return (
     <div className="space-y-6 pb-12 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
-      <BackButton />
-      
+      <Breadcrumb items={[{ label: 'Education Pathways' }]} />
+
       {/* Hero Header */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center border-b border-slate-200 pb-16">
         <div className="lg:col-span-7 space-y-6">

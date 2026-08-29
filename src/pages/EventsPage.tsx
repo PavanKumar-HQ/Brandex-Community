@@ -4,8 +4,8 @@ import { NavLink } from 'react-router-dom';
 import { Calendar, MapPin, Users, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { PageHero } from '../components/ui/PageHero';
+import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { EventCard } from '../components/cards/EventCard';
-import { BackButton } from '../components/ui/BackButton';
 import { EventRegistrationModal } from '../components/events/EventRegistrationModal';
 import { EmptyState } from '../components/ui/EmptyState';
 import { getEvents } from '../repositories/repository';
@@ -99,8 +99,8 @@ export const EventsPage: React.FC = () => {
 
   return (
     <div className="space-y-6 pb-16 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
-      <BackButton />
-      
+      <Breadcrumb items={[{ label: 'Events & Summits' }]} />
+
       {/* Hero Header */}
       <PageHero 
         tag="Brandex Summits & Gatherings"

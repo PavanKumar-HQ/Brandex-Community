@@ -37,4 +37,4 @@ User-agent: Bytespider
 Allow: /
 
 # Sitemaps and LLMs context files
-Sitemap: https://brandex.org/sitemap.xml
+Sitemap: /sitemap.xml

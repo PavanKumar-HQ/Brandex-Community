@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, NavLink } from 'react-router-dom';
 import { useSEO } from '../hooks/useSEO';
-import { BackButton } from '../components/ui/BackButton';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { PageHero } from '../components/ui/PageHero';
 import {

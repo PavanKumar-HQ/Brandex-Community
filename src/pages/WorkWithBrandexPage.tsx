@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSEO } from '../hooks/useSEO';
-import { BackButton } from '../components/ui/BackButton';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { PageHero } from '../components/ui/PageHero';
 import { ShareButton } from '../components/ui/ShareButton';
@@ -150,11 +149,9 @@ export const WorkWithBrandexPage: React.FC = () => {
   return (
     <div className="space-y-10 pb-20 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
       <div className="flex items-center justify-between">
-        <BackButton />
+        <Breadcrumb items={[{ label: 'Work With Brandex' }]} className="mb-0" />
         <ShareButton title="Work With Brandex — Institutional & Corporate Partnerships" />
       </div>
-
-      <Breadcrumb items={[{ label: 'Work With Brandex' }]} />
 
       {/* Hero Header */}
       <PageHero

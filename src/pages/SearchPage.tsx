@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, NavLink } from 'react-router-dom';
 import { useSEO } from '../hooks/useSEO';
-import { BackButton } from '../components/ui/BackButton';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { PageHero } from '../components/ui/PageHero';
 import { Search, Filter, Calendar, BookOpen, FileText, Users, ArrowRight } from 'lucide-react';
@@ -85,7 +84,6 @@ export const SearchPage: React.FC = () => {
 
   return (
     <div className="space-y-8 pb-20 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
-      <BackButton />
       <Breadcrumb items={[{ label: 'Global Search' }]} />
 
       <PageHero

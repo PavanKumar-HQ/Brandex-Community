@@ -13,7 +13,6 @@ import {
   GraduationCap
 } from 'lucide-react';
 import { SectionHeading } from '../components/ui/SectionHeading';
-import { BackButton } from '../components/ui/BackButton';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { PageHero } from '../components/ui/PageHero';
 import { CommunityCategoryCard } from '../components/cards/CommunityCategoryCard';
@@ -46,12 +45,9 @@ export const CommunityPage: React.FC = () => {
 
   return (
     <div className="space-y-12 pb-20 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <BackButton />
-          <ShareButton title="Brandex Community — Domain Circles & Guilds" />
-        </div>
-        <Breadcrumb items={[{ label: 'Community Circles' }]} />
+      <div className="flex items-center justify-between">
+        <Breadcrumb items={[{ label: 'Community Circles' }]} className="mb-0" />
+        <ShareButton title="Brandex Community — Domain Circles & Guilds" />
       </div>
       
       {/* Hero Header */}

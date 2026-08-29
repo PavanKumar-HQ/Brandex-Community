@@ -4,8 +4,8 @@ import { NavLink } from 'react-router-dom';
 import { Filter, SlidersHorizontal, BookOpen, Clock, BarChart, ArrowRight } from 'lucide-react';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { PageHero } from '../components/ui/PageHero';
+import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { TrainingCard } from '../components/cards/TrainingCard';
-import { BackButton } from '../components/ui/BackButton';
 import { EmptyState } from '../components/ui/EmptyState';
 import { getTrainingPrograms } from '../repositories/repository';
 import { TrainingProgram } from '../models/types';
@@ -37,8 +37,8 @@ export const TrainingPage: React.FC = () => {
 
   return (
     <div className="space-y-6 pb-20 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
-      <BackButton />
-      
+      <Breadcrumb items={[{ label: 'Technical Training' }]} />
+
       {/* Training Hero */}
       <PageHero 
         tag="Technical Training Catalog"

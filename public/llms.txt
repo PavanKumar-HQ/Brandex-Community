@@ -2,23 +2,27 @@
 
 > Brandex is an open technology education, developer community, and engineering cohort platform founded to bridge the gap between academic theory and practical technology development.
 
-## Core Navigation & Resources
-- Home: https://brandex.org/
-- Work With Us (Partnerships & Institution Inquiries): https://brandex.org/work-with-us
-- Application Status Checker: https://brandex.org/status
-- Community Circles: https://brandex.org/community
-- Community Guidelines & Code of Conduct: https://brandex.org/community/guidelines
-- Education Pathways & School Series: https://brandex.org/education
-- Cohort Training Programs: https://brandex.org/training
-- Events & Summits: https://brandex.org/events
-- Media & Video Showcase: https://brandex.org/media
-- Impact Stories & Milestones: https://brandex.org/stories
-- About Us & Vision: https://brandex.org/about
-- Campus Ambassador Program: https://brandex.org/ambassador
-- Careers & Open Roles: https://brandex.org/careers
-- Contact Team: https://brandex.org/contact
-- Privacy Policy: https://brandex.org/privacy
-- Terms of Service & Conditions: https://brandex.org/terms
+## Official Portal & Parent Ecosystem
+- Official Website: https://www.brandex.co.in/
+
+## Core Platform Navigation & Resources
+- Home: /
+- Work With Us (Partnerships & Institution Inquiries): /work-with-us
+- Application Status Checker: /status
+- Community Circles: /community
+- Community Guidelines & Code of Conduct: /community/guidelines
+- Education Pathways & School Series: /education
+- Cohort Training Programs: /training
+- Events & Summits: /events
+- Media & Video Showcase: /media
+- Impact Stories & Milestones: /stories
+- About Us & Vision: /about
+- Campus Ambassador Program: /ambassador
+- Careers & Open Roles: /careers
+- Contact Team: /contact
+- Privacy Policy: /privacy
+- Terms of Service & Conditions: /terms
+- Brandex Parent Ecosystem Bridge: /brandex
 
 ## Technology & Education Disciplines
 1. Artificial Intelligence & Agent Systems: Autonomous agent architecture, LLM fine-tuning, RAG frameworks, model evaluation.
@@ -31,4 +35,4 @@
 - Entity: Brandex
 - GSTIN: 29OGNPS8060K1Z5
 - Official Website: https://www.brandex.co.in/
-- Platform Contact: contact@brandex.org / brandex.hub@gmail.com
+- Platform Contact: brandexhq@gmail.com

@@ -1,7 +1,7 @@
 import { useSEO } from '../hooks/useSEO';
 import React, { useState } from 'react';
 import { Mail, MessageSquare, MapPin, Send, CheckCircle2 } from 'lucide-react';
-import { BackButton } from '../components/ui/BackButton';
+import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { FadeIn } from '../components/ui/FadeIn';
 
 export const ContactPage: React.FC = () => {
@@ -21,9 +21,9 @@ export const ContactPage: React.FC = () => {
       
       <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
         <div className="max-w-7xl mx-auto">
-          <BackButton />
+          <Breadcrumb items={[{ label: 'Contact' }]} />
           
-          <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             
             {/* Left side: Info */}
             <div className="space-y-8">

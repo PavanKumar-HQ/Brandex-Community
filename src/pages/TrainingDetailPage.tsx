@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, NavLink, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Clock, BarChart, CheckCircle2, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
+import { Clock, BarChart, CheckCircle2, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
 import { useRegistration } from '../contexts/RegistrationContext';
 import { getTrainingProgramBySlug, getTrainingPrograms } from '../repositories/repository';
 import { TrainingProgram } from '../models/types';
 import { EmptyState } from '../components/ui/EmptyState';
 import { TrainingCard } from '../components/cards/TrainingCard';
-import { BackButton } from '../components/ui/BackButton';
+import { Breadcrumb } from '../components/ui/Breadcrumb';
 
 export const TrainingDetailPage: React.FC = () => {
   const { openModal } = useRegistration();
@@ -58,8 +58,10 @@ export const TrainingDetailPage: React.FC = () => {
   return (
     <div className="space-y-8 sm:space-y-12 pb-16 pt-20 bg-white">
       
-      {/* Top Back Link */}
-      <BackButton />
+      {/* Breadcrumb Navigation */}
+      <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
+        <Breadcrumb items={[{ label: 'Training', path: '/training' }, { label: program.title }]} />
+      </div>
 
       {/* Hero Header */}
       <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">

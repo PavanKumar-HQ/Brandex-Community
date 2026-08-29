@@ -5,7 +5,7 @@ import { Calendar, User, ArrowRight, BookOpen } from 'lucide-react';
 import { getStories } from '../repositories/repository';
 import { Story } from '../models/types';
 import { SectionHeading } from '../components/ui/SectionHeading';
-import { BackButton } from '../components/ui/BackButton';
+import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { EmptyState } from '../components/ui/EmptyState';
 
 export const StoriesPage: React.FC = () => {
@@ -29,8 +29,8 @@ export const StoriesPage: React.FC = () => {
 
   return (
     <div className="space-y-6 pb-16 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
-      <BackButton />
-      
+      <Breadcrumb items={[{ label: 'Impact Stories' }]} />
+
       {/* Header */}
       <div className="space-y-4 max-w-3xl">
         <span className="inline-block px-3 py-1 bg-indigo-50 text-indigo-600 text-xs font-semibold rounded-full uppercase tracking-wider">

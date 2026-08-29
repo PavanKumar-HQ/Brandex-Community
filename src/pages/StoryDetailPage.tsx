@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, NavLink, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Calendar, User, Share2, Linkedin, Mail, BookOpen } from 'lucide-react';
+import { Calendar, User, Share2, Linkedin, Mail, BookOpen } from 'lucide-react';
 import { getStoryBySlug, getStories } from '../repositories/repository';
 import { Story } from '../models/types';
 import { EmptyState } from '../components/ui/EmptyState';
+import { Breadcrumb } from '../components/ui/Breadcrumb';
 
 export const StoryDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -59,16 +60,8 @@ export const StoryDetailPage: React.FC = () => {
   return (
     <div className="pb-20 pt-24 max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
       
-      {/* Back Link Button */}
-      <div className="mb-8">
-        <NavLink
-          to="/stories"
-          className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-slate-700 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:text-indigo-600 hover:shadow-sm hover:bg-slate-50 transition-all active:scale-95"
-        >
-          <ArrowLeft className="w-4 h-4 text-indigo-600" />
-          <span>Back to Stories</span>
-        </NavLink>
-      </div>
+      {/* Breadcrumb Navigation */}
+      <Breadcrumb items={[{ label: 'Stories', path: '/stories' }, { label: story.title }]} />
 
       {/* Main Grid: 2 Columns */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">

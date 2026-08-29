@@ -29,6 +29,7 @@ import { TermsPage } from './pages/TermsPage';
 import { ApplicationStatusPage } from './pages/ApplicationStatusPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { CareersPage } from './pages/CareersPage';
+import { BrandexHQPage } from './pages/BrandexHQPage';
 import { RegistrationModal } from './components/ui/RegistrationModal';
 
 // Page Transition Wrapper Component
@@ -90,6 +91,8 @@ export const App: React.FC = () => {
                 <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
                 <Route path="/privacy" element={<PageWrapper><PrivacyPolicyPage /></PageWrapper>} />
                 <Route path="/terms" element={<PageWrapper><TermsPage /></PageWrapper>} />
+                <Route path="/brandex" element={<PageWrapper><BrandexHQPage /></PageWrapper>} />
+                <Route path="/ecosystem" element={<PageWrapper><BrandexHQPage /></PageWrapper>} />
                 {/* Catch-all route */}
                 <Route path="*" element={<PageWrapper><NotFoundPage /></PageWrapper>} />
               </Routes>
