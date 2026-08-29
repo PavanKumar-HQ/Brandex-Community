@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Sparkles, X, ArrowRight, Handshake } from 'lucide-react';
+import { Users, X, ArrowRight, Handshake } from 'lucide-react';
 import { useRegistration } from '../../contexts/RegistrationContext';
 
 export const PersistentJoinCTA: React.FC = () => {
@@ -27,7 +27,7 @@ export const PersistentJoinCTA: React.FC = () => {
     <div className="fixed bottom-6 right-6 z-40 animate-fade-in max-w-sm hidden sm:block">
       <div className="bg-slate-900 text-white rounded-2xl p-4 shadow-2xl border border-slate-700/80 flex items-start gap-3 backdrop-blur-md">
         <div className="p-2 bg-indigo-600 rounded-xl shrink-0 mt-0.5">
-          <Sparkles className="w-4 h-4 text-white animate-pulse" />
+          <Users className="w-4 h-4 text-white" />
         </div>
         <div className="space-y-1.5 flex-1 pr-2">
           <h4 className="font-display font-bold text-xs text-white">Join the Brandex Movement</h4>

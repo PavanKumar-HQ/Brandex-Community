@@ -12,7 +12,6 @@ import {
   Briefcase,
   Layers,
   Award,
-  Sparkles,
   Send,
   CheckCircle2,
   ShieldCheck,

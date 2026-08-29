@@ -4,7 +4,7 @@ import { useSEO } from '../hooks/useSEO';
 import { BackButton } from '../components/ui/BackButton';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { PageHero } from '../components/ui/PageHero';
-import { Search, Filter, Calendar, BookOpen, FileText, Users, Sparkles, ArrowRight } from 'lucide-react';
+import { Search, Filter, Calendar, BookOpen, FileText, Users, ArrowRight } from 'lucide-react';
 import {
   getEvents,
   getTrainingPrograms,

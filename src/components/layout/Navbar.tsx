@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu, ArrowRight, Search, Sparkles, Handshake } from 'lucide-react';
+import { Menu, ArrowRight, Search, Handshake } from 'lucide-react';
 import { MobileNavigation } from './MobileNavigation';
 import { SearchModal } from '../ui/SearchModal';
 import { useRegistration } from '../../contexts/RegistrationContext';

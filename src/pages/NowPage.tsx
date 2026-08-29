@@ -19,7 +19,6 @@ import { Event, Story, Achievement, TrainingProgram, Community } from '../models
 import {
   Activity,
   Calendar,
-  Sparkles,
   ArrowRight,
   Clock,
   MapPin,
@@ -208,8 +207,7 @@ export const NowPage: React.FC = () => {
           <div className="bg-slate-900 text-white rounded-3xl p-8 space-y-5 shadow-lg relative overflow-hidden flex flex-col justify-between">
             <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
             <div className="space-y-3 relative z-10">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-bold rounded-full uppercase tracking-wider">
-                <Sparkles className="w-3.5 h-3.5" />
+              <span className="inline-block px-3 py-1 bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-bold rounded-full uppercase tracking-wider">
                 Open Source Highlight
               </span>
               <h3 className="font-display font-bold text-2xl text-white">

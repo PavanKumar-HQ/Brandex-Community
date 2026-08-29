@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { X, ArrowRight, Sparkles, Handshake, Shield, Search } from 'lucide-react';
+import { X, ArrowRight, Handshake, Shield, Search } from 'lucide-react';
 import { useRegistration } from '../../contexts/RegistrationContext';
 
 interface MobileNavigationProps {

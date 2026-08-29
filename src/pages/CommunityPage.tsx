@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 import {
   ArrowRight,
   MessageSquare,
-  Sparkles,
   Users,
   Shield,
   Send,

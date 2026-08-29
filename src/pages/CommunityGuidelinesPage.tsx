@@ -9,7 +9,6 @@ import {
   Heart,
   Users,
   MessageSquare,
-  Sparkles,
   AlertCircle,
   CheckCircle2,
   Mail,

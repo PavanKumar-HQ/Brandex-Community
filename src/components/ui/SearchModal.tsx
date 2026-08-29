@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, X, Calendar, BookOpen, FileText, Users, Sparkles, ArrowRight, ExternalLink } from 'lucide-react';
+import { Search, X, Calendar, BookOpen, FileText, Users, Briefcase, ArrowRight, ExternalLink } from 'lucide-react';
 import {
   getEvents,
   getTrainingPrograms,
@@ -162,7 +162,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
       case 'training': return <BookOpen className="w-4 h-4 text-purple-600" />;
       case 'story': return <FileText className="w-4 h-4 text-blue-600" />;
       case 'community': return <Users className="w-4 h-4 text-emerald-600" />;
-      case 'opportunity': return <Sparkles className="w-4 h-4 text-amber-600" />;
+      case 'opportunity': return <Briefcase className="w-4 h-4 text-amber-600" />;
     }
   };
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BackButton } from '../components/ui/BackButton';
 import { PageHero } from '../components/ui/PageHero';
-import { CheckCircle2, Award, Sparkles, Send, Users, Shield, GraduationCap, Building2 } from 'lucide-react';
+import { CheckCircle2, Award, Send, Users, Shield, GraduationCap, Building2 } from 'lucide-react';
 
 export const BrandAmbassadorPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -79,8 +79,7 @@ export const BrandAmbassadorPage: React.FC = () => {
       {/* Form Section */}
       <div className="max-w-3xl mx-auto bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-lg relative overflow-hidden">
         <div className="space-y-4 mb-8 text-center">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-full uppercase tracking-wider border border-indigo-100">
-            <Sparkles className="w-3.5 h-3.5" />
+          <span className="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-full uppercase tracking-wider border border-indigo-100">
             Official Application Form
           </span>
           <h2 className="text-3xl font-display font-bold text-slate-900">Apply for Brandex Ambassador Role</h2>
