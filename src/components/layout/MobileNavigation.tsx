@@ -16,7 +16,6 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onCl
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Live Now', path: '/now', isLive: true },
-    { name: 'Timeline', path: '/timeline' },
     { name: 'Work With Brandex', path: '/work-with-us' },
     { name: 'Community Circles', path: '/community' },
     { name: 'Education & Schools', path: '/education' },

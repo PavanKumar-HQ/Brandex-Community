@@ -103,7 +103,6 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2 text-xs font-medium">
               {[
                 { name: 'Live "Now" Pulse', path: '/now' },
-                { name: 'Living Timeline', path: '/timeline' },
                 { name: 'Work With Brandex', path: '/work-with-us' },
                 { name: 'Community Circles', path: '/community' },
                 { name: 'Community Guidelines', path: '/community/guidelines' },
