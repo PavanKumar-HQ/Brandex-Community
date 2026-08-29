@@ -165,14 +165,11 @@ export const Home: React.FC = () => {
           </div>
 
           {/* Right Column: Hero Visual Showcase */}
-          <div className="lg:col-span-6 relative flex items-center justify-center animate-float">
-            {/* Decorative background blur */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-purple-200/40 via-violet-100/35 to-pink-200/40 rounded-full blur-3xl -z-10 animate-[pulse_8s_infinite] opacity-75"></div>
-            
+          <div className="lg:col-span-6 flex items-center justify-center">
             <img 
-              src="/geniusphere-collab-ghibli.jpg" 
+              src="/geniusphere-collab-indigo.jpg" 
               alt="Geniusphere School Coding Workshop" 
-              className="w-full h-auto object-cover hover:scale-[1.025] hover:-translate-y-2 transition-all duration-500 cursor-pointer relative z-10"
+              className="w-full h-auto object-cover relative z-10"
             />
           </div>
         </div>

@@ -69,19 +69,15 @@ export const AboutPage: React.FC = () => {
         </h2>
       </section>
 
-      {/* Storytelling Layout with Image */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        {/* Left Image Placeholder */}
-        <div className="w-full aspect-[4/3] bg-slate-100 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-center overflow-hidden">
-          <div className="text-slate-400 font-medium flex flex-col items-center gap-2">
-            <Compass className="w-12 h-12 text-slate-300" />
-            <span>Team Collaboration Image</span>
+      {/* Story & Founders Section */}
+      <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pt-6">
+        
+        {/* Left Column: Why Brandex Exists Story */}
+        <div className="lg:col-span-7 space-y-6 text-slate-700 text-base leading-relaxed">
+          <div className="inline-flex items-center justify-center px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-700 font-bold uppercase tracking-widest text-xs rounded-full">
+            OUR STORY
           </div>
-        </div>
-
-        {/* Right Content */}
-        <div className="space-y-6 text-slate-700 text-base leading-relaxed">
-          <h2 className="font-display font-bold text-3xl text-slate-900 border-b border-slate-200 pb-3">
+          <h2 className="font-display font-black text-3xl sm:text-4xl text-slate-900 tracking-tight leading-tight">
             Why Brandex Exists
           </h2>
 
@@ -89,86 +85,74 @@ export const AboutPage: React.FC = () => {
             Brandex was built to avoid the difficulties of traditional, static technology education and enhance direct, real-world knowledge sharing. We wanted to create a space where developers, researchers, and students are well-aware of modern engineering tools, meet to network, and actively exchange their knowledge.
           </p>
 
-          <p className="text-slate-900 font-semibold text-lg border-l-4 border-purple-600 pl-4 py-1 italic bg-purple-50/50 rounded-r-lg">
+          <p className="text-slate-900 font-semibold text-lg border-l-4 border-indigo-600 pl-4 py-1.5 italic bg-indigo-50/50 rounded-r-lg">
             "We conduct various practical activities—from cybersecurity wargames to AI agent sprints—to ensure that high-fidelity technology knowledge is readily available to everyone."
           </p>
 
           <p>
-            As part of our commitment to public welfare, we actively develop open-source projects. For example, our custom high school technology syllabus and coding workshop series, <strong>Geniusphere</strong>, has been completely open-sourced and deployed live for public use at <a href="https://geniusphere.tech" target="_blank" rel="noreferrer" className="text-purple-600 font-bold hover:underline">geniusphere.tech</a>.
+            As part of our commitment to public welfare, we actively develop open-source projects. For example, our custom high school technology syllabus and coding workshop series, <strong>Geniusphere</strong>, has been completely open-sourced and deployed live for public use at <a href="https://geniusphere.tech" target="_blank" rel="noreferrer" className="text-indigo-600 font-bold hover:underline">geniusphere.tech</a>.
           </p>
         </div>
 
-      </section>
-
-      {/* Founders & Leadership Section */}
-      <section className="space-y-6 pt-8 border-t border-slate-200">
-        <SectionHeading
-          tag="LEADERSHIP"
-          title="Meet the Founders"
-          subtitle="The visionary team behind Brandex, bridging the gap between education and real-world technology engineering."
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {/* Founder 1: Pavan Kumar.S */}
-          <div className="bg-white rounded-3xl p-8 border border-slate-200/60 shadow-xl shadow-slate-200/20 flex flex-col sm:flex-row items-center sm:items-start gap-8 hover:border-indigo-200 hover:shadow-indigo-100/40 transition-all duration-300 group relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-50 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
-            
-            <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden shadow-md shrink-0 bg-slate-900 flex items-center justify-center group-hover:-translate-y-1 transition-transform duration-300">
-              <img src="/brandex-dp.png" alt="Pavan Kumar.S" className="w-full h-full object-cover p-3 bg-slate-950" />
-            </div>
-            
-            <div className="space-y-4 text-center sm:text-left flex-1 relative z-10">
-              <div>
-                <span className="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-[10px] font-bold rounded-full uppercase tracking-widest mb-2">Co-Founder & CEO</span>
-                <h3 className="font-display font-black text-2xl text-slate-900 tracking-tight">Pavan Kumar.S</h3>
-                <p className="text-indigo-600 font-semibold text-xs mt-1 uppercase tracking-wider">Co-Founder & Chief Executive Officer</p>
-              </div>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Driving Brandex's platform engineering, agentic AI research, and scalable community architecture. Devoted to avoiding academic barriers and creating practical builder ecosystems.
-              </p>
-              
-              {/* Profile Links */}
-              <div className="pt-2 flex items-center justify-center sm:justify-start gap-3 text-slate-500">
-                <a href="https://www.linkedin.com/in/pavankumarofficialcareers/" target="_blank" rel="noreferrer" className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl hover:bg-indigo-600 hover:border-indigo-600 hover:text-white transition-all shadow-sm group/btn" title="LinkedIn Profile">
-                  <Linkedin className="w-4 h-4 transition-transform group-hover/btn:scale-110" />
-                </a>
-                <a href="mailto:contact@brandex.co.in" className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl hover:bg-indigo-600 hover:border-indigo-600 hover:text-white transition-all shadow-sm group/btn" title="Email Founder">
-                  <Mail className="w-4 h-4 transition-transform group-hover/btn:scale-110" />
-                </a>
-              </div>
-            </div>
+        {/* Right Column: Meet the Founders */}
+        <div className="lg:col-span-5 space-y-6">
+          <div className="border-b border-slate-200 pb-2">
+            <span className="text-[10px] bg-slate-100 text-slate-600 font-bold uppercase tracking-widest px-2.5 py-1 rounded-md">LEADERSHIP</span>
+            <h3 className="font-display font-bold text-2xl text-slate-900 mt-2">Meet the Founders</h3>
           </div>
 
-          {/* Founder 2: Sathvik.N */}
-          <div className="bg-white rounded-3xl p-8 border border-slate-200/60 shadow-xl shadow-slate-200/20 flex flex-col sm:flex-row items-center sm:items-start gap-8 hover:border-indigo-200 hover:shadow-indigo-100/40 transition-all duration-300 group relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-purple-50 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
-            
-            <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden shadow-md shrink-0 bg-slate-900 flex items-center justify-center group-hover:-translate-y-1 transition-transform duration-300">
-              <img src="/brandex-dp.png" alt="Sathvik.N" className="w-full h-full object-cover p-3 bg-slate-950" />
-            </div>
-            
-            <div className="space-y-4 text-center sm:text-left flex-1 relative z-10">
-              <div>
-                <span className="inline-block px-3 py-1 bg-purple-50 text-purple-700 text-[10px] font-bold rounded-full uppercase tracking-widest mb-2">Founder & CTO</span>
-                <h3 className="font-display font-black text-2xl text-slate-900 tracking-tight">Sathvik.N</h3>
-                <p className="text-purple-600 font-semibold text-xs mt-1 uppercase tracking-wider">Founder & Chief Technology Officer</p>
+          <div className="space-y-6">
+            {/* Founder 1: Pavan Kumar.S */}
+            <div className="bg-white rounded-2xl p-6 border border-slate-200/60 shadow-sm flex gap-6 hover:border-indigo-200 hover:shadow-md transition-all duration-300 relative overflow-hidden group">
+              <div className="w-16 h-16 rounded-xl overflow-hidden shadow shrink-0 bg-slate-900 flex items-center justify-center">
+                <img src="/brandex-dp.png" alt="Pavan Kumar.S" className="w-full h-full object-cover p-1.5 bg-slate-950" />
               </div>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Pioneering technology education initiatives, institutional partnerships, and Geniusphere workshop series across high schools and university networks. Specialize in operationalizing CTFs and interactive labs.
-              </p>
-              
-              {/* Profile Links */}
-              <div className="pt-2 flex items-center justify-center sm:justify-start gap-3 text-slate-500">
-                <a href="https://www.linkedin.com/in/sathvik-nagesh/" target="_blank" rel="noreferrer" className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl hover:bg-purple-600 hover:border-purple-600 hover:text-white transition-all shadow-sm group/btn" title="LinkedIn Profile">
-                  <Linkedin className="w-4 h-4 transition-transform group-hover/btn:scale-110" />
-                </a>
-                <a href="mailto:contact@brandex.co.in" className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl hover:bg-purple-600 hover:border-purple-600 hover:text-white transition-all shadow-sm group/btn" title="Email Founder">
-                  <Mail className="w-4 h-4 transition-transform group-hover/btn:scale-110" />
-                </a>
+              <div className="space-y-2 flex-1">
+                <div>
+                  <h4 className="font-display font-bold text-lg text-slate-900 leading-tight">Pavan Kumar.S</h4>
+                  <p className="text-xs text-indigo-600 font-bold uppercase tracking-wider mt-0.5">Co-Founder & CEO</p>
+                </div>
+                <p className="text-slate-600 text-xs leading-relaxed">
+                  Driving Brandex's platform engineering, agentic AI research, and scalable community architecture. Devoted to avoiding academic barriers.
+                </p>
+                <div className="flex gap-2.5 text-slate-500 pt-1">
+                  <a href="https://www.linkedin.com/in/pavankumarofficialcareers/" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-indigo-600 transition-colors" title="LinkedIn Profile">
+                    <Linkedin className="w-4 h-4" />
+                  </a>
+                  <a href="mailto:contact@brandex.co.in" className="text-slate-400 hover:text-indigo-600 transition-colors" title="Email Founder">
+                    <Mail className="w-4 h-4" />
+                  </a>
+                </div>
               </div>
             </div>
+
+            {/* Founder 2: Sathvik.N */}
+            <div className="bg-white rounded-2xl p-6 border border-slate-200/60 shadow-sm flex gap-6 hover:border-indigo-200 hover:shadow-md transition-all duration-300 relative overflow-hidden group">
+              <div className="w-16 h-16 rounded-xl overflow-hidden shadow shrink-0 bg-slate-900 flex items-center justify-center">
+                <img src="/brandex-dp.png" alt="Sathvik.N" className="w-full h-full object-cover p-1.5 bg-slate-950" />
+              </div>
+              <div className="space-y-2 flex-1">
+                <div>
+                  <h4 className="font-display font-bold text-lg text-slate-900 leading-tight">Sathvik.N</h4>
+                  <p className="text-xs text-indigo-600 font-bold uppercase tracking-wider mt-0.5">Founder & CTO</p>
+                </div>
+                <p className="text-slate-600 text-xs leading-relaxed">
+                  Pioneering school technology education initiatives, institutional partnerships, and Geniusphere workshop series.
+                </p>
+                <div className="flex gap-2.5 text-slate-500 pt-1">
+                  <a href="https://www.linkedin.com/in/sathvik-nagesh/" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-indigo-600 transition-colors" title="LinkedIn Profile">
+                    <Linkedin className="w-4 h-4" />
+                  </a>
+                  <a href="mailto:contact@brandex.co.in" className="text-slate-400 hover:text-indigo-600 transition-colors" title="Email Founder">
+                    <Mail className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
+
       </section>
 
       {/* Principles Grid */}
