@@ -186,27 +186,28 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
-          <div className="space-y-1 text-center sm:text-left">
+        <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between text-xs text-slate-400 gap-6">
+          <div className="space-y-1 text-center md:text-left md:w-1/3">
             <div>© {currentYear} Brandex. All Rights Reserved.</div>
             <div className="text-slate-400 font-mono text-[11px]">GSTIN: 29OGNPS8060K1Z5</div>
           </div>
 
-          <div className="flex flex-col items-center sm:items-end gap-2">
-            <div className="flex items-center space-x-6 text-xs font-medium">
-              <NavLink to="/about" className="hover:text-white transition-colors">Privacy Policy</NavLink>
-              <NavLink to="/about" className="hover:text-white transition-colors">Terms of Service</NavLink>
-              <NavLink to="/community/guidelines" className="hover:text-white transition-colors">Guidelines</NavLink>
-            </div>
+          <div className="flex justify-center md:w-1/3">
             <a 
               href="https://www.brandex.co.in/" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center gap-2 mt-2 opacity-80 hover:opacity-100 transition-opacity"
+              className="flex items-center gap-3 opacity-90 hover:opacity-100 transition-opacity"
             >
-              <span className="text-[10px] text-slate-400 font-medium">POWERED BY</span>
-              <img src="/brandex-logo.png" alt="Brandex Logo" className="h-4" />
+              <span className="text-xs text-slate-300 font-bold tracking-widest">POWERED BY</span>
+              <img src="/brandex-logo.png" alt="Brandex Logo" className="h-6" />
             </a>
+          </div>
+
+          <div className="flex items-center justify-center md:justify-end space-x-6 text-xs font-medium md:w-1/3">
+            <NavLink to="/about" className="hover:text-white transition-colors">Privacy Policy</NavLink>
+            <NavLink to="/about" className="hover:text-white transition-colors">Terms of Service</NavLink>
+            <NavLink to="/community/guidelines" className="hover:text-white transition-colors">Guidelines</NavLink>
           </div>
         </div>
 
