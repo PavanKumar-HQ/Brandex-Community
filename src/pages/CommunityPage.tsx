@@ -1,3 +1,4 @@
+import { useSEO } from '../hooks/useSEO';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ArrowRight, MessageSquare, Terminal, HeartHandshake, Shield, Users, Compass, Code, Layout, Blocks, Briefcase } from 'lucide-react';
@@ -10,6 +11,7 @@ import { getCommunities, getDiscussions } from '../repositories/repository';
 import { Community, Discussion } from '../models/types';
 
 export const CommunityPage: React.FC = () => {
+  useSEO("Technology Domain Circles", "Join specialized technology domain circles in AI, Cybersecurity, and UX to collaborate on coding projects.");
   const [communities, setCommunities] = useState<Community[]>([]);
   const [discussions, setDiscussions] = useState<Discussion[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
@@ -28,7 +30,7 @@ export const CommunityPage: React.FC = () => {
   const categories = ['All', 'AI & Research', 'Cybersecurity', 'Technology', 'Digital Skills & Software'];
 
   return (
-    <div className="space-y-16 sm:space-y-24 pb-20 pt-24 sm:pt-28 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
+    <div className="space-y-6 pb-20 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
       <BackButton />
       
       {/* Hero Header */}

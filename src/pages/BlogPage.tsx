@@ -41,7 +41,7 @@ const blogPosts = [
 
 export const BlogPage: React.FC = () => {
   return (
-    <div className="space-y-16 sm:space-y-24 pb-20 pt-24 sm:pt-28 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
+    <div className="space-y-6 pb-16 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
       
       <PageHero 
         tag="Engineering & Community Blog"

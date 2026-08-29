@@ -28,6 +28,7 @@ export const Navbar: React.FC = () => {
     { name: 'Education', path: '/education' },
     { name: 'Training', path: '/training' },
     { name: 'Events', path: '/events' },
+    { name: 'Careers', path: '/careers' },
     { name: 'Blog', path: '/blog' },
   ];
 
@@ -38,32 +39,24 @@ export const Navbar: React.FC = () => {
           isScrolled ? 'py-3 shadow-sm' : 'py-4'
         }`}
       >
-        <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 flex items-center justify-between">
+        <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-24 flex items-center justify-between">
           {/* Logo & Identity */}
-          <NavLink to="/" className="flex items-center gap-3 group">
+          <NavLink to="/" className="flex items-center gap-3 group -ml-2 sm:-ml-3">
             <img
-              src="/brandex-logo.png"
+              src="/brandex-navbar-logo.png"
               alt="Brandex Logo"
-              className="h-8 sm:h-9 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
+              className="h-10 sm:h-12 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
             />
-            <div className="flex flex-col">
-              <span className="font-display font-bold text-lg tracking-tight text-slate-900 leading-none">
-                Brandex
-              </span>
-              <span className="text-[10px] font-medium tracking-wide text-slate-500 hidden sm:inline">
-                Community & Education
-              </span>
-            </div>
           </NavLink>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
+          <nav className="hidden md:flex flex-nowrap items-center space-x-0.5 lg:space-x-1.5 whitespace-nowrap">
             {navLinks.map((link) => (
               <NavLink
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
-                  `group relative px-2 py-2 text-sm font-medium transition-colors ${
+                  `group relative px-2.5 py-1.5 text-xs lg:text-sm font-medium transition-colors ${
                     isActive
                       ? 'text-indigo-600 font-semibold'
                       : 'text-slate-600 hover:text-slate-900'
@@ -85,7 +78,7 @@ export const Navbar: React.FC = () => {
           </nav>
 
           {/* Desktop Action Buttons */}
-          <div className="hidden md:flex items-center space-x-3">
+          <div className="hidden md:flex items-center space-x-3 shrink-0">
             <button
               onClick={() => openModal()}
               className="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-indigo-700 transition-all shadow-sm active:scale-95"

@@ -62,7 +62,7 @@ export const MediaPlaceholderCard: React.FC<MediaPlaceholderProps> = ({
     >
       <div className="flex items-center justify-between border-b border-slate-800 pb-3">
         <div className="flex items-center gap-2">
-          <img src="/brandex-icon.png" alt="Brandex" className="h-4 w-auto opacity-90" />
+          <img src="/brandex-logo.png" alt="Brandex" className="h-4 w-auto opacity-90" />
           <span className="text-[10px] tracking-wider text-slate-400 font-semibold uppercase">
             Brandex Archive
           </span>

@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
@@ -21,6 +21,9 @@ import { AboutPage } from './pages/AboutPage';
 import { BrandAmbassadorPage } from './pages/BrandAmbassadorPage';
 import { AppDashboardPage } from './pages/AppDashboardPage';
 import { AdminDashboardPage } from './pages/AdminDashboardPage';
+import { ContactPage } from './pages/ContactPage';
+import { NotFoundPage } from './pages/NotFoundPage';
+import { CareersPage } from './pages/CareersPage';
 import { RegistrationModal } from './components/ui/RegistrationModal';
 
 // Page Transition Wrapper Component
@@ -49,7 +52,7 @@ export const App: React.FC = () => {
     <div className="min-h-screen flex flex-col bg-white text-slate-900 selection:bg-indigo-600 selection:text-white font-sans">
       <Navbar />
 
-      <main className="flex-1 flex flex-col">
+      <main className="flex-1 flex flex-col w-full max-w-[1400px] mx-auto">
         <Suspense fallback={<PageLoadingScreen />}>
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
@@ -64,11 +67,15 @@ export const App: React.FC = () => {
               <Route path="/media/photos" element={<PageWrapper><MediaPage /></PageWrapper>} />
               <Route path="/stories" element={<PageWrapper><StoriesPage /></PageWrapper>} />
               <Route path="/stories/:slug" element={<PageWrapper><StoryDetailPage /></PageWrapper>} />
-              <Route path="/blog" element={<PageWrapper><BlogPage /></PageWrapper>} />
+              <Route path="/blog" element={<Navigate to="/stories" replace />} />
               <Route path="/about" element={<PageWrapper><AboutPage /></PageWrapper>} />
               <Route path="/ambassador" element={<PageWrapper><BrandAmbassadorPage /></PageWrapper>} />
+              <Route path="/careers" element={<PageWrapper><CareersPage /></PageWrapper>} />
+              <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
               <Route path="/app/dashboard" element={<PageWrapper><AppDashboardPage /></PageWrapper>} />
               <Route path="/admin" element={<PageWrapper><AdminDashboardPage /></PageWrapper>} />
+              {/* Catch-all route */}
+              <Route path="*" element={<PageWrapper><NotFoundPage /></PageWrapper>} />
             </Routes>
           </AnimatePresence>
         </Suspense>

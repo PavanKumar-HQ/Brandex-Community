@@ -1,3 +1,4 @@
+import { useSEO } from '../hooks/useSEO';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Filter, SlidersHorizontal, BookOpen, Clock, BarChart, ArrowRight } from 'lucide-react';
@@ -10,6 +11,7 @@ import { getTrainingPrograms } from '../repositories/repository';
 import { TrainingProgram } from '../models/types';
 
 export const TrainingPage: React.FC = () => {
+  useSEO("Rigorous Cohort Training", "Level up your technical skills with intensive, practical cohort-based training.");
   const [programs, setPrograms] = useState<TrainingProgram[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedLevel, setSelectedLevel] = useState<string>('All');
@@ -34,7 +36,7 @@ export const TrainingPage: React.FC = () => {
   const levels = ['All', 'Beginner', 'Intermediate', 'Advanced'];
 
   return (
-    <div className="space-y-16 sm:space-y-24 pb-20 pt-24 sm:pt-28 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
+    <div className="space-y-6 pb-20 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
       <BackButton />
       
       {/* Training Hero */}

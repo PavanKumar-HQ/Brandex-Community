@@ -36,7 +36,7 @@ export const EventDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="space-y-16 pb-20 pt-28 bg-white">
+    <div className="space-y-8 sm:space-y-12 pb-16 pt-20 bg-white">
       
       {/* Back Link */}
       <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">

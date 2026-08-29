@@ -12,6 +12,7 @@ import { ImpactStatisticsSection } from '../components/showcase/ImpactStatistics
 import { EventRegistrationModal } from '../components/events/EventRegistrationModal';
 import { VideoModalPlayer } from '../components/ui/VideoModalPlayer';
 import { MediaPlaceholderCard } from '../components/ui/MediaPlaceholders';
+import { useSEO } from '../hooks/useSEO';
 import { getTrainingPrograms, getEvents, getMedia, getCommunities, getStories, getAchievements } from '../repositories/repository';
 import { TrainingProgram, Event, Media, Community, Story, Achievement } from '../models/types';
 
@@ -39,15 +40,24 @@ const TypewriterText: React.FC<{ words: string[] }> = ({ words }) => {
     return () => clearTimeout(timeout);
   }, [subIndex, index, reverse, words]);
 
+  // Find the longest word to prevent layout shift
+  const longestWord = words.reduce((a, b) => (a.length > b.length ? a : b), '');
+
   return (
-    <span className="text-indigo-600 inline-flex items-center">
-      <span>{words[index].substring(0, subIndex)}</span>
-      <span className="animate-pulse ml-0.5 text-indigo-500 font-normal">|</span>
+    <span className="text-indigo-600 inline-flex items-center relative">
+      {/* Hidden text to reserve space */}
+      <span className="invisible">{longestWord}</span>
+      {/* Actual typing text */}
+      <span className="absolute left-0 top-0 bottom-0 flex items-center">
+        <span>{words[index].substring(0, subIndex)}</span>
+        <span className="animate-pulse ml-1 w-2 h-[0.8em] bg-indigo-600 inline-block rounded-sm" />
+      </span>
     </span>
   );
 };
 
 export const Home: React.FC = () => {
+  useSEO("Showcase & Tech Education Platform", "Discover the Brandex Community platform - showcasing emerging technology, high school workshops, and professional cohort training.");
   const { openModal } = useRegistration();
   const [featuredTraining, setFeaturedTraining] = useState<TrainingProgram[]>([]);
   const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([]);
@@ -139,15 +149,15 @@ export const Home: React.FC = () => {
             <div className="flex flex-wrap items-center gap-4 pt-4">
               <button
                 onClick={() => openModal('community')}
-                className="btn-primary px-8 py-4"
+                className="btn-primary px-8 py-4 group hover:shadow-indigo-500/30 hover:shadow-md"
               >
                 <span>Join Ecosystem</span>
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
               </button>
 
               <NavLink
                 to="/education"
-                className="btn-secondary px-8 py-4 bg-white border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
+                className="btn-secondary px-8 py-4 bg-white border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all hover:scale-[1.02]"
               >
                 <span>Explore Pathways</span>
               </NavLink>
@@ -155,40 +165,15 @@ export const Home: React.FC = () => {
           </div>
 
           {/* Right Column: Hero Visual Showcase */}
-          <div className="lg:col-span-6 relative">
+          <div className="lg:col-span-6 relative flex items-center justify-center animate-float">
             {/* Decorative background blur */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-indigo-100 to-purple-50 rounded-full blur-3xl -z-10 opacity-70"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-purple-200/40 via-violet-100/35 to-pink-200/40 rounded-full blur-3xl -z-10 animate-[pulse_8s_infinite] opacity-75"></div>
             
-            <div className="relative bg-white rounded-[2rem] p-4 shadow-2xl border border-slate-100 transition-transform duration-500 hover-lift">
-              <div className="rounded-[1.5rem] overflow-hidden relative">
-                <MediaPlaceholderCard
-                  type="image"
-                  src="/brandex-hero-logo.png"
-                  title="Brandex Technology Ecosystem"
-                  category="Featured Platform"
-                  aspectRatio="video"
-                />
-                
-                {/* Floating Badge */}
-                <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-lg border border-white/50 flex flex-col items-end">
-                  <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest">Next Event</span>
-                  <span className="font-display font-black text-slate-900">18 Aug</span>
-                </div>
-              </div>
-              
-              <div className="px-6 py-6 space-y-2 bg-slate-50 rounded-[1.25rem] mt-3">
-                <div className="flex items-center gap-2 text-xs font-bold text-indigo-600 uppercase tracking-wider">
-                  <BookText className="w-4 h-4" />
-                  <span>Interactive Workshop</span>
-                </div>
-                <h4 className="font-display font-bold text-xl text-slate-900">
-                  Geniusphere School Series 2026
-                </h4>
-                <p className="text-sm text-slate-500 leading-relaxed max-w-sm">
-                  Live technology foundation workshop hosted at Vignan Public High School.
-                </p>
-              </div>
-            </div>
+            <img 
+              src="/geniusphere-collab-ghibli.jpg" 
+              alt="Geniusphere School Coding Workshop" 
+              className="w-full h-auto object-cover hover:scale-[1.025] hover:-translate-y-2 transition-all duration-500 cursor-pointer relative z-10"
+            />
           </div>
         </div>
       </section>
@@ -376,7 +361,7 @@ export const Home: React.FC = () => {
       {/* ==========================================
           06. BRANDEX IN ACTION (MEDIA HUB)
          ========================================== */}
-      <div className="bg-slate-50/50 py-10">
+      <div className="bg-slate-50/50 py-10 !mt-8 sm:!mt-12">
         <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
           <SectionHeading
             tag="MEDIA VAULT"
@@ -402,30 +387,61 @@ export const Home: React.FC = () => {
       {/* ==========================================
           07. FINAL JOIN CTA
          ========================================== */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-10">
-        <div className="bg-indigo-50/50 border border-indigo-100 rounded-2xl p-8 sm:p-12 text-center space-y-6 shadow-sm relative overflow-hidden">
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-10 !mt-4 sm:!mt-6">
+        <div className="bg-indigo-50/50 border border-indigo-100 rounded-[2rem] p-8 sm:p-12 text-left shadow-sm relative overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="absolute inset-0 bg-gradient-to-tr from-indigo-100/30 to-purple-100/30 mix-blend-overlay pointer-events-none"></div>
           
-          <div className="relative max-w-2xl mx-auto space-y-3 z-10">
-            <span className="inline-block px-3 py-1 bg-white text-indigo-600 text-xs font-semibold rounded-full uppercase tracking-wider border border-indigo-100 shadow-sm">
-              Get Connected
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-slate-900">
-              Join the Brandex Showcase Ecosystem
-            </h2>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              Participate in upcoming workshops, explore community initiatives, and connect with peers.
-            </p>
+          {/* Left Column: Text & Action */}
+          <div className="lg:col-span-7 space-y-6 relative z-10">
+            <div className="space-y-3">
+              <span className="inline-block px-3 py-1 bg-white text-indigo-600 text-xs font-semibold rounded-full uppercase tracking-wider border border-indigo-100 shadow-sm">
+                Get Connected
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 leading-tight">
+                Join the Brandex Showcase Ecosystem
+              </h2>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl">
+                Participate in upcoming workshops, explore community initiatives, and connect with peers.
+              </p>
+            </div>
+
+            <div className="pt-2 flex justify-start">
+              <button
+                onClick={() => openModal('community')}
+                className="btn-primary"
+              >
+                <span>Get Started</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="relative pt-2 flex justify-center z-10">
-            <button
-              onClick={() => openModal('community')}
-              className="btn-primary"
-            >
-              <span>Get Started</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
+          {/* Right Column: Visual graphics / Social Proof / Stats to fill the space */}
+          <div className="lg:col-span-5 relative z-10 flex justify-center lg:justify-end">
+            <div className="bg-white/90 backdrop-blur-md border border-indigo-100/60 p-6 rounded-2xl shadow-xl max-w-sm w-full space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="flex -space-x-3">
+                  <div className="w-9 h-9 rounded-full bg-indigo-600 border-2 border-white flex items-center justify-center text-[10px] font-bold text-white shadow-sm">PK</div>
+                  <div className="w-9 h-9 rounded-full bg-purple-600 border-2 border-white flex items-center justify-center text-[10px] font-bold text-white shadow-sm">SN</div>
+                  <div className="w-9 h-9 rounded-full bg-indigo-50 border-2 border-white flex items-center justify-center text-xs font-bold text-indigo-600 shadow-sm">+</div>
+                </div>
+                <div className="text-xs">
+                  <p className="font-bold text-slate-900">1,200+ Active Builders</p>
+                  <p className="text-slate-500">Collaborating on projects</p>
+                </div>
+              </div>
+              
+              <div className="border-t border-slate-100 pt-3 flex items-center justify-between text-xs text-slate-600">
+                <div>
+                  <span className="font-bold text-indigo-600 block text-sm">15+ Circles</span>
+                  <span>Active Domains</span>
+                </div>
+                <div className="border-l border-slate-150 pl-4 flex-1">
+                  <span className="font-bold text-indigo-600 block text-sm">Weekly Labs</span>
+                  <span>Interactive Workshops</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

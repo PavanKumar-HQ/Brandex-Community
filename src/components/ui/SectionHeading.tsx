@@ -25,9 +25,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
   asButton = false,
   className = '',
 }) => {
-  const linkClasses = asButton
-    ? "inline-flex items-center gap-2 bg-indigo-50 border border-indigo-200 text-indigo-600 hover:bg-indigo-600 hover:text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm group"
-    : "inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600 hover:text-indigo-700 hover:underline group";
+  const linkClasses = "inline-flex items-center gap-2 bg-indigo-600 border border-indigo-700 text-white hover:bg-indigo-700 px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-md hover:shadow-lg group";
 
   return (
     <div className={`mb-8 sm:mb-10 ${className}`}>

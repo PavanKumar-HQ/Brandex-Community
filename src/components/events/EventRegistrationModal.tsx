@@ -136,7 +136,7 @@ export const EventRegistrationModal: React.FC<EventRegistrationModalProps> = ({
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="e.g. Alex Mercer"
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-900 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 h-12 text-slate-900 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white"
               />
             </div>
 
@@ -150,7 +150,7 @@ export const EventRegistrationModal: React.FC<EventRegistrationModalProps> = ({
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 placeholder="alex@example.com"
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-900 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 h-12 text-slate-900 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white"
               />
             </div>
 
@@ -164,7 +164,7 @@ export const EventRegistrationModal: React.FC<EventRegistrationModalProps> = ({
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   placeholder="+49 151 ..."
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-900 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 h-12 text-slate-900 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white"
                 />
               </div>
 
@@ -177,7 +177,7 @@ export const EventRegistrationModal: React.FC<EventRegistrationModalProps> = ({
                   value={formData.organization}
                   onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
                   placeholder="e.g. High School / University"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-900 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 h-12 text-slate-900 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white"
                 />
               </div>
             </div>
@@ -189,19 +189,33 @@ export const EventRegistrationModal: React.FC<EventRegistrationModalProps> = ({
               <select
                 value={formData.experienceLevel}
                 onChange={(e) => setFormData({ ...formData, experienceLevel: e.target.value })}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-900 text-sm font-medium focus:outline-none focus:border-indigo-600 focus:bg-white"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 h-12 text-slate-900 text-sm font-medium focus:outline-none focus:border-indigo-600 focus:bg-white appearance-none"
+                style={{ backgroundImage: 'url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'%3e%3c/polyline%3e%3c/svg%3e")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center', backgroundSize: '1em' }}
               >
                 <option value="Beginner">Beginner</option>
                 <option value="Intermediate">Intermediate</option>
                 <option value="Advanced">Advanced</option>
               </select>
             </div>
+            
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Why do you want to join this? *
+              </label>
+              <textarea
+                required
+                value={(formData as any).reason || ''}
+                onChange={(e) => setFormData({ ...formData, reason: e.target.value } as any)}
+                placeholder="Briefly describe your goals or what you hope to learn..."
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 h-24 resize-none text-slate-900 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white"
+              />
+            </div>
 
             <div className="pt-2">
               <button
                 type="submit"
                 disabled={status === 'submitting'}
-                className="w-full bg-indigo-600 text-white py-3 px-6 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 hover:bg-indigo-700 transition-colors disabled:opacity-50 shadow-sm"
+                className="w-full bg-indigo-600 text-white py-3 h-12 px-6 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 hover:bg-indigo-700 transition-colors disabled:opacity-50 shadow-sm"
               >
                 {status === 'submitting' ? (
                   <>

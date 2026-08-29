@@ -1,3 +1,4 @@
+import { useSEO } from '../hooks/useSEO';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { GraduationCap, BookOpen, Award, Layers, ArrowRight, Clock, CheckCircle2, School, Building2, Download } from 'lucide-react';
@@ -8,6 +9,7 @@ import { getWorkshops, getResources } from '../repositories/repository';
 import { Workshop, Resource } from '../models/types';
 
 export const EducationPage: React.FC = () => {
+  useSEO("Education Pathways", "Discover structured educational paths - Geniusphere secondary school workshops, college bootcamps, and professional cohorts.");
   const { openModal } = useRegistration();
   const [workshops, setWorkshops] = useState<Workshop[]>([]);
   const [resources, setResources] = useState<Resource[]>([]);
@@ -71,7 +73,7 @@ export const EducationPage: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-12 sm:space-y-16 pb-12 pt-16 sm:pt-20 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
+    <div className="space-y-6 pb-12 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
       <BackButton />
       
       {/* Hero Header */}

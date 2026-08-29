@@ -1,3 +1,4 @@
+import { useSEO } from '../hooks/useSEO';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Calendar, User, ArrowRight, BookOpen } from 'lucide-react';
@@ -8,6 +9,7 @@ import { BackButton } from '../components/ui/BackButton';
 import { EmptyState } from '../components/ui/EmptyState';
 
 export const StoriesPage: React.FC = () => {
+  useSEO("Impact Stories & Blog", "Read tech articles, case studies, and impact stories written by Pavan Kumar.S and Sathvik.N.");
   const [stories, setStories] = useState<Story[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
@@ -26,7 +28,7 @@ export const StoriesPage: React.FC = () => {
     : stories.filter(s => s.category.toLowerCase() === selectedCategory.toLowerCase());
 
   return (
-    <div className="space-y-16 pb-20 pt-28 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
+    <div className="space-y-6 pb-16 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
       <BackButton />
       
       {/* Header */}

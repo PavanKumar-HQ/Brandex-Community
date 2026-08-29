@@ -68,6 +68,7 @@ export const Footer: React.FC = () => {
                 { name: 'Media & Photo Vault', path: '/media' },
                 { name: 'Impact Stories', path: '/stories' },
                 { name: 'About Brandex', path: '/about' },
+                { name: 'Careers', path: '/careers' },
               ].map((link) => (
                 <li key={link.path}>
                   <NavLink

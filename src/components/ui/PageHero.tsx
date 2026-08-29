@@ -57,41 +57,13 @@ export const PageHero: React.FC<PageHeroProps> = ({
           </p>
         </div>
 
-        {/* Right Decorative Element */}
+        {/* Right Decorative Element: Logo */}
         <div className="hidden lg:flex lg:col-span-4 items-center justify-end relative">
-          <div className="w-full max-w-[240px] bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden relative group">
-            {/* Window header */}
-            <div className="bg-slate-50 border-b border-slate-200 px-2.5 py-1 flex items-center gap-1.5">
-              <div className="flex gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-red-400"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-amber-400"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-400"></div>
-              </div>
-              <div className="text-[10px] text-slate-400 font-mono font-medium ml-2 uppercase">{widgetTitle}</div>
-            </div>
-            
-            {/* Content body */}
-            <div className="p-3 space-y-2">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                <div className="space-y-0.5">
-                  <div className="text-[8px] text-slate-400 font-semibold uppercase tracking-wider">{widgetStatLabel}</div>
-                  <div className="text-lg font-display font-bold text-slate-900">{widgetStatValue}</div>
-                </div>
-                <div className="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center">
-                  <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                </div>
-              </div>
-              
-              <div className="space-y-1">
-                <div className="text-[8px] text-slate-400 font-semibold uppercase tracking-wider">{widgetStatusLabel}</div>
-                <div className="flex items-center gap-1 text-[10px] text-slate-700 font-mono bg-slate-50 p-1 rounded">
-                  <span className="text-emerald-500 text-[8px]">●</span> {widgetStatusText}
-                </div>
-              </div>
-            </div>
+          <div className="relative w-32 h-32 sm:w-40 sm:h-40 p-4 bg-white/40 backdrop-blur-sm rounded-full shadow-lg shadow-indigo-100/50 border border-white/60 flex items-center justify-center">
+            <img src="/brandex-logo.png" alt="Brandex Icon" className="w-full h-full object-contain opacity-90 drop-shadow-md" />
             
             {/* Decorative background glow */}
-            <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-colors"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-indigo-400/10 rounded-full blur-3xl -z-10"></div>
           </div>
         </div>
       </div>

@@ -53,18 +53,18 @@ export const TrainingDetailPage: React.FC = () => {
   const instructorName = typeof program.instructor === 'object' ? program.instructor.name : program.instructor;
   const instructorRole = typeof program.instructor === 'object' ? program.instructor.role : 'Lead Instructor';
   const instructorBio = typeof program.instructor === 'object' ? program.instructor.bio : 'Instructor and domain specialist at Brandex.';
-  const instructorAvatar = (typeof program.instructor === 'object' && program.instructor.avatar) ? program.instructor.avatar : '/brandex-icon.png';
+  const instructorAvatar = (typeof program.instructor === 'object' && program.instructor.avatar) ? program.instructor.avatar : '/brandex-logo.png';
 
   return (
-    <div className="space-y-16 pb-20 pt-28 bg-white">
+    <div className="space-y-8 sm:space-y-12 pb-16 pt-20 bg-white">
       
       {/* Top Back Link */}
       <BackButton />
 
       {/* Hero Header */}
       <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
-        <div className="border border-slate-200 bg-white p-8 sm:p-12 rounded-2xl shadow-sm flex flex-col md:flex-row md:items-end justify-between gap-8">
-          <div className="space-y-6 flex-1">
+        <div className="border border-slate-200 bg-white p-8 sm:p-12 rounded-2xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-8">
+          <div className="space-y-4 flex-1">
             <div className="flex flex-wrap items-center gap-3">
               <span className="text-xs uppercase text-indigo-600 bg-indigo-50 border border-indigo-200 px-3 py-1 font-semibold rounded">
                 [{program.category}]
@@ -79,11 +79,11 @@ export const TrainingDetailPage: React.FC = () => {
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-display font-bold text-slate-900 max-w-4xl leading-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold text-slate-900 max-w-5xl leading-tight">
               {program.title}
             </h1>
 
-            <p className="text-base text-slate-600 max-w-3xl leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-600 max-w-4xl leading-relaxed">
               {program.description}
             </p>
           </div>

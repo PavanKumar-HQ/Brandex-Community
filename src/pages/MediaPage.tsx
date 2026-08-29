@@ -1,3 +1,4 @@
+import { useSEO } from '../hooks/useSEO';
 import React, { useEffect, useState } from 'react';
 import { Play, Image as ImageIcon, Video, Filter, Maximize2 } from 'lucide-react';
 import { SectionHeading } from '../components/ui/SectionHeading';
@@ -10,6 +11,7 @@ import { getMediaItems, getPhotos, getVideos } from '../repositories/repository'
 import { MediaItem, Photo, YouTubeVideo, Media } from '../models/types';
 
 export const MediaPage: React.FC = () => {
+  useSEO("Media & Photo Vault", "Explore recordings, photo archives, and video highlights from our circles and summits.");
   const [activeFilter, setActiveFilter] = useState<string>('ALL');
   const [mediaItems, setMediaItems] = useState<MediaItem[]>([]);
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -73,7 +75,7 @@ export const MediaPage: React.FC = () => {
   const filters = ['ALL', 'PHOTOS', 'VIDEOS', 'ARTIFICIAL INTELLIGENCE', 'CYBERSECURITY', 'EDUCATION'];
 
   return (
-    <div className="space-y-16 sm:space-y-24 pb-20 pt-24 sm:pt-28 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
+    <div className="space-y-6 pb-16 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
       <BackButton />
       
       {/* Hero Header */}

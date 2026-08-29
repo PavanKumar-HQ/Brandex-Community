@@ -1,3 +1,4 @@
+import { useSEO } from '../hooks/useSEO';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Calendar, MapPin, Users, ArrowRight } from 'lucide-react';
@@ -11,6 +12,7 @@ import { getEvents } from '../repositories/repository';
 import { Event } from '../models/types';
 
 export const EventsPage: React.FC = () => {
+  useSEO("Live Events & Summits", "Browse upcoming and past live summits, hands-on buildathons, wargames, and workshops.");
   const [activeTab, setActiveTab] = useState<'upcoming' | 'past'>('upcoming');
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
@@ -30,7 +32,7 @@ export const EventsPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-12 sm:space-y-16 pb-12 pt-16 sm:pt-20 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
+    <div className="space-y-6 pb-16 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
       <BackButton />
       
       {/* Hero Header */}
