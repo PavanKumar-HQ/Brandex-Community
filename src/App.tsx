@@ -24,6 +24,9 @@ import { BlogPage } from './pages/BlogPage';
 import { AboutPage } from './pages/AboutPage';
 import { BrandAmbassadorPage } from './pages/BrandAmbassadorPage';
 import { ContactPage } from './pages/ContactPage';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
+import { TermsPage } from './pages/TermsPage';
+import { ApplicationStatusPage } from './pages/ApplicationStatusPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { CareersPage } from './pages/CareersPage';
 import { RegistrationModal } from './components/ui/RegistrationModal';
@@ -36,7 +39,7 @@ const PageWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.3 }}
-      className="flex-1 flex flex-col"
+      className="flex-1 flex flex-col w-full overflow-x-hidden"
     >
       {children}
     </motion.div>
@@ -46,37 +49,21 @@ const PageWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 export const App: React.FC = () => {
   const location = useLocation();
 
-  // Scroll position persistence on navigation & refresh
+  // Scroll to top instantly on every route/page change
   useEffect(() => {
-    const key = `scrollPosition_${location.pathname}_${location.search}`;
-    const saved = sessionStorage.getItem(key);
-    if (saved) {
-      setTimeout(() => {
-        window.scrollTo({
-          top: parseInt(saved, 10),
-          behavior: 'auto'
-        });
-      }, 80);
-    } else {
-      window.scrollTo(0, 0);
-    }
-  }, [location.pathname, location.search]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const key = `scrollPosition_${location.pathname}_${location.search}`;
-      sessionStorage.setItem(key, window.scrollY.toString());
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [location.pathname, location.search]);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant' as ScrollBehavior
+    });
+  }, [location.pathname]);
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen flex flex-col bg-white text-brand-dark selection:bg-indigo-600 selection:text-white font-sans transition-colors duration-300">
+      <div className="min-h-screen flex flex-col bg-white text-brand-dark selection:bg-indigo-600 selection:text-white font-sans transition-colors duration-300 w-full overflow-x-hidden">
         <Navbar />
 
-        <main className="flex-1 flex flex-col w-full max-w-[1400px] mx-auto">
+        <main className="flex-1 flex flex-col w-full">
           <Suspense fallback={<PageLoadingScreen />}>
             <AnimatePresence mode="wait">
               <Routes location={location} key={location.pathname}>
@@ -84,6 +71,7 @@ export const App: React.FC = () => {
 
                 <Route path="/work-with-us" element={<PageWrapper><WorkWithBrandexPage /></PageWrapper>} />
                 <Route path="/search" element={<PageWrapper><SearchPage /></PageWrapper>} />
+                <Route path="/status" element={<PageWrapper><ApplicationStatusPage /></PageWrapper>} />
                 <Route path="/community" element={<PageWrapper><CommunityPage /></PageWrapper>} />
                 <Route path="/community/guidelines" element={<PageWrapper><CommunityGuidelinesPage /></PageWrapper>} />
                 <Route path="/education" element={<PageWrapper><EducationPage /></PageWrapper>} />
@@ -95,11 +83,13 @@ export const App: React.FC = () => {
                 <Route path="/media/photos" element={<PageWrapper><MediaPage /></PageWrapper>} />
                 <Route path="/stories" element={<PageWrapper><StoriesPage /></PageWrapper>} />
                 <Route path="/stories/:slug" element={<PageWrapper><StoryDetailPage /></PageWrapper>} />
-                <Route path="/blog" element={<Navigate to="/stories" replace />} />
+                <Route path="/blog" element={<PageWrapper><BlogPage /></PageWrapper>} />
                 <Route path="/about" element={<PageWrapper><AboutPage /></PageWrapper>} />
                 <Route path="/ambassador" element={<PageWrapper><BrandAmbassadorPage /></PageWrapper>} />
                 <Route path="/careers" element={<PageWrapper><CareersPage /></PageWrapper>} />
                 <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
+                <Route path="/privacy" element={<PageWrapper><PrivacyPolicyPage /></PageWrapper>} />
+                <Route path="/terms" element={<PageWrapper><TermsPage /></PageWrapper>} />
                 {/* Catch-all route */}
                 <Route path="*" element={<PageWrapper><NotFoundPage /></PageWrapper>} />
               </Routes>

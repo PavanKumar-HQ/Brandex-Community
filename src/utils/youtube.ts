@@ -21,8 +21,8 @@ export function getYouTubeEmbedUrl(urlOrId?: string): string | null {
 }
 
 export function getYouTubeThumbnailUrl(urlOrId?: string, quality: 'hqdefault' | 'maxresdefault' = 'hqdefault'): string {
-  if (!urlOrId) return '/brandex-full-logo.png';
+  if (!urlOrId) return '/brandex-full-logo.webp';
   const videoId = extractYouTubeId(urlOrId) || (urlOrId.length === 11 ? urlOrId : null);
-  if (!videoId) return '/brandex-full-logo.png';
+  if (!videoId) return '/brandex-full-logo.webp';
   return `https://img.youtube.com/vi/${videoId}/${quality}.jpg`;
 }

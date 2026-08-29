@@ -147,15 +147,26 @@ export const RegistrationModal: React.FC = () => {
         </button>
 
         {/* Modal Header */}
-        <div className="bg-indigo-50 border-b border-indigo-100 p-8 text-center space-y-3 relative overflow-hidden shrink-0">
-          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/5 to-purple-500/5 mix-blend-screen pointer-events-none"></div>
-          <span className="relative z-10 inline-block px-3 py-1 bg-white text-indigo-600 text-[10px] font-bold rounded-full uppercase tracking-wider shadow-sm border border-indigo-100">
-            {isEnroll ? 'Program Registration' : 'Membership Onboarding'}
-          </span>
-          <h2 className="relative z-10 text-2xl sm:text-3xl font-display font-bold text-slate-900 tracking-tight">
+        <div className="bg-indigo-50/70 border-b border-indigo-100 p-6 sm:p-8 text-center space-y-3 relative overflow-hidden shrink-0">
+          <div className="flex items-center justify-center gap-2">
+            <span className="inline-block px-3 py-1 bg-white text-indigo-600 text-[10px] font-bold rounded-full uppercase tracking-wider shadow-xs border border-indigo-100">
+              {isEnroll ? 'Program Registration' : 'Membership Onboarding'}
+            </span>
+            <button
+              type="button"
+              onClick={() => {
+                handleClose();
+                navigate('/status');
+              }}
+              className="text-[11px] font-semibold text-slate-600 hover:text-indigo-600 underline ml-2 transition-colors"
+            >
+              Already applied? Check Status →
+            </button>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-display font-bold text-slate-900 tracking-tight">
             {pageTitle}
           </h2>
-          <p className="relative z-10 text-xs sm:text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
             {pageDesc}
           </p>
         </div>
@@ -196,16 +207,20 @@ export const RegistrationModal: React.FC = () => {
 
                 <div className="space-y-3">
                   <h2 className="font-display font-bold text-2xl text-slate-900">
-                    Application Received
+                    Application Received & Queued
                   </h2>
-                  <p className="text-sm text-slate-600 max-w-sm mx-auto leading-relaxed">
-                    Thank you, <strong className="text-slate-900">{formData.name}</strong>. We've sent the details to <span className="text-indigo-600 font-semibold">{formData.email}</span>.
+                  <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
+                    Thank you, <strong className="text-slate-900">{formData.name}</strong>. Your application has been logged. We've queued your profile for committee review.
                   </p>
+                  <div className="p-4 bg-indigo-50 border border-indigo-100 rounded-2xl max-w-sm mx-auto text-left space-y-1">
+                    <div className="text-[10px] uppercase font-bold text-slate-400">Tracking Reference ID:</div>
+                    <div className="text-sm font-mono font-bold text-indigo-600">BX-2026-8812</div>
+                  </div>
                 </div>
 
                 <div className="pt-6 flex flex-wrap justify-center gap-4 text-sm font-semibold">
-                  <NavLink to="/app/dashboard" onClick={handleClose} className="btn-primary px-6 py-2.5">
-                    Go to Member Portal
+                  <NavLink to="/status?id=BX-2026-8812" onClick={handleClose} className="btn-primary px-6 py-2.5">
+                    Track Application Status
                   </NavLink>
                   <button onClick={handleClose} className="btn-secondary px-6 py-2.5">
                     Close Window

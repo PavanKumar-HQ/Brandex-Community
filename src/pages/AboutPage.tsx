@@ -105,7 +105,7 @@ export const AboutPage: React.FC = () => {
             {/* Founder 1: Pavan Kumar.S */}
             <div className="bg-white rounded-2xl p-6 border border-slate-200/60 shadow-sm flex gap-6 hover:border-indigo-200 hover:shadow-md transition-all duration-300 relative overflow-hidden group">
               <div className="w-16 h-16 rounded-xl overflow-hidden shadow shrink-0 bg-slate-900 flex items-center justify-center">
-                <img src="/brandex-dp.png" alt="Pavan Kumar.S" className="w-full h-full object-cover p-1.5 bg-slate-950" />
+                <img src="/brandex-dp.webp" alt="Pavan Kumar.S" className="w-full h-full object-cover p-1.5 bg-slate-950" />
               </div>
               <div className="space-y-2 flex-1">
                 <div>
@@ -129,7 +129,7 @@ export const AboutPage: React.FC = () => {
             {/* Founder 2: Sathvik.N */}
             <div className="bg-white rounded-2xl p-6 border border-slate-200/60 shadow-sm flex gap-6 hover:border-indigo-200 hover:shadow-md transition-all duration-300 relative overflow-hidden group">
               <div className="w-16 h-16 rounded-xl overflow-hidden shadow shrink-0 bg-slate-900 flex items-center justify-center">
-                <img src="/brandex-dp.png" alt="Sathvik.N" className="w-full h-full object-cover p-1.5 bg-slate-950" />
+                <img src="/brandex-dp.webp" alt="Sathvik.N" className="w-full h-full object-cover p-1.5 bg-slate-950" />
               </div>
               <div className="space-y-2 flex-1">
                 <div>

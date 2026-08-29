@@ -15,15 +15,17 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onCl
 
   const navLinks = [
     { name: 'Home', path: '/' },
-
     { name: 'Work With Brandex', path: '/work-with-us' },
+    { name: 'Application Status', path: '/status' },
     { name: 'Community Circles', path: '/community' },
     { name: 'Education & Schools', path: '/education' },
     { name: 'Training Cohorts', path: '/training' },
     { name: 'Events & Summits', path: '/events' },
-    { name: 'Community Guidelines', path: '/community/guidelines' },
+    { name: 'Media & Videos', path: '/media' },
+    { name: 'Impact Stories', path: '/stories' },
     { name: 'About Us', path: '/about' },
     { name: 'Careers & Ambassadors', path: '/careers' },
+    { name: 'Community Guidelines', path: '/community/guidelines' },
   ];
 
   return (
@@ -31,7 +33,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onCl
       {/* Header Bar */}
       <div className="flex items-center justify-between p-5 border-b border-slate-200">
         <NavLink to="/" onClick={onClose} className="flex items-center gap-3">
-          <img src="/brandex-logo.png" alt="Brandex Logo" className="h-8 w-auto object-contain" />
+          <img src="/brandex-logo.webp" alt="Brandex Logo" className="h-8 w-auto object-contain" />
           <span className="font-display font-bold text-lg text-slate-900">Brandex</span>
         </NavLink>
         <button

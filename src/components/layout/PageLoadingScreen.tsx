@@ -33,7 +33,7 @@ export const PageLoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) 
       {/* Brandex Logo Mark */}
       <div className="flex flex-col items-center gap-6 animate-fade-in">
         <img
-          src="/brandex-logo.png"
+          src="/brandex-logo.webp"
           alt="Brandex"
           className="h-20 w-auto object-contain"
         />

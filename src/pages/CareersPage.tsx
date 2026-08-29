@@ -2,28 +2,26 @@ import { useSEO } from '../hooks/useSEO';
 import React from 'react';
 import { Briefcase, Heart, Cpu, Globe, ArrowRight, Loader2 } from 'lucide-react';
 import { PageHero } from '../components/ui/PageHero';
-import { BackButton } from '../components/ui/BackButton';
+import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { SectionHeading } from '../components/ui/SectionHeading';
 
 export const CareersPage: React.FC = () => {
   useSEO("Careers & Team", "Join our team. Work remotely and help build the future of tech education.");
   return (
-    <div className="space-y-6 pb-16 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
-      <BackButton />
-      
-      {/* Hero Section */}
-      <PageHero 
-        tag="CAREERS AT BRANDEX"
-        title="Join Our Mission to Build the Future of Tech Education."
-        description="We're always looking for passionate engineers, designers, and community builders to help us scale the Brandex Showcase Ecosystem."
-        widgetTitle="Brandex.Team"
-        widgetStatLabel="Global Members"
-        widgetStatValue="Growing"
-        widgetStatusLabel="Hiring Status"
-        widgetStatusText="Open Roles Below"
-        gradientFrom="text-indigo-600"
-        gradientTo="bg-indigo-50"
-      />
+    <div className="w-full space-y-8 pb-20 pt-20 sm:pt-24 px-4 sm:px-8 lg:px-12 xl:px-16 bg-white text-slate-900 font-sans">
+      <Breadcrumb items={[{ label: 'Careers' }]} />
+        
+        {/* Hero Section */}
+        <PageHero 
+          tag="CAREERS AT BRANDEX"
+          title="Join Our Mission to Build the Future of Tech Education."
+          description="We're always looking for passionate engineers, designers, and community builders to help us scale the Brandex Showcase Ecosystem."
+          widgetTitle="Brandex.Team"
+          widgetStatLabel="Global Members"
+          widgetStatValue="Growing"
+          widgetStatusLabel="Hiring Status"
+          widgetStatusText="Open Roles Below"
+        />
 
       {/* Why Join Us */}
       <section className="space-y-6">

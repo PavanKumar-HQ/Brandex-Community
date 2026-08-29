@@ -46,14 +46,14 @@ export const StoryDetailPage: React.FC = () => {
         role: 'Co-founder & CEO, Brandex',
         bio: 'Driving platform engineering and AI systems at Brandex. Focused on bridging the gap between classroom theory and real-world execution.',
         linkedin: 'https://www.linkedin.com/in/pavankumarofficialcareers/',
-        avatar: '/brandex-dp.png'
+        avatar: '/brandex-dp.webp'
       }
     : {
         name: 'Sathvik.N',
         role: 'Founder & CTO, Brandex',
         bio: 'Pioneering technology education initiatives, wargames, and CTFs. Lead builder of the open-sourced Geniusphere workshop curriculum.',
         linkedin: 'https://www.linkedin.com/in/sathvik-nagesh/',
-        avatar: '/brandex-dp.png'
+        avatar: '/brandex-dp.webp'
       };
 
   return (
@@ -100,7 +100,7 @@ export const StoryDetailPage: React.FC = () => {
           {/* Hero Cover Image */}
           <div className="rounded-2xl overflow-hidden shadow-md aspect-[16/9] bg-slate-100 border border-slate-100">
             <img
-              src={story.coverImage || '/brandex-full-logo.png'}
+              src={story.coverImage || '/brandex-full-logo.webp'}
               alt={story.title}
               className="w-full h-full object-cover"
             />

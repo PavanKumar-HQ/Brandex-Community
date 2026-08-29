@@ -45,7 +45,7 @@ export const ContactPage: React.FC = () => {
                   <div>
                     <h3 className="font-bold text-slate-900 text-lg">Email Us</h3>
                     <p className="text-slate-600 text-sm mt-1">For partnerships and general inquiries.</p>
-                    <a href="mailto:contact@brandex.co.in" className="text-indigo-600 font-bold mt-2 inline-block hover:underline">contact@brandex.co.in</a>
+                    <a href="mailto:brandexhq@gmail.com" className="text-indigo-600 font-bold mt-2 inline-block hover:underline">brandexhq@gmail.com</a>
                   </div>
                 </div>
 
@@ -54,9 +54,19 @@ export const ContactPage: React.FC = () => {
                     <MessageSquare className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-slate-900 text-lg">Community</h3>
-                    <p className="text-slate-600 text-sm mt-1">Join our open community to chat directly.</p>
-                    <a href="/community" className="text-blue-600 font-bold mt-2 inline-block hover:underline">View Discord / WhatsApp</a>
+                    <h3 className="font-bold text-slate-900 text-lg">Community & WhatsApp</h3>
+                    <p className="text-slate-600 text-sm mt-1">Join our open community or contact on WhatsApp.</p>
+                    <a href="/community" className="text-blue-600 font-bold mt-2 inline-block hover:underline">View Community Circles</a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center shrink-0">
+                    <MapPin className="w-6 h-6 text-emerald-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-slate-900 text-lg">HQ Location</h3>
+                    <p className="text-slate-600 text-sm mt-1">#121, 13th Main, Binny Layout, Vijaynagar, Bangalore - 560040</p>
                   </div>
                 </div>
               </div>

@@ -36,40 +36,41 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-
     { name: 'Community', path: '/community' },
     { name: 'Education', path: '/education' },
     { name: 'Training', path: '/training' },
     { name: 'Events', path: '/events' },
-    { name: 'About', path: '/about' },
-    { name: 'Work With Us', path: '/work-with-us' },
+    { name: 'Blog', path: '/blog' },
+    { name: 'Ambassadors', path: '/ambassador' },
+    { name: 'Careers', path: '/careers' },
+    { name: 'Partnerships', path: '/work-with-us' },
   ];
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 transition-all duration-200 ${
+        className={`fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 transition-all duration-200 ${
           isScrolled ? 'py-2.5 shadow-sm' : 'py-3.5'
         }`}
       >
-        <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-24 flex items-center justify-between">
+        <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 flex items-center justify-between">
           {/* Logo & Identity */}
           <NavLink to="/" className="flex items-center gap-3 group -ml-2 sm:-ml-3 shrink-0">
             <img
-              src="/brandex-navbar-logo.png"
+              src="/brandex-navbar-logo.webp"
               alt="Brandex Logo"
               className="h-9 sm:h-11 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
             />
           </NavLink>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex flex-nowrap items-center space-x-1 whitespace-nowrap">
+          <nav className="hidden xl:flex flex-nowrap items-center space-x-1 whitespace-nowrap">
             {navLinks.map((link) => (
               <NavLink
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
-                  `group relative px-2.5 py-1.5 text-xs font-medium transition-colors inline-flex items-center gap-1.5 ${
+                  `group relative px-2.5 py-1.5 text-xs font-semibold transition-colors inline-flex items-center gap-1.5 ${
                     isActive
                       ? 'text-indigo-600 font-bold'
                       : 'text-slate-600 hover:text-slate-900'
@@ -92,10 +93,9 @@ export const Navbar: React.FC = () => {
 
           {/* Desktop Action Buttons */}
           <div className="hidden md:flex items-center space-x-2.5 shrink-0">
-
             <button
               onClick={() => openModal()}
-              className="inline-flex items-center gap-1.5 bg-indigo-600 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-indigo-700 transition-all shadow-sm active:scale-95"
+              className="inline-flex items-center gap-1.5 bg-indigo-600 text-white px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-indigo-700 transition-all shadow-sm active:scale-95"
             >
               <span>Join Brandex</span>
               <ArrowRight className="w-3.5 h-3.5" />

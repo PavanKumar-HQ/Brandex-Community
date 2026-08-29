@@ -35,13 +35,13 @@ export const useSEO = (
     setMetaTag('property', 'og:description', description);
     setMetaTag('property', 'og:type', options?.type || 'website');
     setMetaTag('property', 'og:url', window.location.href);
-    setMetaTag('property', 'og:image', options?.image || `${window.location.origin}/brandex-full-logo.png`);
+    setMetaTag('property', 'og:image', options?.image || `${window.location.origin}/brandex-full-logo.webp`);
     setMetaTag('property', 'og:site_name', 'Brandex Community');
 
     // Twitter Card Tags
     setMetaTag('name', 'twitter:card', 'summary_large_image');
     setMetaTag('name', 'twitter:title', fullTitle);
     setMetaTag('name', 'twitter:description', description);
-    setMetaTag('name', 'twitter:image', options?.image || `${window.location.origin}/brandex-full-logo.png`);
+    setMetaTag('name', 'twitter:image', options?.image || `${window.location.origin}/brandex-full-logo.webp`);
   }, [title, description, options?.image, options?.type]);
 };

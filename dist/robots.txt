@@ -1,6 +1,40 @@
+# User-agent configuration allowing all search engines and AI crawlers
 User-agent: *
 Allow: /
-Disallow: /admin
-Disallow: /app/dashboard
 
+# Explicit AI Crawlers & Scrapers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Cohere-ai
+Allow: /
+
+User-agent: Omgilibot
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Sitemaps and LLMs context files
 Sitemap: https://brandex.org/sitemap.xml

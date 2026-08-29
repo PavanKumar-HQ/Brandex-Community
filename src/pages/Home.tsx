@@ -170,7 +170,7 @@ export const Home: React.FC = () => {
             <div className="relative w-full overflow-hidden">
               <div className="absolute inset-0 bg-purple-600/15 mix-blend-color z-20 pointer-events-none" />
               <img 
-                src="/geniusphere-collab-indigo.jpg" 
+                src="/geniusphere-collab-indigo.webp" 
                 alt="Geniusphere School Coding Workshop" 
                 className="w-full h-auto object-cover relative z-10"
               />
@@ -190,76 +190,146 @@ export const Home: React.FC = () => {
       </div>
 
       {/* ==========================================
-          03. WHAT BRANDEX OFFERS
+          03. WHAT BRANDEX OFFERS (Bento Grid Visual Hierarchy)
          ========================================== */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-10">
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-12">
         <FadeIn>
           <SectionHeading
             tag="SHOWCASE PILLARS"
-            title="Core Platform Pillars"
-            subtitle="Discover community initiatives, education pathways, technical training, and live events."
+            title="Core Platform Ecosystem"
+            subtitle="Explore our specialized initiatives structured across foundational education, engineering cohorts, community circles, and live tech summits."
           />
         </FadeIn>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            {
-              title: 'Community',
-              desc: 'Collaborative circles for everyone to explore AI, digital safety, and design together.',
-              path: '/community',
-              icon: Users,
-              color: 'text-indigo-600 bg-indigo-50',
-            },
-            {
-              title: 'Education',
-              desc: 'School, college and student skill development initiatives.',
-              path: '/education',
-              icon: BookOpen,
-              color: 'text-blue-600 bg-blue-50',
-            },
-            {
-              title: 'Training',
-              desc: 'Cohort-based technical courses engineered by industry leads.',
-              path: '/training',
-              icon: Terminal,
-              color: 'text-purple-600 bg-purple-50',
-            },
-            {
-              title: 'Events',
-              desc: 'School series, technical summits, and capture-the-flag wargames.',
-              path: '/events',
-              icon: Calendar,
-              color: 'text-emerald-600 bg-emerald-50',
-            },
-          ].map((pillar, idx) => (
-            <FadeIn key={pillar.title} delay={idx * 0.1}>
-              <NavLink
-                to={pillar.path}
-                className="bg-white border border-slate-200 rounded-xl p-6 flex flex-col justify-between group hover:border-indigo-300 hover:shadow-lg transition-all duration-200 h-full"
-              >
-                <div className="space-y-4">
-                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${pillar.color}`}>
-                    <pillar.icon className="w-5 h-5" />
-                  </div>
-                  
-                  <h3 className="font-display font-bold text-xl text-slate-900 group-hover:text-indigo-600 transition-colors">
-                    {pillar.title}
-                  </h3>
-
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    {pillar.desc}
-                  </p>
+        {/* Bento Grid with Asymmetric Hierarchy & Brand Palette */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mt-8">
+          
+          {/* Bento Card 1: Community (Hero Wide Card - 7 cols) */}
+          <FadeIn className="md:col-span-7" delay={0.1}>
+            <NavLink
+              to="/community"
+              className="group relative h-full min-h-[300px] bg-white border-2 border-indigo-100 rounded-3xl p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-sm hover:border-indigo-300 hover:shadow-md transition-all duration-300"
+            >
+              <div className="space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 rounded-full text-indigo-700 text-xs font-bold uppercase tracking-wider border border-indigo-100">
+                  <Users className="w-3.5 h-3.5 text-indigo-600" />
+                  <span>Domain Guilds & Circles</span>
                 </div>
+                
+                <h3 className="font-display font-bold text-2xl sm:text-3xl text-slate-900 tracking-tight leading-snug group-hover:text-indigo-600 transition-colors">
+                  Collaborative circles for AI, Cybersecurity & Swiss UX.
+                </h3>
+                
+                <p className="text-sm text-slate-600 max-w-xl leading-relaxed">
+                  Connect with student builders and research mentors. Share code snippets, participate in weekly teardowns, and build production projects together.
+                </p>
+              </div>
 
-                <div className="pt-4 flex items-center justify-between mt-auto">
-                  <span className="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg text-xs font-semibold group-hover:bg-indigo-700 transition-colors shadow-sm w-full justify-center">
-                    View {pillar.title} Details
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </span>
+              <div className="pt-6 flex items-center justify-between border-t border-slate-100">
+                <span className="text-xs font-bold text-indigo-600 tracking-wider uppercase">15+ Active Circles</span>
+                <span className="inline-flex items-center gap-2 bg-indigo-600 text-white px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-indigo-700 transition-colors shadow-sm">
+                  <span>Explore Community</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </span>
+              </div>
+            </NavLink>
+          </FadeIn>
+
+          {/* Bento Card 2: Training (Tall Feature Card - 5 cols) */}
+          <FadeIn className="md:col-span-5" delay={0.2}>
+            <NavLink
+              to="/training"
+              className="group relative h-full min-h-[300px] bg-slate-50 border border-slate-200 rounded-3xl p-8 flex flex-col justify-between hover:border-indigo-300 hover:bg-white hover:shadow-md transition-all duration-300"
+            >
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center">
+                  <Terminal className="w-6 h-6" />
                 </div>
-              </NavLink>
-            </FadeIn>
-          ))}
+                
+                <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider block">Cohort Training</span>
+                
+                <h3 className="font-display font-bold text-2xl text-slate-900 group-hover:text-indigo-600 transition-colors">
+                  Production-grade cohort engineering.
+                </h3>
+                
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Rigorous technical courses engineered by industry leads covering AI agent pipelines, zero-trust infrastructure, and distributed concurrency.
+                </p>
+              </div>
+
+              <div className="pt-6 flex items-center justify-between border-t border-slate-200/60">
+                <span className="text-xs font-semibold text-slate-500">Applications Open</span>
+                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 group-hover:translate-x-1 transition-transform">
+                  <span>View Syllabus</span>
+                  <ArrowRight className="w-4 h-4" />
+                </span>
+              </div>
+            </NavLink>
+          </FadeIn>
+
+          {/* Bento Card 3: Education & Schools (5 cols) */}
+          <FadeIn className="md:col-span-5" delay={0.3}>
+            <NavLink
+              to="/education"
+              className="group relative h-full min-h-[260px] bg-slate-50 border border-slate-200 rounded-3xl p-8 flex flex-col justify-between hover:border-indigo-300 hover:bg-white hover:shadow-md transition-all duration-300"
+            >
+              <div className="space-y-3">
+                <div className="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center">
+                  <BookOpen className="w-5 h-5" />
+                </div>
+                
+                <span className="text-xs font-bold text-blue-600 uppercase tracking-wider block">Geniusphere Series</span>
+                
+                <h3 className="font-display font-bold text-xl sm:text-2xl text-slate-900 group-hover:text-indigo-600 transition-colors">
+                  Secondary School & College Pathways
+                </h3>
+                
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Structured robotics logic, algorithmic thinking, and campus lab partnerships for youth innovators.
+                </p>
+              </div>
+
+              <div className="pt-4 flex items-center justify-between border-t border-slate-200/60">
+                <span className="text-xs text-slate-500">Geniusphere Series</span>
+                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 group-hover:translate-x-1 transition-transform">
+                  <span>Explore Tracks</span>
+                  <ArrowRight className="w-4 h-4" />
+                </span>
+              </div>
+            </NavLink>
+          </FadeIn>
+
+          {/* Bento Card 4: Live Events & Summits (7 cols) */}
+          <FadeIn className="md:col-span-7" delay={0.4}>
+            <NavLink
+              to="/events"
+              className="group relative h-full min-h-[260px] bg-white border-2 border-slate-200 rounded-3xl p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 hover:border-indigo-300 hover:shadow-md transition-all duration-300"
+            >
+              <div className="space-y-3 max-w-md">
+                <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center">
+                  <Calendar className="w-5 h-5" />
+                </div>
+                
+                <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider block">Summits & Wargames</span>
+                
+                <h3 className="font-display font-bold text-2xl text-slate-900 group-hover:text-indigo-600 transition-colors">
+                  Live Summits, Hackathons & CTF Wargames
+                </h3>
+                
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Annual technology summits, capture-the-flag defensive simulations, and institutional buildathon championships.
+                </p>
+              </div>
+
+              <div className="shrink-0 flex sm:flex-col items-end justify-between sm:justify-center gap-4 w-full sm:w-auto border-t sm:border-t-0 border-slate-100 pt-4 sm:pt-0">
+                <span className="inline-flex items-center gap-2 bg-indigo-600 text-white px-5 py-3 rounded-xl text-xs font-bold hover:bg-indigo-700 transition-colors shadow-sm">
+                  <span>View Events</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </span>
+              </div>
+            </NavLink>
+          </FadeIn>
+
         </div>
       </section>
 
@@ -313,7 +383,7 @@ export const Home: React.FC = () => {
                 className="bg-white border border-slate-200 rounded-xl p-5 flex flex-col sm:flex-row gap-5 hover:border-indigo-300 hover:shadow-md transition-all group"
               >
                 <img
-                  src={story.coverImage || '/brandex-full-logo.png'}
+                  src={story.coverImage || '/brandex-full-logo.webp'}
                   alt={story.title}
                   className="w-full sm:w-44 h-32 object-cover rounded-lg shrink-0"
                 />

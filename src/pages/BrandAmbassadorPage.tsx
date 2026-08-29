@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BackButton } from '../components/ui/BackButton';
+import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { PageHero } from '../components/ui/PageHero';
 import { CheckCircle2, Award, Send, Users, Shield, GraduationCap, Building2 } from 'lucide-react';
 
@@ -28,20 +28,20 @@ export const BrandAmbassadorPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 pb-16 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
-      <BackButton />
+    <div className="w-full space-y-8 pb-20 pt-20 sm:pt-24 px-4 sm:px-8 lg:px-12 xl:px-16 bg-white text-slate-900 font-sans">
+      <Breadcrumb items={[{ label: 'Ambassadors' }]} />
 
-      {/* Hero */}
-      <PageHero
-        tag="CAMPUS & INSTITUTION LEADERSHIP"
-        title="Become a Brandex Campus Ambassador"
-        description="Represent Brandex at your university or school. Champion technology education, host Geniusphere workshops, build student guilds, and connect with industry mentors."
-        widgetTitle="Ambassador.Program"
-        widgetStatLabel="Active Chapters"
-        widgetStatValue="28 Campus Hubs"
-        widgetStatusLabel="Applications"
-        widgetStatusText="Now Open for 2026"
-      />
+        {/* Hero */}
+        <PageHero
+          tag="CAMPUS & INSTITUTION LEADERSHIP"
+          title="Become a Brandex Campus Ambassador"
+          description="Represent Brandex at your university or school. Champion technology education, host Geniusphere workshops, build student guilds, and connect with industry mentors."
+          widgetTitle="Ambassador.Program"
+          widgetStatLabel="Active Chapters"
+          widgetStatValue="28 Campus Hubs"
+          widgetStatusLabel="Applications"
+          widgetStatusText="Now Open for 2026"
+        />
 
       {/* Benefits Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -89,14 +89,34 @@ export const BrandAmbassadorPage: React.FC = () => {
         </div>
 
         {submitted ? (
-          <div className="py-12 text-center space-y-4 animate-fade-in">
+          <div className="p-8 bg-emerald-50 border-2 border-emerald-200 rounded-3xl text-center space-y-4 animate-fade-in">
             <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-8 h-8" />
             </div>
-            <h3 className="text-2xl font-display font-bold text-slate-900">Application Submitted!</h3>
-            <p className="text-sm text-slate-600 max-w-md mx-auto">
-              Thank you, <strong className="text-slate-900">{formData.fullName}</strong>. Your ambassador application for <span className="text-indigo-600 font-semibold">{formData.institution}</span> has been logged. We will contact you shortly.
+            <h3 className="text-2xl font-display font-bold text-slate-900">Application Submitted Successfully!</h3>
+            <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
+              Thank you for applying to become a Brandex Campus Ambassador. Our admissions and community team will review your application within 48 hours.
             </p>
+            <div className="p-4 bg-white border border-emerald-200 rounded-2xl max-w-md mx-auto text-left space-y-2">
+              <div className="text-xs text-slate-400 font-mono">Your Tracking Reference:</div>
+              <div className="text-base font-mono font-bold text-indigo-600">BX-2026-4401</div>
+              <div className="text-[11px] text-slate-500">You can use this reference to track your application status anytime.</div>
+            </div>
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
+              <a
+                href="/status?id=BX-2026-4401"
+                className="btn-primary text-xs px-5 py-2.5 bg-indigo-600 text-white rounded-lg shadow-sm hover:bg-indigo-700 transition-colors"
+              >
+                <span>Track Application Status</span>
+              </a>
+              <button
+                type="button"
+                onClick={() => setSubmitted(false)}
+                className="text-xs font-semibold text-slate-600 hover:text-slate-900 underline"
+              >
+                Submit another application
+              </button>
+            </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -212,7 +232,7 @@ export const BrandAmbassadorPage: React.FC = () => {
             </button>
           </form>
         )}
-      </div>
+        </div>
     </div>
   );
 };

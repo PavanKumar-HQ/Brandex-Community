@@ -53,7 +53,7 @@ export const TrainingDetailPage: React.FC = () => {
   const instructorName = typeof program.instructor === 'object' ? program.instructor.name : program.instructor;
   const instructorRole = typeof program.instructor === 'object' ? program.instructor.role : 'Lead Instructor';
   const instructorBio = typeof program.instructor === 'object' ? program.instructor.bio : 'Instructor and domain specialist at Brandex.';
-  const instructorAvatar = (typeof program.instructor === 'object' && program.instructor.avatar) ? program.instructor.avatar : '/brandex-logo.png';
+  const instructorAvatar = (typeof program.instructor === 'object' && program.instructor.avatar) ? program.instructor.avatar : '/brandex-logo.webp';
 
   return (
     <div className="space-y-8 sm:space-y-12 pb-16 pt-20 bg-white">

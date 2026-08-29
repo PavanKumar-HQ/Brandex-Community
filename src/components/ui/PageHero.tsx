@@ -59,11 +59,8 @@ export const PageHero: React.FC<PageHeroProps> = ({
 
         {/* Right Decorative Element: Logo */}
         <div className="hidden lg:flex lg:col-span-4 items-center justify-end relative">
-          <div className="relative w-32 h-32 sm:w-40 sm:h-40 p-4 bg-white/40 backdrop-blur-sm rounded-full shadow-lg shadow-indigo-100/50 border border-white/60 flex items-center justify-center">
-            <img src="/brandex-logo.png" alt="Brandex Icon" className="w-full h-full object-contain opacity-90 drop-shadow-md" />
-            
-            {/* Decorative background glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-indigo-400/10 rounded-full blur-3xl -z-10"></div>
+          <div className="relative px-6 py-4 bg-white/80 backdrop-blur-md rounded-2xl shadow-sm border border-indigo-100 flex items-center justify-center">
+            <img src="/brandex-full-logo.webp" alt="Brandex Logo" className="h-10 w-auto object-contain drop-shadow-xs" />
           </div>
         </div>
       </div>

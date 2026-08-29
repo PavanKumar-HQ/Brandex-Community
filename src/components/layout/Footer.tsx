@@ -48,8 +48,8 @@ export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-900 text-slate-300 border-t border-slate-800 pt-16 pb-12 font-sans">
-      <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 space-y-12">
+    <footer className="bg-slate-900 text-slate-300 border-t border-slate-800 pt-16 pb-12 font-sans w-full">
+      <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 space-y-12">
         
         {/* Top Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
@@ -58,7 +58,7 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-4 space-y-4">
             <NavLink to="/" className="inline-flex items-center gap-3 group">
               <img
-                src="/brandex-logo.png"
+                src="/brandex-logo.webp"
                 alt="Brandex Logo"
                 className="h-9 w-auto object-contain brightness-0 invert"
               />
@@ -102,17 +102,18 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2 text-xs font-medium">
               {[
-
                 { name: 'Work With Brandex', path: '/work-with-us' },
+                { name: 'Application Status', path: '/status' },
                 { name: 'Community Circles', path: '/community' },
                 { name: 'Community Guidelines', path: '/community/guidelines' },
                 { name: 'Education Pathways', path: '/education' },
                 { name: 'Technical Training', path: '/training' },
                 { name: 'Events & Summits', path: '/events' },
+                { name: 'Media & Videos', path: '/media' },
                 { name: 'Global Search', path: '/search' },
                 { name: 'Campus Ambassadors', path: '/ambassador' },
                 { name: 'Impact Stories', path: '/stories' },
-                { name: 'Careers & Status', path: '/careers' },
+                { name: 'Careers & Team', path: '/careers' },
                 { name: 'About Brandex', path: '/about' },
               ].map((link) => (
                 <li key={link.path}>
@@ -162,11 +163,16 @@ export const Footer: React.FC = () => {
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-indigo-400 shrink-0" />
-                <a href="tel:9986880072" className="hover:text-white transition-colors">+91 99868 80072</a>
+                <span className="text-slate-300 font-mono">+91 99868 80072</span>
               </div>
               <div className="flex items-center gap-3">
                 <ArrowUpRight className="w-4 h-4 text-indigo-400 shrink-0" />
-                <a href="https://www.brandex.co.in" target="_blank" rel="noreferrer" className="hover:text-white text-indigo-400 font-semibold transition-colors">
+                <a 
+                  href="https://www.brandex.co.in/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:text-white transition-colors text-indigo-400"
+                >
                   www.brandex.co.in
                 </a>
               </div>
@@ -200,13 +206,13 @@ export const Footer: React.FC = () => {
               className="flex items-center gap-3 opacity-90 hover:opacity-100 transition-opacity"
             >
               <span className="text-xs text-slate-300 font-bold tracking-widest">A PRODUCT OF</span>
-              <img src="/brandex-footer-logo.png" alt="Brandex Logo" className="h-6" />
+              <img src="/brandex-footer-logo.webp" alt="Brandex Logo" className="h-6" />
             </a>
           </div>
 
           <div className="flex items-center justify-center md:justify-end space-x-6 text-xs font-medium md:w-1/3">
-            <NavLink to="/about" className="hover:text-white transition-colors">Privacy Policy</NavLink>
-            <NavLink to="/about" className="hover:text-white transition-colors">Terms of Service</NavLink>
+            <NavLink to="/privacy" className="hover:text-white transition-colors">Privacy Policy</NavLink>
+            <NavLink to="/terms" className="hover:text-white transition-colors">Terms of Service</NavLink>
             <NavLink to="/community/guidelines" className="hover:text-white transition-colors">Guidelines</NavLink>
           </div>
         </div>

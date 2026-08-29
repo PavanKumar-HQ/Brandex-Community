@@ -79,7 +79,7 @@ export const StoriesPage: React.FC = () => {
             >
               <div className="relative aspect-[16/9] overflow-hidden bg-slate-100">
                 <img
-                  src={story.coverImage || '/brandex-full-logo.png'}
+                  src={story.coverImage || '/brandex-full-logo.webp'}
                   alt={story.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
