@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu, ArrowRight, Search, Handshake } from 'lucide-react';
+import { Menu, ArrowRight, Handshake } from 'lucide-react';
 import { MobileNavigation } from './MobileNavigation';
-import { SearchModal } from '../ui/SearchModal';
 import { useRegistration } from '../../contexts/RegistrationContext';
 
 export const Navbar: React.FC = () => {
@@ -93,35 +92,18 @@ export const Navbar: React.FC = () => {
 
           {/* Desktop Action Buttons */}
           <div className="hidden md:flex items-center space-x-2.5 shrink-0">
-            {/* Global Search Button */}
-            <button
-              onClick={() => setSearchOpen(true)}
-              className="inline-flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-2 rounded-xl text-xs font-medium transition-colors"
-              title="Search across Brandex (Cmd + K)"
-            >
-              <Search className="w-3.5 h-3.5 text-indigo-600" />
-              <span className="hidden xl:inline">Search</span>
-              <kbd className="hidden xl:inline text-[10px] bg-white border border-slate-200 px-1.5 py-0.5 rounded font-mono text-slate-400">⌘K</kbd>
-            </button>
 
             <button
               onClick={() => openModal()}
               className="inline-flex items-center gap-1.5 bg-indigo-600 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-indigo-700 transition-all shadow-sm active:scale-95"
             >
-              <span>Join Circle</span>
+              <span>Join Brandex</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
 
           {/* Mobile Menu Trigger */}
           <div className="flex items-center gap-2 lg:hidden">
-            <button
-              onClick={() => setSearchOpen(true)}
-              aria-label="Search"
-              className="p-2 border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50"
-            >
-              <Search className="w-4 h-4 text-indigo-600" />
-            </button>
 
             <button
               onClick={() => openModal()}
@@ -141,8 +123,6 @@ export const Navbar: React.FC = () => {
         </div>
       </header>
 
-      {/* Global Search Modal */}
-      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
 
       {/* Mobile Drawer */}
       <MobileNavigation isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
