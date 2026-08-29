@@ -200,7 +200,7 @@ export const Footer: React.FC = () => {
               className="flex items-center gap-3 opacity-90 hover:opacity-100 transition-opacity"
             >
               <span className="text-xs text-slate-300 font-bold tracking-widest">A PRODUCT OF</span>
-              <img src="/brandex-logo.png" alt="Brandex Logo" className="h-6" />
+              <img src="/brandex-footer-logo.png" alt="Brandex Logo" className="h-6" />
             </a>
           </div>
 
