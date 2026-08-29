@@ -179,13 +179,15 @@ export const SearchPage: React.FC = () => {
                   </p>
                 </div>
 
-                <NavLink
-                  to={item.searchLink}
-                  className="text-xs font-bold text-indigo-600 hover:underline inline-flex items-center gap-1.5 pt-3 border-t border-slate-100"
-                >
-                  <span>Explore Details</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </NavLink>
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                  <NavLink
+                    to={item.searchLink}
+                    className="px-3.5 py-1.5 bg-indigo-50 hover:bg-indigo-600 text-indigo-700 hover:text-white text-xs font-bold rounded-xl transition-all duration-200 inline-flex items-center gap-1.5 shadow-2xs hover:shadow-xs"
+                  >
+                    <span>Explore Details</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </NavLink>
+                </div>
               </div>
             ))}
           </div>

@@ -148,7 +148,7 @@ export const NowPage: React.FC = () => {
                       )
                     })
                   }
-                  className="text-indigo-600 font-semibold hover:underline inline-flex items-center gap-1"
+                  className="px-3 py-1.5 bg-indigo-50 hover:bg-indigo-600 text-indigo-700 hover:text-white text-xs font-semibold rounded-lg transition-all inline-flex items-center gap-1.5 shadow-2xs hover:shadow-xs"
                 >
                   <Eye className="w-3.5 h-3.5" />
                   <span>Quick View</span>
@@ -183,7 +183,7 @@ export const NowPage: React.FC = () => {
                 </div>
                 <NavLink
                   to={`/training/${tr.slug}`}
-                  className="text-purple-600 font-semibold hover:underline inline-flex items-center gap-1"
+                  className="px-3 py-1.5 bg-purple-50 hover:bg-purple-600 text-purple-700 hover:text-white text-xs font-semibold rounded-lg transition-all inline-flex items-center gap-1.5 shadow-2xs hover:shadow-xs"
                 >
                   <span>Curriculum</span>
                   <ArrowRight className="w-3 h-3" />
@@ -314,13 +314,15 @@ export const NowPage: React.FC = () => {
                   {story.excerpt}
                 </p>
               </div>
-              <NavLink
-                to={`/stories/${story.slug}`}
-                className="text-xs font-bold text-indigo-600 hover:underline inline-flex items-center gap-1 pt-2 border-t border-slate-100"
-              >
-                <span>Read Story</span>
-                <ArrowRight className="w-3 h-3" />
-              </NavLink>
+              <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
+                <NavLink
+                  to={`/stories/${story.slug}`}
+                  className="px-3.5 py-1.5 bg-indigo-50 hover:bg-indigo-600 text-indigo-700 hover:text-white text-xs font-bold rounded-xl transition-all duration-200 inline-flex items-center gap-1.5 shadow-xs hover:shadow-sm"
+                >
+                  <span>Read Story</span>
+                  <ArrowRight className="w-3 h-3" />
+                </NavLink>
+              </div>
             </div>
           ))}
 
