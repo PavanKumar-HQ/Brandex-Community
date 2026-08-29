@@ -28,7 +28,6 @@ import { ContactPage } from './pages/ContactPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { CareersPage } from './pages/CareersPage';
 import { RegistrationModal } from './components/ui/RegistrationModal';
-import { PersistentJoinCTA } from './components/ui/PersistentJoinCTA';
 
 // Page Transition Wrapper Component
 const PageWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -109,7 +108,6 @@ export const App: React.FC = () => {
           </Suspense>
         </main>
 
-        <PersistentJoinCTA />
         <RegistrationModal />
         <Footer />
       </div>
