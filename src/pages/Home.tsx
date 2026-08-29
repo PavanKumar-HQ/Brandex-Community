@@ -144,7 +144,7 @@ export const Home: React.FC = () => {
             </div>
 
             <p className="text-lg sm:text-xl text-slate-600 max-w-lg leading-relaxed font-medium">
-              The digital home showcasing technology communities, educational workshops, student achievements, and live events.
+              A community space for everyone—bringing people together to learn new skills, share stories, celebrate student achievements, and build the future together.
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-4">
@@ -205,7 +205,7 @@ export const Home: React.FC = () => {
           {[
             {
               title: 'Community',
-              desc: 'Specialized technology domain circles in AI, Cybersecurity, and UX.',
+              desc: 'Collaborative circles for everyone to explore AI, digital safety, and design together.',
               path: '/community',
               icon: Users,
               color: 'text-indigo-600 bg-indigo-50',

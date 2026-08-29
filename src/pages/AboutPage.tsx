@@ -82,7 +82,7 @@ export const AboutPage: React.FC = () => {
           </h2>
 
           <p>
-            Brandex was built to avoid the difficulties of traditional, static technology education and enhance direct, real-world knowledge sharing. We wanted to create a space where developers, researchers, and students are well-aware of modern engineering tools, meet to network, and actively exchange their knowledge.
+            Brandex was built to bring people together, breaking down the barriers of traditional education so that learning is open to everyone. We wanted to create a welcoming, friendly space where students, creators, and professionals of all backgrounds can gather, share their experiences, and grow together.
           </p>
 
           <p className="text-slate-900 font-semibold text-lg border-l-4 border-indigo-600 pl-4 py-1.5 italic bg-indigo-50/50 rounded-r-lg">
