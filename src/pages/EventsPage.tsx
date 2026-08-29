@@ -73,7 +73,8 @@ export const EventsPage: React.FC = () => {
             </button>
           </div>
 
-          <span className="text-xs text-slate-500 font-semibold hidden sm:inline">
+          <span className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-bold rounded-full uppercase tracking-wider shadow-sm hidden sm:inline-flex">
+            <span className="w-1.5 h-1.5 bg-indigo-600 rounded-full animate-pulse" />
             Showing {events.length} {activeTab === 'upcoming' ? 'Upcoming Event(s)' : 'Archived Event(s)'}
           </span>
         </div>
