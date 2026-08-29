@@ -144,7 +144,7 @@ const StatusCheckerForm: React.FC = () => {
         setResult("No application record found for this email address. Submit your CV to careers@brandex.network first.");
         setStatusType('error');
       }
-    }, 1000);
+    }, 2000);
   };
 
   return (
@@ -171,8 +171,8 @@ const StatusCheckerForm: React.FC = () => {
         >
           {loading ? (
             <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              <span>Verifying application...</span>
+              <Loader2 className="w-5 h-5 animate-spin text-white" />
+              <span className="text-white">Verifying application...</span>
             </>
           ) : (
             <span>Check Application Status</span>
