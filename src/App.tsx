@@ -24,8 +24,6 @@ import { StoryDetailPage } from './pages/StoryDetailPage';
 import { BlogPage } from './pages/BlogPage';
 import { AboutPage } from './pages/AboutPage';
 import { BrandAmbassadorPage } from './pages/BrandAmbassadorPage';
-import { AppDashboardPage } from './pages/AppDashboardPage';
-import { AdminDashboardPage } from './pages/AdminDashboardPage';
 import { ContactPage } from './pages/ContactPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { CareersPage } from './pages/CareersPage';
@@ -104,8 +102,6 @@ export const App: React.FC = () => {
                 <Route path="/ambassador" element={<PageWrapper><BrandAmbassadorPage /></PageWrapper>} />
                 <Route path="/careers" element={<PageWrapper><CareersPage /></PageWrapper>} />
                 <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
-                <Route path="/app/dashboard" element={<PageWrapper><AppDashboardPage /></PageWrapper>} />
-                <Route path="/admin" element={<PageWrapper><AdminDashboardPage /></PageWrapper>} />
                 {/* Catch-all route */}
                 <Route path="*" element={<PageWrapper><NotFoundPage /></PageWrapper>} />
               </Routes>

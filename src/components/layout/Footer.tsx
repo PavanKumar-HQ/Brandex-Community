@@ -195,7 +195,7 @@ export const Footer: React.FC = () => {
           <div className="flex items-center space-x-6 text-xs font-medium">
             <NavLink to="/about" className="hover:text-white transition-colors">Privacy Policy</NavLink>
             <NavLink to="/about" className="hover:text-white transition-colors">Terms of Service</NavLink>
-            <NavLink to="/admin" className="text-slate-400 hover:text-indigo-400 transition-colors">Admin Portal</NavLink>
+            <NavLink to="/community/guidelines" className="hover:text-white transition-colors">Guidelines</NavLink>
           </div>
         </div>
 
