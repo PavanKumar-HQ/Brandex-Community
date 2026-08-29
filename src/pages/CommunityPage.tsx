@@ -46,12 +46,13 @@ export const CommunityPage: React.FC = () => {
 
   return (
     <div className="space-y-12 pb-20 pt-24 w-full px-4 sm:px-8 lg:px-12 xl:px-24 bg-white text-slate-900 font-sans">
-      <div className="flex items-center justify-between">
-        <BackButton />
-        <ShareButton title="Brandex Community — Domain Circles & Guilds" />
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <BackButton />
+          <ShareButton title="Brandex Community — Domain Circles & Guilds" />
+        </div>
+        <Breadcrumb items={[{ label: 'Community Circles' }]} />
       </div>
-
-      <Breadcrumb items={[{ label: 'Community Circles' }]} />
       
       {/* Hero Header */}
       <PageHero 
