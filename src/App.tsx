@@ -8,7 +8,6 @@ import { ThemeProvider } from './contexts/ThemeContext';
 
 // Page Components
 import { Home } from './pages/Home';
-import { NowPage } from './pages/NowPage';
 import { WorkWithBrandexPage } from './pages/WorkWithBrandexPage';
 import { CommunityPage } from './pages/CommunityPage';
 import { CommunityGuidelinesPage } from './pages/CommunityGuidelinesPage';
@@ -82,7 +81,7 @@ export const App: React.FC = () => {
             <AnimatePresence mode="wait">
               <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
-                <Route path="/now" element={<PageWrapper><NowPage /></PageWrapper>} />
+
                 <Route path="/work-with-us" element={<PageWrapper><WorkWithBrandexPage /></PageWrapper>} />
                 <Route path="/search" element={<PageWrapper><SearchPage /></PageWrapper>} />
                 <Route path="/community" element={<PageWrapper><CommunityPage /></PageWrapper>} />

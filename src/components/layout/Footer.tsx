@@ -102,7 +102,7 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2 text-xs font-medium">
               {[
-                { name: 'Live "Now" Pulse', path: '/now' },
+
                 { name: 'Work With Brandex', path: '/work-with-us' },
                 { name: 'Community Circles', path: '/community' },
                 { name: 'Community Guidelines', path: '/community/guidelines' },
@@ -192,10 +192,21 @@ export const Footer: React.FC = () => {
             <div className="text-slate-400 font-mono text-[11px]">GSTIN: 29OGNPS8060K1Z5</div>
           </div>
 
-          <div className="flex items-center space-x-6 text-xs font-medium">
-            <NavLink to="/about" className="hover:text-white transition-colors">Privacy Policy</NavLink>
-            <NavLink to="/about" className="hover:text-white transition-colors">Terms of Service</NavLink>
-            <NavLink to="/community/guidelines" className="hover:text-white transition-colors">Guidelines</NavLink>
+          <div className="flex flex-col items-center sm:items-end gap-2">
+            <div className="flex items-center space-x-6 text-xs font-medium">
+              <NavLink to="/about" className="hover:text-white transition-colors">Privacy Policy</NavLink>
+              <NavLink to="/about" className="hover:text-white transition-colors">Terms of Service</NavLink>
+              <NavLink to="/community/guidelines" className="hover:text-white transition-colors">Guidelines</NavLink>
+            </div>
+            <a 
+              href="https://www.brandex.co.in/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 mt-2 opacity-80 hover:opacity-100 transition-opacity"
+            >
+              <span className="text-[10px] text-slate-400 font-medium">POWERED BY</span>
+              <img src="/brandex-logo.png" alt="Brandex Logo" className="h-4" />
+            </a>
           </div>
         </div>
 

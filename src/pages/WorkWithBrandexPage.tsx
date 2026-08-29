@@ -18,7 +18,8 @@ import {
   AlertCircle,
   Clock,
   ArrowRight,
-  HeartHandshake
+  HeartHandshake,
+  Users
 } from 'lucide-react';
 
 interface EnquiryCategoryOption {
@@ -188,6 +189,42 @@ export const WorkWithBrandexPage: React.FC = () => {
           <ArrowRight className="w-3.5 h-3.5" />
         </a>
       </div>
+
+      {/* Why Partner With Brandex Section */}
+      <section className="py-8 space-y-6">
+        <div className="text-center max-w-2xl mx-auto space-y-2">
+          <h2 className="text-2xl font-display font-bold text-slate-900">
+            Why Partner With Brandex?
+          </h2>
+          <p className="text-sm text-slate-600 leading-relaxed">
+            We are building the most active and capable developer ecosystem in the country. Our partners gain direct access to top-tier technical talent and innovative learning models.
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+          <div className="p-6 bg-slate-50 border border-slate-200/60 rounded-2xl space-y-3">
+            <div className="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center">
+              <GraduationCap className="w-5 h-5" />
+            </div>
+            <h3 className="font-bold text-slate-900 text-base">Open-Source Syllabus</h3>
+            <p className="text-sm text-slate-600">Access our proven, field-tested AI and cybersecurity curriculum used by leading secondary schools.</p>
+          </div>
+          <div className="p-6 bg-slate-50 border border-slate-200/60 rounded-2xl space-y-3">
+            <div className="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center">
+              <Users className="w-5 h-5" />
+            </div>
+            <h3 className="font-bold text-slate-900 text-base">Talent Pipeline</h3>
+            <p className="text-sm text-slate-600">Engage directly with passionate student builders and emerging engineers through workshops and hackathons.</p>
+          </div>
+          <div className="p-6 bg-slate-50 border border-slate-200/60 rounded-2xl space-y-3">
+            <div className="w-10 h-10 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <h3 className="font-bold text-slate-900 text-base">Corporate Upskilling</h3>
+            <p className="text-sm text-slate-600">Elevate your team's capabilities with hands-on, scenario-based wargames and technical training cohorts.</p>
+          </div>
+        </div>
+      </section>
 
       {/* STEP 1: SELECT ENQUIRY TYPE */}
       <section className="space-y-4">
