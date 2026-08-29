@@ -79,9 +79,6 @@ export const Navbar: React.FC = () => {
               >
                 {({ isActive }) => (
                   <>
-                    {link.isLive && (
-                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping" />
-                    )}
                     <span>{link.name}</span>
                     <span
                       className={`absolute bottom-0 left-0 w-full h-[2px] bg-indigo-600 transform origin-left transition-transform duration-300 ease-out ${

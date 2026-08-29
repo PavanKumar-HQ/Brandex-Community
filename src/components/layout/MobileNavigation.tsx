@@ -58,9 +58,6 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onCl
               }
             >
               <div className="flex items-center gap-2">
-                {link.isLive && (
-                  <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
-                )}
                 <span>{link.name}</span>
               </div>
               <ArrowRight className="w-4 h-4 text-slate-300" />
