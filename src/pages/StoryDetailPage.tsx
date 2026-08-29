@@ -108,7 +108,7 @@ export const StoryDetailPage: React.FC = () => {
 
           {/* Editorial Content */}
           <div className="prose prose-slate max-w-none text-slate-700 text-base leading-relaxed pt-2 space-y-6">
-            <p className="text-lg font-bold text-slate-900 leading-relaxed border-l-4 border-indigo-600 pl-4 bg-indigo-50/20 py-2 rounded-r-lg">
+            <p className="text-base font-semibold text-slate-800 leading-relaxed bg-slate-50 border border-slate-200/80 p-4 rounded-2xl">
               {story.excerpt}
             </p>
             <p className="whitespace-pre-line text-slate-600">{story.content}</p>

@@ -28,7 +28,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
   const linkClasses = "inline-flex items-center gap-2 bg-indigo-600 border border-indigo-700 text-white hover:bg-indigo-700 px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 active:scale-95 group";
 
   return (
-    <div className={`mb-8 sm:mb-12 border-l-4 border-indigo-600 pl-4 sm:pl-6 ${className}`}>
+    <div className={`mb-8 sm:mb-12 ${className}`}>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1.5 max-w-3xl">
           {tag && (
