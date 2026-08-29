@@ -60,7 +60,7 @@ export const AboutPage: React.FC = () => {
       />
 
       {/* Mission Statement */}
-      <section className="max-w-3xl space-y-4">
+      <section className="max-w-none space-y-4">
         <div className="inline-flex items-center justify-center px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-700 font-bold uppercase tracking-widest text-xs rounded-full">
           THE BRANDEX MISSION
         </div>
@@ -86,7 +86,7 @@ export const AboutPage: React.FC = () => {
           </p>
 
           <p className="text-slate-900 font-semibold text-lg border-l-4 border-indigo-600 pl-4 py-1.5 italic bg-indigo-50/50 rounded-r-lg">
-            "We conduct various practical activities—from cybersecurity wargames to AI agent sprints—to ensure that high-fidelity technology knowledge is readily available to everyone."
+            "We bring people together to build, play, and learn—from coding battles to creating AI tools—to make sure technology belongs to everyone, not just a few."
           </p>
 
           <p>

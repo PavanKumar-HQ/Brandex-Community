@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { PageLoadingScreen } from './components/layout/PageLoadingScreen';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 // Lazy Loaded Page Components
 import { Home } from './pages/Home';
@@ -44,46 +45,69 @@ const PageWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 export const App: React.FC = () => {
   const location = useLocation();
 
+  // Scroll position persistence on navigation & refresh
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
+    const key = `scrollPosition_${location.pathname}_${location.search}`;
+    const saved = sessionStorage.getItem(key);
+    if (saved) {
+      setTimeout(() => {
+        window.scrollTo({
+          top: parseInt(saved, 10),
+          behavior: 'auto'
+        });
+      }, 80);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname, location.search]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const key = `scrollPosition_${location.pathname}_${location.search}`;
+      sessionStorage.setItem(key, window.scrollY.toString());
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [location.pathname, location.search]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-slate-900 selection:bg-indigo-600 selection:text-white font-sans">
-      <Navbar />
+    <ThemeProvider>
+      <div className="min-h-screen flex flex-col bg-white dark:bg-[#030712] text-brand-dark selection:bg-indigo-600 selection:text-white font-sans transition-colors duration-300">
+        <Navbar />
 
-      <main className="flex-1 flex flex-col w-full max-w-[1400px] mx-auto">
-        <Suspense fallback={<PageLoadingScreen />}>
-          <AnimatePresence mode="wait">
-            <Routes location={location} key={location.pathname}>
-              <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
-              <Route path="/community" element={<PageWrapper><CommunityPage /></PageWrapper>} />
-              <Route path="/education" element={<PageWrapper><EducationPage /></PageWrapper>} />
-              <Route path="/training" element={<PageWrapper><TrainingPage /></PageWrapper>} />
-              <Route path="/training/:slug" element={<PageWrapper><TrainingDetailPage /></PageWrapper>} />
-              <Route path="/events" element={<PageWrapper><EventsPage /></PageWrapper>} />
-              <Route path="/events/:slug" element={<PageWrapper><EventDetailPage /></PageWrapper>} />
-              <Route path="/media" element={<PageWrapper><MediaPage /></PageWrapper>} />
-              <Route path="/media/photos" element={<PageWrapper><MediaPage /></PageWrapper>} />
-              <Route path="/stories" element={<PageWrapper><StoriesPage /></PageWrapper>} />
-              <Route path="/stories/:slug" element={<PageWrapper><StoryDetailPage /></PageWrapper>} />
-              <Route path="/blog" element={<Navigate to="/stories" replace />} />
-              <Route path="/about" element={<PageWrapper><AboutPage /></PageWrapper>} />
-              <Route path="/ambassador" element={<PageWrapper><BrandAmbassadorPage /></PageWrapper>} />
-              <Route path="/careers" element={<PageWrapper><CareersPage /></PageWrapper>} />
-              <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
-              <Route path="/app/dashboard" element={<PageWrapper><AppDashboardPage /></PageWrapper>} />
-              <Route path="/admin" element={<PageWrapper><AdminDashboardPage /></PageWrapper>} />
-              {/* Catch-all route */}
-              <Route path="*" element={<PageWrapper><NotFoundPage /></PageWrapper>} />
-            </Routes>
-          </AnimatePresence>
-        </Suspense>
-      </main>
+        <main className="flex-1 flex flex-col w-full max-w-[1400px] mx-auto">
+          <Suspense fallback={<PageLoadingScreen />}>
+            <AnimatePresence mode="wait">
+              <Routes location={location} key={location.pathname}>
+                <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
+                <Route path="/community" element={<PageWrapper><CommunityPage /></PageWrapper>} />
+                <Route path="/education" element={<PageWrapper><EducationPage /></PageWrapper>} />
+                <Route path="/training" element={<PageWrapper><TrainingPage /></PageWrapper>} />
+                <Route path="/training/:slug" element={<PageWrapper><TrainingDetailPage /></PageWrapper>} />
+                <Route path="/events" element={<PageWrapper><EventsPage /></PageWrapper>} />
+                <Route path="/events/:slug" element={<PageWrapper><EventDetailPage /></PageWrapper>} />
+                <Route path="/media" element={<PageWrapper><MediaPage /></PageWrapper>} />
+                <Route path="/media/photos" element={<PageWrapper><MediaPage /></PageWrapper>} />
+                <Route path="/stories" element={<PageWrapper><StoriesPage /></PageWrapper>} />
+                <Route path="/stories/:slug" element={<PageWrapper><StoryDetailPage /></PageWrapper>} />
+                <Route path="/blog" element={<Navigate to="/stories" replace />} />
+                <Route path="/about" element={<PageWrapper><AboutPage /></PageWrapper>} />
+                <Route path="/ambassador" element={<PageWrapper><BrandAmbassadorPage /></PageWrapper>} />
+                <Route path="/careers" element={<PageWrapper><CareersPage /></PageWrapper>} />
+                <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
+                <Route path="/app/dashboard" element={<PageWrapper><AppDashboardPage /></PageWrapper>} />
+                <Route path="/admin" element={<PageWrapper><AdminDashboardPage /></PageWrapper>} />
+                {/* Catch-all route */}
+                <Route path="*" element={<PageWrapper><NotFoundPage /></PageWrapper>} />
+              </Routes>
+            </AnimatePresence>
+          </Suspense>
+        </main>
 
-      <RegistrationModal />
-      <Footer />
-    </div>
+        <RegistrationModal />
+        <Footer />
+      </div>
+    </ThemeProvider>
   );
 };
 

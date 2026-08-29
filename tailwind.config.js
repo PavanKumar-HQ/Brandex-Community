@@ -9,19 +9,19 @@ export default {
     extend: {
       colors: {
         brand: {
-          dark: '#0f172a',            // Slate 900 primary text
-          navy: '#1e293b',            // Slate 800 headings
-          surface: '#ffffff',         // White card surface
-          bg: '#f8fafc',              // Slate 50 clean light background
-          'surface-subtle': '#f1f5f9',// Slate 100 subtle surface fill
-          border: '#e2e8f0',          // Slate 200 clean light border
-          'border-hover': '#cbd5e1',  // Slate 300 active border
-          muted: '#64748b',           // Slate 500 body text
-          'muted-dark': '#475569',    // Slate 600 secondary text
-          primary: '#4f46e5',         // Royal Indigo primary brand accent
-          'primary-hover': '#4338ca', // Indigo hover
-          blue: '#3b82f6',            // Electric Blue accent
-          'accent-bg': '#e0e7ff',     // Soft indigo tint for tags
+          dark: 'var(--text-primary)',
+          navy: 'var(--text-primary)',
+          surface: 'var(--card-bg)',
+          bg: 'var(--bg-secondary)',
+          'surface-subtle': 'var(--bg-secondary)',
+          border: 'var(--border-color)',
+          'border-hover': 'var(--text-muted)',
+          muted: 'var(--text-muted)',
+          'muted-dark': 'var(--text-secondary)',
+          primary: '#4f46e5',
+          'primary-hover': '#4338ca',
+          blue: '#3b82f6',
+          'accent-bg': 'var(--accent-glow)',
         }
       },
       fontFamily: {

@@ -30,7 +30,7 @@ export const CareersPage: React.FC = () => {
         <SectionHeading
           tag="WHY BRANDEX"
           title="Build With Purpose"
-          description="We are building the definitive ecosystem for technology education and community building."
+          subtitle="We are building the definitive ecosystem for technology education and community building."
         />
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -72,11 +72,11 @@ export const CareersPage: React.FC = () => {
         <SectionHeading
           tag="OPEN POSITIONS"
           title="Explore Open Roles"
-          description="Find your next opportunity at Brandex."
+          subtitle="Find your next opportunity at Brandex."
         />
         
-        <div className="bg-slate-50 border border-slate-200 border-dashed rounded-3xl p-12 text-center flex flex-col items-center justify-center space-y-4">
-          <div className="w-16 h-16 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-400 mb-2 shadow-sm">
+        <div className="bg-slate-50 border border-slate-200 border-dashed rounded-none p-12 text-center flex flex-col items-center justify-center space-y-4">
+          <div className="w-16 h-16 bg-white border border-slate-200 rounded-none flex items-center justify-center text-slate-400 mb-2 shadow-sm">
             <Briefcase className="w-6 h-6" />
           </div>
           <h3 className="text-xl font-bold text-slate-900">No Open Roles Right Now</h3>
@@ -90,6 +90,86 @@ export const CareersPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Application Status Tracker */}
+      <section className="space-y-6 pt-8 border-t border-slate-200">
+        <SectionHeading
+          tag="STATUS CHECKER"
+          title="Check Review Status"
+          subtitle="Input your application email to check your status."
+        />
+        <StatusCheckerForm />
+      </section>
+
+    </div>
+  );
+};
+
+const StatusCheckerForm: React.FC = () => {
+  const [email, setEmail] = React.useState('');
+  const [result, setResult] = React.useState<string | null>(null);
+  const [statusType, setStatusType] = React.useState<'info' | 'success' | 'warning' | 'error' | null>(null);
+
+  const handleCheck = (e: React.FormEvent) => {
+    e.preventDefault();
+    const cleanEmail = email.trim().toLowerCase();
+    if (!cleanEmail) {
+      setResult("Please enter a valid email address.");
+      setStatusType('error');
+      return;
+    }
+
+    // Mock Database for Career Submissions
+    const mockDb: Record<string, { status: string; type: 'info' | 'success' | 'warning' | 'error' }> = {
+      'pavan@brandex.network': { status: 'Application Approved - Welcome to the Core Executive Team.', type: 'success' },
+      'alex.mercer@gmail.com': { status: 'Under Technical Evaluation - Engineering task review is active.', type: 'info' },
+      'sathvik@brandex.network': { status: 'Application Approved - Welcome to the Core Tech Team.', type: 'success' },
+      'candidate@example.com': { status: 'Interview Scheduled - Please check your calendar for the invite link.', type: 'success' },
+      'rejected@example.com': { status: 'Review Concluded - Thank you for applying. We are not moving forward at this time.', type: 'warning' },
+    };
+
+    if (mockDb[cleanEmail]) {
+      setResult(mockDb[cleanEmail].status);
+      setStatusType(mockDb[cleanEmail].type);
+    } else {
+      setResult("No application record found for this email address. Submit your CV to careers@brandex.network first.");
+      setStatusType('error');
+    }
+  };
+
+  return (
+    <div className="bg-slate-50 border border-slate-200 p-6 w-full space-y-4 rounded-2xl">
+      <form onSubmit={handleCheck} className="space-y-3">
+        <div className="flex flex-col space-y-1.5">
+          <label htmlFor="email" className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+            Registered Email Address
+          </label>
+          <input
+            id="email"
+            type="email"
+            placeholder="candidate@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="border border-slate-200 px-3.5 py-2.5 text-sm bg-white text-slate-900 focus:outline-none focus:border-indigo-600 w-full rounded-lg"
+          />
+        </div>
+        <button
+          type="submit"
+          className="btn-primary w-full py-2.5 text-sm font-semibold rounded-lg"
+        >
+          Check Application Status
+        </button>
+      </form>
+
+      {result && (
+        <div className={`p-4 text-xs font-medium border rounded-lg ${
+          statusType === 'success' ? 'bg-emerald-50 border-emerald-250 text-emerald-800' :
+          statusType === 'warning' ? 'bg-amber-50 border-amber-250 text-amber-800' :
+          statusType === 'error' ? 'bg-red-50 border-red-200 text-red-800' :
+          'bg-blue-50 border-blue-200 text-blue-800'
+        }`}>
+          {result}
+        </div>
+      )}
     </div>
   );
 };

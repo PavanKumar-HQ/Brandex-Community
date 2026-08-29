@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ArrowRight, Calendar, Users, BookOpen, Terminal, Play, MessageSquare, Award, BookText } from 'lucide-react';
+import { ArrowRight, Calendar, Users, BookOpen, Terminal, Play, MessageSquare, Award, BookText, ChevronDown, ChevronUp } from 'lucide-react';
 import { useRegistration } from '../contexts/RegistrationContext';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { Marquee } from '../components/layout/Marquee';
@@ -44,13 +44,13 @@ const TypewriterText: React.FC<{ words: string[] }> = ({ words }) => {
   const longestWord = words.reduce((a, b) => (a.length > b.length ? a : b), '');
 
   return (
-    <span className="text-indigo-600 inline-flex items-center relative">
+    <span className="inline-flex items-center relative text-indigo-600 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700">
       {/* Hidden text to reserve space */}
       <span className="invisible">{longestWord}</span>
       {/* Actual typing text */}
-      <span className="absolute left-0 top-0 bottom-0 flex items-center">
+      <span className="absolute left-0 top-0 bottom-0 flex items-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700">
         <span>{words[index].substring(0, subIndex)}</span>
-        <span className="animate-pulse ml-1 w-2 h-[0.8em] bg-indigo-600 inline-block rounded-sm" />
+        <span className="animate-pulse ml-1 w-2 h-[0.8em] bg-purple-600 inline-block rounded-sm" />
       </span>
     </span>
   );
@@ -72,6 +72,7 @@ export const Home: React.FC = () => {
 
   const [activeVideo, setActiveVideo] = useState<Media | null>(null);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useEffect(() => {
     async function loadHomeData() {
@@ -134,11 +135,11 @@ export const Home: React.FC = () => {
               Brandex Community & Education
             </span>
 
-            <div className="min-h-[160px] sm:min-h-[200px]">
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-black text-slate-900 tracking-tight leading-[1.05]">
-                Organize. <br className="hidden sm:block"/>
-                Publish. <br className="hidden sm:block"/>
-                <TypewriterText words={["Showcase.", "Educate.", "Empower.", "Scale."]} />
+            <div className="min-h-[60px] sm:min-h-[75px] flex items-center">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-black text-slate-900 tracking-tight leading-tight flex flex-wrap gap-x-3 items-center">
+                <span>Learn.</span>
+                <span>Build.</span>
+                <TypewriterText words={["Share.", "Showcase.", "Scale.", "Grow."]} />
               </h1>
             </div>
 
@@ -151,7 +152,7 @@ export const Home: React.FC = () => {
                 onClick={() => openModal('community')}
                 className="btn-primary px-8 py-4 group hover:shadow-indigo-500/30 hover:shadow-md"
               >
-                <span>Join Ecosystem</span>
+                <span>Access Member Portal</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
               </button>
 
@@ -159,18 +160,21 @@ export const Home: React.FC = () => {
                 to="/education"
                 className="btn-secondary px-8 py-4 bg-white border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all hover:scale-[1.02]"
               >
-                <span>Explore Pathways</span>
+                <span>View Academic Courses</span>
               </NavLink>
             </div>
           </div>
 
           {/* Right Column: Hero Visual Showcase */}
           <div className="lg:col-span-6 flex items-center justify-center">
-            <img 
-              src="/geniusphere-collab-indigo.jpg" 
-              alt="Geniusphere School Coding Workshop" 
-              className="w-full h-auto object-cover relative z-10"
-            />
+            <div className="relative w-full overflow-hidden">
+              <div className="absolute inset-0 bg-purple-600/15 mix-blend-color z-20 pointer-events-none" />
+              <img 
+                src="/geniusphere-collab-indigo.jpg" 
+                alt="Geniusphere School Coding Workshop" 
+                className="w-full h-auto object-cover relative z-10"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -192,7 +196,7 @@ export const Home: React.FC = () => {
         <FadeIn>
           <SectionHeading
             tag="SHOWCASE PILLARS"
-            title="Four Pillars of Brandex"
+            title="Core Platform Pillars"
             subtitle="Discover community initiatives, education pathways, technical training, and live events."
           />
         </FadeIn>
@@ -249,7 +253,7 @@ export const Home: React.FC = () => {
 
                 <div className="pt-4 flex items-center justify-between mt-auto">
                   <span className="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg text-xs font-semibold group-hover:bg-indigo-700 transition-colors shadow-sm w-full justify-center">
-                    Explore {pillar.title}
+                    View {pillar.title} Details
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </div>
@@ -267,9 +271,9 @@ export const Home: React.FC = () => {
           <FadeIn>
             <SectionHeading
               tag="UPCOMING EVENTS"
-              title="Scheduled Summits & School Series"
+              title="Upcoming Live Events"
               subtitle="Explore upcoming events and register via external URLs."
-              actionText="View All Events"
+              actionText="View Scheduled Events"
               actionPath="/events"
             />
           </FadeIn>
@@ -285,15 +289,16 @@ export const Home: React.FC = () => {
       </div>
 
       {/* ==========================================
+      {/* ==========================================
           05. STORIES & ACHIEVEMENTS SHOWCASE
          ========================================== */}
       <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-10">
         <FadeIn>
           <SectionHeading
             tag="STORIES & ACHIEVEMENTS"
-            title="Impact Stories & Recognitions"
+            title="Platform Impact Stories"
             subtitle="Documenting student achievements, workshop breakthroughs, and community awards."
-            actionText="Read Stories"
+            actionText="View Published Stories"
             actionPath="/stories"
           />
         </FadeIn>
@@ -332,7 +337,7 @@ export const Home: React.FC = () => {
           <div className="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-xl p-6 space-y-4">
             <h3 className="font-display font-bold text-lg text-slate-900 border-b border-slate-200 pb-3 flex items-center gap-2">
               <Award className="w-5 h-5 text-indigo-600" />
-              <span>Recognitions & Awards</span>
+              <span>Recognitions and Awards</span>
             </h3>
 
             <div className="space-y-4">
@@ -362,9 +367,9 @@ export const Home: React.FC = () => {
         <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
           <SectionHeading
             tag="MEDIA VAULT"
-            title="Video Recordings & Highlights"
+            title="Archived Video Recordings"
             subtitle="Explore recorded keynote talks, technical workshops, and video archives."
-            actionText="Explore Media Vault"
+            actionText="Access Recorded Media"
             actionPath="/media"
             asButton={true}
           />
@@ -382,6 +387,66 @@ export const Home: React.FC = () => {
       </div>
 
       {/* ==========================================
+          06b. FAQ SECTION
+         ========================================== */}
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-10 border-t border-slate-200">
+        <FadeIn>
+          <SectionHeading
+            tag="FAQ"
+            title="Platform FAQ Hub"
+            subtitle="Common questions regarding the Brandex ecosystem, training cohorts, and community circles."
+          />
+        </FadeIn>
+
+        <div className="w-full space-y-3 mt-8">
+          {[
+            {
+              q: "What is the Brandex Showcase Ecosystem?",
+              a: "Brandex is a hybrid education and tech showcase platform. We support emerging developers through domain circles in AI, Cybersecurity, and UX design, hosting workshops, curriculum series, and local summits."
+            },
+            {
+              q: "Who can enroll in the training programs?",
+              a: "Our educational courses are open to students (both high school and university levels) and self-taught software engineers. We offer cohort paths ranging from basic programming logic to industrial systems engineering."
+            },
+            {
+              q: "Are credentials issued upon course completion?",
+              a: "Yes. All students completing cohort training tracks receive verified digital completion credentials. These can be integrated into LinkedIn profiles and shared with hiring organizations."
+            },
+            {
+              q: "How can academic institutions collaborate?",
+              a: "We partner with schools and colleges to host custom training programs, technology events, and Capture The Flag cybersecurity wargames. Please email our administrative desk to set up a cohort strategy."
+            },
+            {
+              q: "Where are the events and circles hosted?",
+              a: "We operate a hybrid model. Circle meetings and developer labs are held virtually, while larger summits and workshops are organized at partner campus venues or our headquarters in Bangalore."
+            },
+            {
+              q: "How do I check my career application status?",
+              a: "If you applied for a vacancy or our Brand Ambassador cohort, navigate to our Careers Portal. Enter your submission email in the Status Tracker to get real-time evaluations of your application."
+            }
+          ].map((item, idx) => {
+            const isOpen = openFaq === idx;
+            return (
+              <div key={idx} className="border border-slate-200 bg-white transition-all rounded-xl overflow-hidden shadow-sm">
+                <button
+                  onClick={() => setOpenFaq(isOpen ? null : idx)}
+                  className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none"
+                >
+                  <span className="font-display font-bold text-base text-slate-900">{item.q}</span>
+                  {isOpen ? <ChevronUp className="w-4 h-4 text-indigo-600 shrink-0" /> : <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />}
+                </button>
+                {isOpen && (
+                  <div className="px-6 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3 text-left">
+                    {item.a}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ==========================================
           07. FINAL JOIN CTA
          ========================================== */}
       <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-10 !mt-4 sm:!mt-6">
@@ -395,7 +460,7 @@ export const Home: React.FC = () => {
                 Get Connected
               </span>
               <h2 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 leading-tight">
-                Join the Brandex Showcase Ecosystem
+                Access Member Ecosystem
               </h2>
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl">
                 Participate in upcoming workshops, explore community initiatives, and connect with peers.
@@ -407,7 +472,7 @@ export const Home: React.FC = () => {
                 onClick={() => openModal('community')}
                 className="btn-primary"
               >
-                <span>Get Started</span>
+                <span>Access Member Portal</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>

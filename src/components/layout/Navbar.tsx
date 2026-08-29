@@ -35,8 +35,8 @@ export const Navbar: React.FC = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 transition-all duration-200 ${
-          isScrolled ? 'py-3 shadow-sm' : 'py-4'
+        className={`fixed top-0 left-0 right-0 z-40 bg-brand-surface/90 backdrop-blur-md border-b border-brand-border transition-all duration-200 ${
+          isScrolled ? 'py-3 shadow-sm dark:shadow-black/25' : 'py-4'
         }`}
       >
         <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-24 flex items-center justify-between">
@@ -59,7 +59,7 @@ export const Navbar: React.FC = () => {
                   `group relative px-2.5 py-1.5 text-xs lg:text-sm font-medium transition-colors ${
                     isActive
                       ? 'text-indigo-600 font-semibold'
-                      : 'text-slate-600 hover:text-slate-900'
+                      : 'text-brand-muted hover:text-brand-dark'
                   }`
                 }
               >
@@ -100,7 +100,7 @@ export const Navbar: React.FC = () => {
             <button
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Open Navigation Menu"
-              className="p-2 border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50"
+              className="p-2 border border-brand-border text-brand-muted rounded-lg hover:bg-brand-bg"
             >
               <Menu className="w-5 h-5" />
             </button>
