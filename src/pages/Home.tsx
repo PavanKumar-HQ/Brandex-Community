@@ -57,7 +57,7 @@ const TypewriterText: React.FC<{ words: string[] }> = ({ words }) => {
 };
 
 export const Home: React.FC = () => {
-  useSEO("Showcase & Tech Education Platform", "Discover the Brandex Community platform - showcasing emerging technology, high school workshops, and professional cohort training.");
+  useSEO("Brandex Community", "Discover the Brandex Community platform - showcasing emerging technology, high school workshops, and professional cohort training.");
   const { openModal } = useRegistration();
   const [featuredTraining, setFeaturedTraining] = useState<TrainingProgram[]>([]);
   const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([]);

@@ -13,7 +13,7 @@ export const useSEO = (
   options?: { image?: string; type?: 'website' | 'article' | 'event' }
 ) => {
   useEffect(() => {
-    const fullTitle = `${title} | Brandex Community`;
+    const fullTitle = title === 'Brandex Community' ? title : `${title} | Brandex Community`;
     document.title = fullTitle;
 
     // Helper to set or create meta tag

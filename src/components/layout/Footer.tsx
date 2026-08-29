@@ -199,7 +199,7 @@ export const Footer: React.FC = () => {
               rel="noopener noreferrer"
               className="flex items-center gap-3 opacity-90 hover:opacity-100 transition-opacity"
             >
-              <span className="text-xs text-slate-300 font-bold tracking-widest">POWERED BY</span>
+              <span className="text-xs text-slate-300 font-bold tracking-widest">A PRODUCT OF</span>
               <img src="/brandex-logo.png" alt="Brandex Logo" className="h-6" />
             </a>
           </div>
