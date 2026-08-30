@@ -1,89 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSEO } from '../hooks/useSEO';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { ArrowRight, Clock, User, Calendar, Tag, Search, BookOpen, ChevronRight } from 'lucide-react';
-
-interface BlogPost {
-  id: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  author: string;
-  date: string;
-  readTime: string;
-  category: string;
-  featured?: boolean;
-}
-
-const articles: BlogPost[] = [
-  {
-    id: '1',
-    title: 'The Future of Zero-Trust Architecture in Educational Institutions',
-    slug: 'zero-trust-education',
-    excerpt: 'Exploring how modern educational platforms and campus networks are adopting zero-trust frameworks to protect student data and research intellectual property.',
-    author: 'Elena Rodriguez',
-    date: 'August 24, 2026',
-    readTime: '6 min read',
-    category: 'Cybersecurity',
-    featured: true,
-  },
-  {
-    id: '2',
-    title: 'Why We Open-Sourced the Geniusphere Curriculum for Schools',
-    slug: 'open-source-curriculum',
-    excerpt: 'Our mission to democratize technology education means breaking down the walls of proprietary curricula. Here is why we made the leap to open-access courseware.',
-    author: 'David Chen',
-    date: 'August 18, 2026',
-    readTime: '4 min read',
-    category: 'Community',
-    featured: false,
-  },
-  {
-    id: '3',
-    title: 'Building High-Concurrency Systems with Rust and WebAssembly',
-    slug: 'rust-wasm-concurrency',
-    excerpt: 'A technical deep dive into the architecture behind our interactive coding labs and how we scaled them to support concurrent build sessions with low latency.',
-    author: 'Sarah Jenkins',
-    date: 'August 10, 2026',
-    readTime: '12 min read',
-    category: 'Engineering',
-    featured: false,
-  },
-  {
-    id: '4',
-    title: 'Autonomous AI Agents: Structuring Production Evaluation Loops',
-    slug: 'autonomous-ai-agents-eval',
-    excerpt: 'How our AI cohort teams construct rigorous deterministic benchmarking pipelines for autonomous multi-agent task execution.',
-    author: 'Pavan Kumar.S',
-    date: 'August 02, 2026',
-    readTime: '8 min read',
-    category: 'Artificial Intelligence',
-    featured: false,
-  },
-  {
-    id: '5',
-    title: 'Swiss Typography and Information Hierarchy in Developer Tooling',
-    slug: 'swiss-typography-dev-tools',
-    excerpt: 'Applying classical international typographic principles to modern technical interfaces to improve developer cognitive load and readability.',
-    author: 'Sathvik.N',
-    date: 'July 28, 2026',
-    readTime: '5 min read',
-    category: 'Design & UX',
-    featured: false,
-  }
-];
+import { getStories } from '../repositories/repository';
+import { Story } from '../models/types';
 
 export const BlogPage: React.FC = () => {
   useSEO(
     'Engineering & Community Blog',
-    'Official Brandex Blog: Technical deep dives, curriculum case studies, and engineering insights on AI, Cybersecurity, Systems, and Swiss UX.'
+    'Official Brandex Blog: Technical deep dives, curriculum case studies, and engineering insights.'
   );
 
+  const [articles, setArticles] = useState<Story[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  const categories = ['All', 'Artificial Intelligence', 'Cybersecurity', 'Engineering', 'Community', 'Design & UX'];
+  useEffect(() => {
+    async function loadArticles() {
+      setLoading(true);
+      const data = await getStories();
+      setArticles(data);
+      setLoading(false);
+    }
+    loadArticles();
+  }, []);
+
+  const categories = ['All', ...Array.from(new Set(articles.map(a => a.category)))];
 
   const filtered = articles.filter(post => {
     const matchesCat = selectedCategory === 'All' || post.category === selectedCategory;
@@ -116,7 +60,7 @@ export const BlogPage: React.FC = () => {
         </div>
 
         {/* Featured Article Card (Visual Hierarchy) */}
-        {selectedCategory === 'All' && !searchQuery && (
+        {!loading && featuredPost && selectedCategory === 'All' && !searchQuery && (
           <div className="bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-sm space-y-6">
             <div className="flex items-center gap-2 text-xs font-bold text-indigo-600 uppercase tracking-wider">
               <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
@@ -139,7 +83,7 @@ export const BlogPage: React.FC = () => {
               <div className="flex items-center gap-4">
                 <span className="flex items-center gap-1.5"><User className="w-3.5 h-3.5 text-slate-400" />{featuredPost.author}</span>
                 <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5 text-slate-400" />{featuredPost.date}</span>
-                <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-slate-400" />{featuredPost.readTime}</span>
+                <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-slate-400" />5 min read</span>
               </div>
               <NavLink
                 to={`/stories/${featuredPost.slug}`}
@@ -184,41 +128,60 @@ export const BlogPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Articles List */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filtered.map((post) => (
-            <NavLink
-              key={post.id}
-              to={`/stories/${post.slug}`}
-              className="bg-white border border-slate-200 rounded-2xl p-6 hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between group space-y-4"
+        {/* Article Grid */}
+        {loading ? (
+          <div className="flex justify-center py-20">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+          </div>
+        ) : filtered.length === 0 ? (
+          <div className="text-center py-20 bg-slate-50 rounded-2xl border border-slate-200 border-dashed">
+            <Search className="w-8 h-8 text-slate-300 mx-auto mb-3" />
+            <h3 className="text-sm font-semibold text-slate-900 mb-1">No articles found</h3>
+            <p className="text-xs text-slate-500">We couldn't find any articles matching your search.</p>
+            <button 
+              onClick={() => { setSearchQuery(''); setSelectedCategory('All'); }}
+              className="mt-4 text-xs font-medium text-indigo-600 hover:text-indigo-700 underline underline-offset-4"
             >
-              <div className="space-y-2.5">
-                <div className="flex items-center justify-between text-[11px] font-semibold text-slate-500">
-                  <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-100/60">
+              Clear filters
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filtered.map((post) => (
+              <NavLink 
+                key={post.id} 
+                to={`/stories/${post.slug}`}
+                className="group flex flex-col bg-white border border-slate-200 rounded-2xl overflow-hidden hover:border-indigo-300 hover:shadow-xl transition-all duration-300"
+              >
+                <div className="p-5 flex flex-col h-full space-y-4 relative">
+                  <span className="text-[10px] font-bold text-slate-600 bg-slate-100 border border-slate-200/60 px-2 py-0.5 rounded uppercase tracking-wider self-start group-hover:bg-indigo-50 group-hover:text-indigo-600 group-hover:border-indigo-200 transition-colors">
                     {post.category}
                   </span>
-                  <span>{post.readTime}</span>
+                  
+                  <div className="space-y-2 flex-1">
+                    <h3 className="font-display font-bold text-lg text-slate-900 group-hover:text-indigo-600 transition-colors leading-snug">
+                      {post.title}
+                    </h3>
+                    <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">
+                      {post.excerpt}
+                    </p>
+                  </div>
+                  
+                  <div className="pt-4 mt-auto border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
+                    <div className="flex items-center gap-1.5 truncate pr-2">
+                      <User className="w-3 h-3 text-indigo-500 shrink-0" />
+                      <span className="truncate">{post.author}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <Calendar className="w-3 h-3 text-indigo-500" />
+                      <span>{post.date}</span>
+                    </div>
+                  </div>
                 </div>
-
-                <h3 className="font-display font-bold text-lg text-slate-900 group-hover:text-indigo-600 transition-colors leading-snug">
-                  {post.title}
-                </h3>
-
-                <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">
-                  {post.excerpt}
-                </p>
-              </div>
-
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
-                <span>{post.author} • {post.date}</span>
-                <span className="text-indigo-600 font-bold group-hover:translate-x-1 transition-transform flex items-center gap-1">
-                  <span>Read</span>
-                  <ChevronRight className="w-3.5 h-3.5" />
-                </span>
-              </div>
-            </NavLink>
-          ))}
-        </div>
+              </NavLink>
+            ))}
+          </div>
+        )}
 
     </div>
   );
