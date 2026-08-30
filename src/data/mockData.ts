@@ -422,6 +422,51 @@ export const mockStories: Story[] = [
     featured: true,
     displayOrder: 5,
     status: 'published'
+  },
+  {
+    id: 'sto-6',
+    institutionId: defaultInstitutionId,
+    title: 'Scaling Security: How Zero-Trust Architecture Changed Our Workshops',
+    slug: 'scaling-security-zero-trust-workshops',
+    excerpt: 'An inside look at how we deploy secure lab environments for high schoolers using zero-trust models.',
+    content: 'Teaching cybersecurity requires giving students access to vulnerable machines without compromising the host network. By adopting a zero-trust network perimeter for our workshop environments, we achieved isolated sandboxes that scale dynamically. Students can now practice threat hunting and exploitation safely. This shift has not only improved the quality of our CTF events but also provided a real-world infrastructure lesson for the participants.',
+    coverImage: '/geniusphere-banner.webp',
+    author: 'Sathvik.N',
+    date: '10 September 2026',
+    category: 'Cybersecurity',
+    featured: false,
+    displayOrder: 6,
+    status: 'published'
+  },
+  {
+    id: 'sto-7',
+    institutionId: defaultInstitutionId,
+    title: 'Building Resilient Communities in the Age of AI',
+    slug: 'building-resilient-communities-ai',
+    excerpt: 'Why human connection matters more than ever as artificial intelligence automates our workflows.',
+    content: 'As AI tools become capable of generating complex boilerplate code and architecture diagrams, the role of a software engineer is fundamentally shifting. But one thing AI cannot replace is community. Our latest series of meetups focused on collaborative design and paired architecture reviews. We found that when builders share their failures and mentor each other in person, the learning curve is drastically shortened. Community is the ultimate moat.',
+    coverImage: '/geniusphere-collab-ghibli.webp',
+    author: 'Pavan Kumar.S',
+    date: '02 September 2026',
+    category: 'Community Story',
+    featured: false,
+    displayOrder: 7,
+    status: 'published'
+  },
+  {
+    id: 'sto-8',
+    institutionId: defaultInstitutionId,
+    title: 'The Future of Web Interfaces: Moving Beyond Standard UI Components',
+    slug: 'future-web-interfaces-beyond-standard-ui',
+    excerpt: 'Exploring micro-animations, glassmorphism, and spatial layouts for next-generation platforms.',
+    content: 'Web development is no longer just about building a functional grid. Today’s users expect seamless transitions, state-aware animations, and interfaces that feel alive. In our latest UI/UX guild session, we explored how abandoning standard component libraries in favor of custom, physics-based micro-animations can dramatically increase user engagement. From subtle hover glows to fluid page transitions, the web is becoming an interactive canvas.',
+    coverImage: '/geniusphere-collab-ghibli.webp',
+    author: 'Sathvik.N',
+    date: '25 August 2026',
+    category: 'Design & UX',
+    featured: true,
+    displayOrder: 8,
+    status: 'published'
   }
 ];
 
