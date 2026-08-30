@@ -533,17 +533,18 @@ export async function archiveAchievement(id: string): Promise<boolean> {
    ========================================== */
 
 export async function getStories(): Promise<Story[]> {
-  const published = storyStore.filter(s => s.status === 'published').sort((a, b) => a.displayOrder - b.displayOrder);
+  const published = mockStories.filter(s => s.status === 'published').sort((a, b) => a.displayOrder - b.displayOrder);
   return Promise.resolve(published);
 }
 
 export async function getStoryBySlug(slug: string): Promise<Story | null> {
-  const found = storyStore.find(s => s.slug === slug);
+  const cleanSlug = slug.replace(/\/$/, '').trim();
+  const found = mockStories.find(s => s.slug === cleanSlug);
   return Promise.resolve(found || null);
 }
 
 export async function getAllStoriesAdmin(): Promise<Story[]> {
-  return Promise.resolve([...storyStore]);
+  return Promise.resolve([...mockStories]);
 }
 
 export async function createStory(data: Partial<Story>): Promise<Story> {
