@@ -444,14 +444,14 @@ export const Home: React.FC = () => {
             asButton={true}
           />
 
-          <div className="overflow-x-auto pb-4 pt-2 -mx-4 px-4 sm:mx-0 sm:px-0 flex gap-6 scrollbar-none snap-x">
-            {featuredMedia.map((m, idx) => (
-              <div key={m.id} className="w-[300px] sm:w-[360px] shrink-0 snap-start">
-                <FadeIn delay={idx * 0.1}>
+          <div className="relative w-full overflow-hidden pb-4 pt-2 mt-4 -mx-4 px-4 sm:mx-0 sm:px-0">
+            <div className="flex gap-6 w-max animate-marquee hover:[animation-play-state:paused]">
+              {[...featuredMedia, ...featuredMedia, ...featuredMedia, ...featuredMedia].map((m, idx) => (
+                <div key={`${m.id}-${idx}`} className="w-[300px] sm:w-[360px] shrink-0">
                   <MediaCard media={m} onPlayClick={openVideo} />
-                </FadeIn>
-              </div>
-            ))}
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       </div>
