@@ -12,9 +12,12 @@ export const StoryDetailPage: React.FC = () => {
   const [story, setStory] = useState<Story | null>(null);
   const [recommendations, setRecommendations] = useState<Story[]>([]);
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     async function loadStoryAndRecommendations() {
       if (!slug) return;
+      setLoading(true);
       const data = await getStoryBySlug(slug);
       setStory(data);
 
@@ -22,9 +25,18 @@ export const StoryDetailPage: React.FC = () => {
       // Filter out current story and take top 2 for recommendation
       const filtered = allStories.filter(s => s.slug !== slug).slice(0, 2);
       setRecommendations(filtered);
+      setLoading(false);
     }
     loadStoryAndRecommendations();
   }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-32 text-center bg-white flex justify-center items-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
 
   if (!story) {
     return (
