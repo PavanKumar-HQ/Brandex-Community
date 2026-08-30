@@ -16,16 +16,24 @@ export const StoryDetailPage: React.FC = () => {
 
   useEffect(() => {
     async function loadStoryAndRecommendations() {
-      if (!slug) return;
+      if (!slug) {
+        setLoading(false);
+        return;
+      }
       setLoading(true);
-      const data = await getStoryBySlug(slug);
-      setStory(data);
+      try {
+        const data = await getStoryBySlug(slug);
+        setStory(data);
 
-      const allStories = await getStories();
-      // Filter out current story and take top 2 for recommendation
-      const filtered = allStories.filter(s => s.slug !== slug).slice(0, 2);
-      setRecommendations(filtered);
-      setLoading(false);
+        const allStories = await getStories();
+        // Filter out current story and take top 2 for recommendation
+        const filtered = allStories.filter(s => s.slug !== slug).slice(0, 2);
+        setRecommendations(filtered);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
     }
     loadStoryAndRecommendations();
   }, [slug]);
