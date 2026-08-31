@@ -310,7 +310,7 @@ export const ApplicationStatusPage: React.FC = () => {
               </NavLink>
 
               <a
-                href={`mailto:brandex.hub@gmail.com?subject=Inquiry%20Regarding%20Application%20${result.id}`}
+                href={`mailto:brandexhq@gmail.com?subject=Inquiry%20Regarding%20Application%20${result.id}`}
                 className="text-xs font-semibold text-slate-600 hover:text-slate-900 underline"
               >
                 Need assistance with this application?

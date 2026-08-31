@@ -103,7 +103,7 @@ export const Navbar: React.FC = () => {
           </div>
 
           {/* Mobile Menu Trigger */}
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-2 xl:hidden">
 
             <button
               onClick={() => openModal()}

@@ -1,5 +1,6 @@
 import { useSEO } from '../hooks/useSEO';
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Mail, MessageSquare, MapPin, Send, CheckCircle2 } from 'lucide-react';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { FadeIn } from '../components/ui/FadeIn';
@@ -56,7 +57,7 @@ export const ContactPage: React.FC = () => {
                   <div>
                     <h3 className="font-bold text-slate-900 text-lg">Community & WhatsApp</h3>
                     <p className="text-slate-600 text-sm mt-1">Join our open community or contact on WhatsApp.</p>
-                    <a href="/community" className="text-blue-600 font-bold mt-2 inline-block hover:underline">View Community Circles</a>
+                    <NavLink to="/community" className="text-blue-600 font-bold mt-2 inline-block hover:underline">View Community Circles</NavLink>
                   </div>
                 </div>
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { PageHero } from '../components/ui/PageHero';
 import { CheckCircle2, Award, Send, Users, Shield, GraduationCap, Building2 } from 'lucide-react';
@@ -103,12 +104,12 @@ export const BrandAmbassadorPage: React.FC = () => {
               <div className="text-[11px] text-slate-500">You can use this reference to track your application status anytime.</div>
             </div>
             <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
-              <a
-                href="/status?id=BX-2026-4401"
+              <NavLink
+                to="/status?id=BX-2026-4401"
                 className="btn-primary text-xs px-5 py-2.5 bg-indigo-600 text-white rounded-lg shadow-sm hover:bg-indigo-700 transition-colors"
               >
                 <span>Track Application Status</span>
-              </a>
+              </NavLink>
               <button
                 type="button"
                 onClick={() => setSubmitted(false)}
