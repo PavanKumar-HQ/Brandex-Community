@@ -22,7 +22,7 @@ export const PrivacyPolicyPage: React.FC = () => {
               <span>Data Protection & Privacy</span>
             </div>
             
-            <h1 className="text-3xl sm:text-5xl font-display font-black text-slate-900 tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-display font-bold text-slate-900 tracking-tight leading-tight">
               Privacy Policy
             </h1>
             

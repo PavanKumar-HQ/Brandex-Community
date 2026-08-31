@@ -77,7 +77,7 @@ export const AboutPage: React.FC = () => {
           <div className="inline-flex items-center justify-center px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-700 font-bold uppercase tracking-widest text-xs rounded-full">
             OUR STORY
           </div>
-          <h2 className="font-display font-black text-3xl sm:text-4xl text-slate-900 tracking-tight leading-tight">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl text-slate-900 tracking-tight leading-tight">
             Why Brandex Exists
           </h2>
 

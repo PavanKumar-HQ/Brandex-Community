@@ -59,7 +59,7 @@ export const NotFoundPage: React.FC = () => {
 
         {/* Header and Description */}
         <div className="space-y-4 max-w-2xl mx-auto">
-          <h1 className="text-4xl sm:text-6xl font-display font-black text-slate-900 tracking-tight leading-tight">
+          <h1 className="text-4xl sm:text-6xl font-display font-bold text-slate-900 tracking-tight leading-tight">
             Lost in the digital matrix?
           </h1>
           <p className="text-base sm:text-lg text-slate-600 leading-relaxed">

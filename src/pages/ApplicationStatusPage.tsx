@@ -191,7 +191,7 @@ export const ApplicationStatusPage: React.FC = () => {
             <span>Admissions & Verification</span>
           </div>
           
-          <h1 className="text-3xl sm:text-5xl font-display font-black text-slate-900 tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-5xl font-display font-bold text-slate-900 tracking-tight leading-tight">
             Application Status Tracker
           </h1>
           
@@ -202,7 +202,7 @@ export const ApplicationStatusPage: React.FC = () => {
 
         {/* Lookup Card */}
       <div className="max-w-3xl mx-auto space-y-8">
-        <div className="bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -260,7 +260,7 @@ export const ApplicationStatusPage: React.FC = () => {
 
         {/* Result Card */}
         {result && (
-          <div className="bg-white border-2 border-indigo-100 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6 animate-fade-in">
+          <div className="bg-white border-2 border-indigo-100 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6 animate-fade-in">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-6">
               <div>
                 <div className="text-xs text-slate-400 font-mono">Reference ID: {result.id}</div>

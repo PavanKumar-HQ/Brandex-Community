@@ -49,7 +49,7 @@ export const BlogPage: React.FC = () => {
               <span>Articles & Research</span>
             </div>
             
-            <h1 className="text-3xl sm:text-5xl font-display font-black text-slate-900 tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-display font-bold text-slate-900 tracking-tight leading-tight">
               Brandex Engineering & Community Blog
             </h1>
             
@@ -61,7 +61,7 @@ export const BlogPage: React.FC = () => {
 
         {/* Featured Article Card (Visual Hierarchy) */}
         {!loading && featuredPost && selectedCategory === 'All' && !searchQuery && (
-          <div className="bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-sm space-y-6">
+          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-10 shadow-sm space-y-6">
             <div className="flex items-center gap-2 text-xs font-bold text-indigo-600 uppercase tracking-wider">
               <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
               <span>Featured Article</span>

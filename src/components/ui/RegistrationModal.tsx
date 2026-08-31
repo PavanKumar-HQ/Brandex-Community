@@ -136,7 +136,7 @@ export const RegistrationModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-md animate-fade-in font-sans">
-      <div className="relative w-full max-w-4xl max-h-[90vh] bg-white rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-slide-up">
+      <div className="relative w-full max-w-4xl max-h-[90vh] bg-white rounded-2xl shadow-lg flex flex-col overflow-hidden animate-slide-up">
         
         {/* Close Button */}
         <button 

@@ -271,7 +271,7 @@ export const WorkWithBrandexPage: React.FC = () => {
       </section>
 
       {/* STEP 2: ENQUIRY SUBMISSION FORM */}
-      <section className="max-w-4xl mx-auto bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-12 shadow-sm space-y-6">
+      <section className="max-w-4xl mx-auto bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-12 shadow-sm space-y-6">
         <div className="space-y-2 border-b border-slate-200 pb-4">
           <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">STEP 2</span>
           <h3 className="font-display font-bold text-2xl text-slate-900">

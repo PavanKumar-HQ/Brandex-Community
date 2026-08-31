@@ -40,7 +40,7 @@ export const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({
       aria-labelledby="video-modal-title"
     >
       <div
-        className="relative w-full max-w-4xl bg-white rounded-2xl p-5 sm:p-6 text-slate-900 shadow-2xl space-y-4 border border-slate-100"
+        className="relative w-full max-w-4xl bg-white rounded-2xl p-5 sm:p-6 text-slate-900 shadow-lg space-y-4 border border-slate-100"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Bar */}

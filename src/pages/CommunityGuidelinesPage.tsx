@@ -41,7 +41,7 @@ export const CommunityGuidelinesPage: React.FC = () => {
 
       {/* Core Principles Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-3 shadow-sm">
+        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-3 shadow-sm">
           <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center">
             <Heart className="w-6 h-6" />
           </div>
@@ -53,7 +53,7 @@ export const CommunityGuidelinesPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-3 shadow-sm">
+        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-3 shadow-sm">
           <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center">
             <Shield className="w-6 h-6" />
           </div>
@@ -65,7 +65,7 @@ export const CommunityGuidelinesPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-3 shadow-sm">
+        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-3 shadow-sm">
           <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 border border-purple-100 flex items-center justify-center">
             <Users className="w-6 h-6" />
           </div>
@@ -79,7 +79,7 @@ export const CommunityGuidelinesPage: React.FC = () => {
       </div>
 
       {/* Rules Section */}
-      <section className="bg-slate-50 border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm space-y-8 max-w-4xl mx-auto">
+      <section className="bg-slate-50 border border-slate-200 rounded-2xl p-8 sm:p-12 shadow-sm space-y-8 max-w-4xl mx-auto">
         <div className="space-y-2">
           <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">STANDARDS</span>
           <h3 className="font-display font-bold text-2xl text-slate-900">

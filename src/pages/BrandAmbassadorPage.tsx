@@ -77,7 +77,7 @@ export const BrandAmbassadorPage: React.FC = () => {
       </div>
 
       {/* Form Section */}
-      <div className="max-w-3xl mx-auto bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-lg relative overflow-hidden">
+      <div className="max-w-3xl mx-auto bg-white border border-slate-200 rounded-2xl p-8 sm:p-12 shadow-lg relative overflow-hidden">
         <div className="space-y-4 mb-8 text-center">
           <span className="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-full uppercase tracking-wider border border-indigo-100">
             Official Application Form
@@ -89,7 +89,7 @@ export const BrandAmbassadorPage: React.FC = () => {
         </div>
 
         {submitted ? (
-          <div className="p-8 bg-emerald-50 border-2 border-emerald-200 rounded-3xl text-center space-y-4 animate-fade-in">
+          <div className="p-8 bg-emerald-50 border-2 border-emerald-200 rounded-2xl text-center space-y-4 animate-fade-in">
             <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-8 h-8" />
             </div>

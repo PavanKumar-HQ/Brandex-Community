@@ -110,7 +110,7 @@ export const EducationPage: React.FC = () => {
         </div>
 
         {/* Hero Visual Right Side */}
-        <div className="lg:col-span-5 bg-slate-900 text-white border border-slate-800 rounded-3xl p-8 space-y-6 shadow-xl relative overflow-hidden">
+        <div className="lg:col-span-5 bg-slate-900 text-white border border-slate-800 rounded-2xl p-8 space-y-6 shadow-xl relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 to-purple-500/10 mix-blend-screen pointer-events-none"></div>
           <div className="space-y-3 relative z-10">
             <span className="text-xs font-semibold uppercase text-indigo-400 tracking-wider">
@@ -149,7 +149,7 @@ export const EducationPage: React.FC = () => {
           {pathways.map((pw, idx) => (
             <div
               key={pw.number}
-              className={`p-8 rounded-3xl border ${pw.accentBg} transition-all duration-300 hover:shadow-lg grid grid-cols-1 lg:grid-cols-12 gap-8 items-center`}
+              className={`p-8 rounded-2xl border ${pw.accentBg} transition-all duration-300 hover:shadow-lg grid grid-cols-1 lg:grid-cols-12 gap-8 items-center`}
             >
               {/* Left Column: Number & Icon */}
               <div className="lg:col-span-4 space-y-4">
@@ -252,7 +252,7 @@ export const EducationPage: React.FC = () => {
 
       {/* Blueprints & Research Papers */}
       <div className="bg-slate-50/50 py-10 -mx-4 sm:-mx-8 lg:-mx-12 xl:-mx-24 px-4 sm:px-8 lg:px-12 xl:px-24">
-        <section className="bg-indigo-50/50 border border-indigo-100 rounded-3xl p-8 sm:p-12 space-y-8 shadow-sm">
+        <section className="bg-indigo-50/50 border border-indigo-100 rounded-2xl p-8 sm:p-12 space-y-8 shadow-sm">
           <div className="max-w-2xl space-y-2">
             <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">OPEN ARCHITECTURE</span>
             <h2 className="text-3xl font-display font-bold text-slate-900">Downloadable Blueprints & Research Papers</h2>

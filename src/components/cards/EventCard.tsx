@@ -19,7 +19,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, onRegisterClick }) 
           <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">
             {event.date.split(' ')[0]}
           </span>
-          <span className="text-base font-display font-black text-slate-900 leading-tight">
+          <span className="text-base font-display font-bold text-slate-900 leading-tight">
             {event.date.split(' ')[1]?.replace(',', '') || 'TBD'}
           </span>
         </div>

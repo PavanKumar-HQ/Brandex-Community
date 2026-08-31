@@ -136,7 +136,7 @@ export const Home: React.FC = () => {
             </span>
 
             <div className="min-h-[60px] sm:min-h-[75px] flex items-center">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-black text-slate-900 tracking-tight leading-tight flex flex-wrap gap-x-3 items-center">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-slate-900 tracking-tight leading-tight flex flex-wrap gap-x-3 items-center">
                 <span>Learn.</span>
                 <span>Build.</span>
                 <TypewriterText words={["Share.", "Showcase.", "Scale.", "Grow."]} />
@@ -208,7 +208,7 @@ export const Home: React.FC = () => {
           <FadeIn className="md:col-span-7" delay={0.1}>
             <NavLink
               to="/community"
-              className="group relative h-full min-h-[300px] bg-white border-2 border-indigo-100 rounded-3xl p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-sm hover:border-indigo-300 hover:shadow-md transition-all duration-300"
+              className="group relative h-full min-h-[300px] bg-white border-2 border-indigo-100 rounded-2xl p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-sm hover:border-indigo-300 hover:shadow-md transition-all duration-300"
             >
               <div className="space-y-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 rounded-full text-indigo-700 text-xs font-bold uppercase tracking-wider border border-indigo-100">
@@ -239,7 +239,7 @@ export const Home: React.FC = () => {
           <FadeIn className="md:col-span-5" delay={0.2}>
             <NavLink
               to="/training"
-              className="group relative h-full min-h-[300px] bg-slate-50 border border-slate-200 rounded-3xl p-8 flex flex-col justify-between hover:border-indigo-300 hover:bg-white hover:shadow-md transition-all duration-300"
+              className="group relative h-full min-h-[300px] bg-slate-50 border border-slate-200 rounded-2xl p-8 flex flex-col justify-between hover:border-indigo-300 hover:bg-white hover:shadow-md transition-all duration-300"
             >
               <div className="space-y-4">
                 <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center">
@@ -271,7 +271,7 @@ export const Home: React.FC = () => {
           <FadeIn className="md:col-span-5" delay={0.3}>
             <NavLink
               to="/education"
-              className="group relative h-full min-h-[260px] bg-slate-50 border border-slate-200 rounded-3xl p-8 flex flex-col justify-between hover:border-indigo-300 hover:bg-white hover:shadow-md transition-all duration-300"
+              className="group relative h-full min-h-[260px] bg-slate-50 border border-slate-200 rounded-2xl p-8 flex flex-col justify-between hover:border-indigo-300 hover:bg-white hover:shadow-md transition-all duration-300"
             >
               <div className="space-y-3">
                 <div className="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center">
@@ -303,7 +303,7 @@ export const Home: React.FC = () => {
           <FadeIn className="md:col-span-7" delay={0.4}>
             <NavLink
               to="/events"
-              className="group relative h-full min-h-[260px] bg-white border-2 border-slate-200 rounded-3xl p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 hover:border-indigo-300 hover:shadow-md transition-all duration-300"
+              className="group relative h-full min-h-[260px] bg-white border-2 border-slate-200 rounded-2xl p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 hover:border-indigo-300 hover:shadow-md transition-all duration-300"
             >
               <div className="space-y-3 max-w-md">
                 <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center">

@@ -29,7 +29,7 @@ export const ContactPage: React.FC = () => {
             <div className="space-y-8">
               <div>
                 <span className="text-indigo-600 font-bold uppercase tracking-widest text-xs mb-3 block">GET IN TOUCH</span>
-                <h1 className="text-4xl sm:text-6xl font-display font-black text-slate-900 tracking-tight leading-[1.1]">
+                <h1 className="text-4xl sm:text-6xl font-display font-bold text-slate-900 tracking-tight leading-[1.1]">
                   Start a conversation with Brandex.
                 </h1>
                 <p className="mt-6 text-xl text-slate-600 leading-relaxed font-medium max-w-lg">

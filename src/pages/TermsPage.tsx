@@ -22,7 +22,7 @@ export const TermsPage: React.FC = () => {
               <span>Legal & Policy</span>
             </div>
             
-            <h1 className="text-3xl sm:text-5xl font-display font-black text-slate-900 tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-display font-bold text-slate-900 tracking-tight leading-tight">
               Terms and Conditions & Terms of Service
             </h1>
             

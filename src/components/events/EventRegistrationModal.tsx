@@ -76,7 +76,7 @@ export const EventRegistrationModal: React.FC<EventRegistrationModalProps> = ({
       onClick={handleReset}
     >
       <div
-        className="relative w-full max-w-lg bg-white rounded-2xl p-6 sm:p-8 text-slate-900 shadow-2xl space-y-6 border border-slate-100"
+        className="relative w-full max-w-lg bg-white rounded-2xl p-6 sm:p-8 text-slate-900 shadow-lg space-y-6 border border-slate-100"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

@@ -65,7 +65,7 @@ export const PhotoLightboxModal: React.FC<PhotoLightboxModalProps> = ({
       aria-modal="true"
     >
       <div
-        className="relative w-full max-w-5xl bg-slate-900 rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]"
+        className="relative w-full max-w-5xl bg-slate-900 rounded-2xl overflow-hidden shadow-lg flex flex-col max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Bar */}

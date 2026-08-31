@@ -144,7 +144,7 @@ export const SearchPage: React.FC = () => {
         </div>
 
         {filtered.length === 0 ? (
-          <div className="py-16 text-center text-slate-500 space-y-3 bg-slate-50 border border-slate-200 rounded-3xl">
+          <div className="py-16 text-center text-slate-500 space-y-3 bg-slate-50 border border-slate-200 rounded-2xl">
             <Search className="w-10 h-10 text-slate-300 mx-auto" />
             <h3 className="font-display font-bold text-base text-slate-800">No results found</h3>
             <p className="text-xs text-slate-500 max-w-sm mx-auto">

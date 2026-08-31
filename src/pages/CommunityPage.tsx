@@ -68,7 +68,7 @@ export const CommunityPage: React.FC = () => {
       <section className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* WhatsApp Card */}
-          <div className="bg-gradient-to-br from-emerald-50 to-slate-50 border border-emerald-200 rounded-3xl p-6 sm:p-8 space-y-4 shadow-sm relative overflow-hidden flex flex-col justify-between">
+          <div className="bg-gradient-to-br from-emerald-50 to-slate-50 border border-emerald-200 rounded-2xl p-6 sm:p-8 space-y-4 shadow-sm relative overflow-hidden flex flex-col justify-between">
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100/80 px-2.5 py-0.5 rounded-full">
@@ -101,7 +101,7 @@ export const CommunityPage: React.FC = () => {
           </div>
 
           {/* Discord Card */}
-          <div className="bg-gradient-to-br from-indigo-50 to-slate-50 border border-indigo-200 rounded-3xl p-6 sm:p-8 space-y-4 shadow-sm relative overflow-hidden flex flex-col justify-between">
+          <div className="bg-gradient-to-br from-indigo-50 to-slate-50 border border-indigo-200 rounded-2xl p-6 sm:p-8 space-y-4 shadow-sm relative overflow-hidden flex flex-col justify-between">
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-700 bg-indigo-100/80 px-2.5 py-0.5 rounded-full">
@@ -147,7 +147,7 @@ export const CommunityPage: React.FC = () => {
           {opportunities.map((opp) => (
             <div
               key={opp.id}
-              className="bg-slate-50 border border-slate-200 rounded-3xl p-6 space-y-4 hover:border-indigo-300 hover:bg-white hover:shadow-md transition-all flex flex-col justify-between"
+              className="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 hover:border-indigo-300 hover:bg-white hover:shadow-md transition-all flex flex-col justify-between"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
@@ -254,7 +254,7 @@ export const CommunityPage: React.FC = () => {
       </section>
 
       {/* 05. COMMUNITY GUIDELINES CALLOUT */}
-      <section className="bg-slate-900 text-white rounded-3xl p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-lg">
+      <section className="bg-slate-900 text-white rounded-2xl p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-lg">
         <div className="space-y-2">
           <div className="flex items-center gap-2">
             <Shield className="w-5 h-5 text-indigo-400" />

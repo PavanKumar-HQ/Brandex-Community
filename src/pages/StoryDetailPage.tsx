@@ -93,7 +93,7 @@ export const StoryDetailPage: React.FC = () => {
               {story.category}
             </span>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-black text-slate-900 tracking-tight leading-[1.1]">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-slate-900 tracking-tight leading-[1.1]">
               {story.title}
             </h1>
 

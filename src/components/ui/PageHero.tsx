@@ -27,7 +27,7 @@ export const PageHero: React.FC<PageHeroProps> = ({
   widgetStatusText = "All systems operational",
 }) => {
   return (
-    <div className="relative bg-indigo-50/50 border border-indigo-100 rounded-3xl overflow-hidden mb-3 sm:mb-4 shadow-sm">
+    <div className="relative bg-indigo-50/50 border border-indigo-100 rounded-2xl overflow-hidden mb-3 sm:mb-4 shadow-sm">
       {/* Background Animated Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3"></div>
