@@ -88,7 +88,7 @@ export const CommunityPage: React.FC = () => {
 
             <div className="pt-4 flex flex-col sm:flex-row sm:items-center gap-3">
               <a
-                href="https://whatsapp.com/channel/0029Vaexample"
+                href="https://chat.whatsapp.com/JYJokicBTSE4suaJ2pKvgI?mode=gi_t"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto justify-center px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition-all shadow-md inline-flex items-center gap-2 text-center"
@@ -121,7 +121,7 @@ export const CommunityPage: React.FC = () => {
 
             <div className="pt-4 flex flex-col sm:flex-row sm:items-center gap-3">
               <a
-                href="https://discord.gg/brandex"
+                href="https://discord.gg/6MVYPzBn9g"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto justify-center px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl transition-all shadow-md inline-flex items-center gap-2 text-center"

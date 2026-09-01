@@ -74,12 +74,12 @@ export const Footer: React.FC = () => {
             <div className="pt-1 flex flex-wrap items-center gap-3">
               {[
                 { icon: GithubIcon, href: 'https://github.com/PavanKumar-HQ/Brandex-Community', label: 'GitHub', hoverClass: 'hover:bg-white hover:text-[#181717] hover:border-white' },
-                { icon: XIcon, href: 'https://twitter.com/brandex', label: 'Twitter (X)', hoverClass: 'hover:bg-white hover:text-black hover:border-white' },
-                { icon: LinkedinIcon, href: 'https://linkedin.com/company/brandex', label: 'LinkedIn', hoverClass: 'hover:bg-[#0077b5] hover:text-white hover:border-[#0077b5]' },
-                { icon: InstagramIcon, href: 'https://instagram.com/brandex', label: 'Instagram', hoverClass: 'hover:bg-gradient-to-tr hover:from-[#f9ce34] hover:via-[#ee2a7b] hover:to-[#6228d7] hover:text-white hover:border-transparent' },
-                { icon: RedditIcon, href: 'https://reddit.com/r/brandex', label: 'Reddit', hoverClass: 'hover:bg-[#ff4500] hover:text-white hover:border-[#ff4500]' },
-                { icon: WhatsappIcon, href: 'https://wa.me/919480944727', label: 'WhatsApp', hoverClass: 'hover:bg-[#25D366] hover:text-white hover:border-[#25D366]' },
-                { icon: DiscordIcon, href: 'https://discord.gg/brandex', label: 'Discord', hoverClass: 'hover:bg-[#5865F2] hover:text-white hover:border-[#5865F2]' },
+                { icon: XIcon, href: 'https://x.com/brandexlabs', label: 'Twitter (X)', hoverClass: 'hover:bg-white hover:text-black hover:border-white' },
+                { icon: LinkedinIcon, href: 'https://www.linkedin.com/company/brandex-lab', label: 'LinkedIn', hoverClass: 'hover:bg-[#0077b5] hover:text-white hover:border-[#0077b5]' },
+                { icon: InstagramIcon, href: 'https://www.instagram.com/brandexlabs/', label: 'Instagram', hoverClass: 'hover:bg-gradient-to-tr hover:from-[#f9ce34] hover:via-[#ee2a7b] hover:to-[#6228d7] hover:text-white hover:border-transparent' },
+                { icon: RedditIcon, href: 'https://www.reddit.com/r/Brandex_Labs/', label: 'Reddit', hoverClass: 'hover:bg-[#ff4500] hover:text-white hover:border-[#ff4500]' },
+                { icon: WhatsappIcon, href: 'https://chat.whatsapp.com/JYJokicBTSE4suaJ2pKvgI?mode=gi_t', label: 'WhatsApp', hoverClass: 'hover:bg-[#25D366] hover:text-white hover:border-[#25D366]' },
+                { icon: DiscordIcon, href: 'https://discord.gg/6MVYPzBn9g', label: 'Discord', hoverClass: 'hover:bg-[#5865F2] hover:text-white hover:border-[#5865F2]' },
               ].map((s, idx) => (
                 <a
                   key={idx}
