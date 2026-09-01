@@ -147,10 +147,10 @@ export const Home: React.FC = () => {
               A community space for everyone—bringing people together to learn new skills, share stories, celebrate student achievements, and build the future together.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4 pt-4">
               <button
                 onClick={() => openModal('community')}
-                className="btn-primary px-8 py-4 group hover:shadow-indigo-500/30 hover:shadow-md"
+                className="btn-primary w-full sm:w-auto justify-center px-8 py-4 group hover:shadow-indigo-500/30 hover:shadow-md"
               >
                 <span>Access Member Portal</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
@@ -158,7 +158,7 @@ export const Home: React.FC = () => {
 
               <NavLink
                 to="/education"
-                className="btn-secondary px-8 py-4 bg-white border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all hover:scale-[1.02]"
+                className="btn-secondary w-full sm:w-auto justify-center px-8 py-4 bg-white border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all hover:scale-[1.02] text-center"
               >
                 <span>View Academic Courses</span>
               </NavLink>
@@ -500,13 +500,13 @@ export const Home: React.FC = () => {
               <div key={idx} className="border border-slate-200 bg-white transition-all rounded-xl overflow-hidden shadow-sm">
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : idx)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none"
+                  className="w-full px-4 py-4 sm:px-6 sm:py-5 flex items-center justify-between text-left focus:outline-none gap-3"
                 >
-                  <span className="font-display font-bold text-base text-slate-900">{item.q}</span>
+                  <span className="font-display font-bold text-sm sm:text-base text-slate-900 leading-snug">{item.q}</span>
                   {isOpen ? <ChevronUp className="w-4 h-4 text-indigo-600 shrink-0" /> : <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />}
                 </button>
                 {isOpen && (
-                  <div className="px-6 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3 text-left">
+                  <div className="px-4 pb-4 sm:px-6 sm:pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3 text-left">
                     {item.a}
                   </div>
                 )}
@@ -520,7 +520,7 @@ export const Home: React.FC = () => {
           07. FINAL JOIN CTA
          ========================================== */}
       <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-10 !mt-4 sm:!mt-6">
-        <div className="bg-indigo-50/50 border border-indigo-100 rounded-[2rem] p-8 sm:p-12 text-left shadow-sm relative overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="bg-indigo-50/50 border border-indigo-100 rounded-[2rem] p-6 sm:p-12 text-left shadow-sm relative overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="absolute inset-0 bg-gradient-to-tr from-indigo-100/30 to-purple-100/30 mix-blend-overlay pointer-events-none"></div>
           
           {/* Left Column: Text & Action */}
@@ -529,18 +529,18 @@ export const Home: React.FC = () => {
               <span className="inline-block px-3 py-1 bg-white text-indigo-600 text-xs font-semibold rounded-full uppercase tracking-wider border border-indigo-100 shadow-sm">
                 Get Connected
               </span>
-              <h2 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 leading-tight">
+              <h2 className="text-2xl sm:text-4xl font-display font-bold text-slate-900 leading-tight">
                 Access Member Ecosystem
               </h2>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl">
+              <p className="text-xs sm:text-base text-slate-600 leading-relaxed max-w-xl">
                 Participate in upcoming workshops, explore community initiatives, and connect with peers.
               </p>
             </div>
 
-            <div className="pt-2 flex justify-start">
+            <div className="pt-2 flex flex-col sm:flex-row justify-start">
               <button
                 onClick={() => openModal('community')}
-                className="btn-primary"
+                className="btn-primary w-full sm:w-auto justify-center"
               >
                 <span>Access Member Portal</span>
                 <ArrowRight className="w-4 h-4" />

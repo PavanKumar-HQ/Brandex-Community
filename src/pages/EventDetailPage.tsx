@@ -85,7 +85,7 @@ export const EventDetailPage: React.FC = () => {
             <div className="pt-2">
               <button
                 onClick={() => setIsRsvpOpen(true)}
-                className="inline-flex items-center gap-2 bg-[#0f142e] text-white px-6 py-3.5 font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#1e2756] transition-all shadow-brutal-sm"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#0f142e] text-white px-6 py-3.5 font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#1e2756] transition-all shadow-brutal-sm text-center"
               >
                 <span>RSVP for Event</span>
                 <ArrowUpRight className="w-4 h-4" />

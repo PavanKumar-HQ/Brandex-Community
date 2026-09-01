@@ -86,17 +86,17 @@ export const CommunityPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="pt-4 flex items-center gap-3">
+            <div className="pt-4 flex flex-col sm:flex-row sm:items-center gap-3">
               <a
                 href="https://whatsapp.com/channel/0029Vaexample"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition-all shadow-md inline-flex items-center gap-2"
+                className="w-full sm:w-auto justify-center px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition-all shadow-md inline-flex items-center gap-2 text-center"
               >
                 <span>Join WhatsApp Group</span>
                 <ExternalLink className="w-4 h-4" />
               </a>
-              <span className="text-[11px] text-slate-500">Moderated & Spam-Free</span>
+              <span className="text-[11px] text-slate-500 text-center sm:text-left">Moderated & Spam-Free</span>
             </div>
           </div>
 
@@ -119,17 +119,17 @@ export const CommunityPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="pt-4 flex items-center gap-3">
+            <div className="pt-4 flex flex-col sm:flex-row sm:items-center gap-3">
               <a
                 href="https://discord.gg/brandex"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl transition-all shadow-md inline-flex items-center gap-2"
+                className="w-full sm:w-auto justify-center px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl transition-all shadow-md inline-flex items-center gap-2 text-center"
               >
                 <span>Enter Discord Server</span>
                 <ExternalLink className="w-4 h-4" />
               </a>
-              <span className="text-[11px] text-slate-500">24/7 Voice & Chat Rooms</span>
+              <span className="text-[11px] text-slate-500 text-center sm:text-left">24/7 Voice & Chat Rooms</span>
             </div>
           </div>
         </div>
@@ -268,7 +268,7 @@ export const CommunityPage: React.FC = () => {
         </div>
         <NavLink
           to="/community/guidelines"
-          className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl transition-all inline-flex items-center gap-2 shrink-0 shadow-md"
+          className="w-full sm:w-auto justify-center px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl transition-all inline-flex items-center gap-2 shrink-0 shadow-md text-center"
         >
           <span>Read Community Guidelines</span>
           <ArrowRight className="w-4 h-4" />

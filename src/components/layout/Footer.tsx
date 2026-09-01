@@ -203,7 +203,7 @@ export const Footer: React.FC = () => {
             </a>
           </div>
 
-          <div className="flex items-center justify-center md:justify-end space-x-6 text-xs font-medium md:w-1/3">
+          <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-6 gap-y-2 text-xs font-medium md:w-1/3">
             <NavLink to="/privacy" className="hover:text-white transition-colors">Privacy Policy</NavLink>
             <NavLink to="/terms" className="hover:text-white transition-colors">Terms of Service</NavLink>
             <NavLink to="/community/guidelines" className="hover:text-white transition-colors">Guidelines</NavLink>

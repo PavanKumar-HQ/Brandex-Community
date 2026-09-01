@@ -76,7 +76,7 @@ export const EventRegistrationModal: React.FC<EventRegistrationModalProps> = ({
       onClick={handleReset}
     >
       <div
-        className="relative w-full max-w-lg bg-white rounded-2xl p-6 sm:p-8 text-slate-900 shadow-lg space-y-6 border border-slate-100"
+        className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-white rounded-2xl p-5 sm:p-8 text-slate-900 shadow-lg space-y-5 sm:space-y-6 border border-slate-100"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -163,7 +163,7 @@ export const EventRegistrationModal: React.FC<EventRegistrationModalProps> = ({
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  placeholder="+49 151 ..."
+                  placeholder="+91 99868 80072"
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 h-12 text-slate-900 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white"
                 />
               </div>

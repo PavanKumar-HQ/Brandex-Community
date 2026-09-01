@@ -147,8 +147,8 @@ export const RegistrationModal: React.FC = () => {
         </button>
 
         {/* Modal Header */}
-        <div className="bg-indigo-50/70 border-b border-indigo-100 p-6 sm:p-8 text-center space-y-3 relative overflow-hidden shrink-0">
-          <div className="flex items-center justify-center gap-2">
+        <div className="bg-indigo-50/70 border-b border-indigo-100 p-5 sm:p-8 text-center space-y-2.5 sm:space-y-3 relative overflow-hidden shrink-0">
+          <div className="flex flex-wrap items-center justify-center gap-2">
             <span className="inline-block px-3 py-1 bg-white text-indigo-600 text-[10px] font-bold rounded-full uppercase tracking-wider shadow-xs border border-indigo-100">
               {isEnroll ? 'Program Registration' : 'Membership Onboarding'}
             </span>
@@ -158,12 +158,12 @@ export const RegistrationModal: React.FC = () => {
                 handleClose();
                 navigate('/status');
               }}
-              className="text-[11px] font-semibold text-slate-600 hover:text-indigo-600 underline ml-2 transition-colors"
+              className="text-[11px] font-semibold text-slate-600 hover:text-indigo-600 underline transition-colors"
             >
               Already applied? Check Status →
             </button>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-display font-bold text-slate-900 tracking-tight">
+          <h2 className="text-xl sm:text-3xl font-display font-bold text-slate-900 tracking-tight leading-snug">
             {pageTitle}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
@@ -172,8 +172,8 @@ export const RegistrationModal: React.FC = () => {
         </div>
 
         {/* Modal Body (Scrollable) */}
-        <div className="flex-1 overflow-y-auto p-6 sm:p-10">
-          <div className="max-w-2xl mx-auto space-y-8">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-10">
+          <div className="max-w-2xl mx-auto space-y-6 sm:space-y-8">
             
             {/* Progress Bar */}
             {!isSuccess && (
@@ -218,11 +218,11 @@ export const RegistrationModal: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="pt-6 flex flex-wrap justify-center gap-4 text-sm font-semibold">
-                  <NavLink to="/status?id=BX-2026-8812" onClick={handleClose} className="btn-primary px-6 py-2.5">
+                <div className="pt-6 flex flex-col sm:flex-row justify-center gap-3 text-sm font-semibold">
+                  <NavLink to="/status?id=BX-2026-8812" onClick={handleClose} className="btn-primary w-full sm:w-auto justify-center px-6 py-2.5">
                     Track Application Status
                   </NavLink>
-                  <button onClick={handleClose} className="btn-secondary px-6 py-2.5">
+                  <button onClick={handleClose} className="btn-secondary w-full sm:w-auto justify-center px-6 py-2.5">
                     Close Window
                   </button>
                 </div>
@@ -241,15 +241,15 @@ export const RegistrationModal: React.FC = () => {
                     <div className="space-y-4">
                       <div>
                         <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Full Name *</label>
-                        <input type="text" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="e.g. Maya Lin" className="w-full bg-slate-50 border border-slate-300 rounded-xl p-4 text-slate-900 text-sm focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:bg-white transition-all shadow-sm placeholder:text-slate-400" />
+                        <input type="text" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="e.g. Maya Lin" className="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 sm:p-4 text-slate-900 text-sm focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:bg-white transition-all shadow-sm placeholder:text-slate-400" />
                       </div>
                       <div>
                         <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Email Address *</label>
-                        <input type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="maya@example.org" className="w-full bg-slate-50 border border-slate-300 rounded-xl p-4 text-slate-900 text-sm focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:bg-white transition-all shadow-sm placeholder:text-slate-400" />
+                        <input type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="maya@example.org" className="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 sm:p-4 text-slate-900 text-sm focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:bg-white transition-all shadow-sm placeholder:text-slate-400" />
                       </div>
                       <div>
                         <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Organization / School (Optional)</label>
-                        <input type="text" value={formData.organization} onChange={(e) => setFormData({ ...formData, organization: e.target.value })} placeholder="e.g. University of Tech" className="w-full bg-slate-50 border border-slate-300 rounded-xl p-4 text-slate-900 text-sm focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:bg-white transition-all shadow-sm placeholder:text-slate-400" />
+                        <input type="text" value={formData.organization} onChange={(e) => setFormData({ ...formData, organization: e.target.value })} placeholder="e.g. University of Tech" className="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 sm:p-4 text-slate-900 text-sm focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:bg-white transition-all shadow-sm placeholder:text-slate-400" />
                       </div>
                     </div>
                   </div>
@@ -335,21 +335,21 @@ export const RegistrationModal: React.FC = () => {
                 )}
 
                 {/* Controls Footer */}
-                <div className="pt-8 flex items-center justify-between">
+                <div className="pt-6 sm:pt-8 flex items-center justify-between gap-3">
                   {step > 1 ? (
-                    <button type="button" onClick={handleBack} className="btn-secondary px-5 py-2.5">
+                    <button type="button" onClick={handleBack} className="btn-secondary px-4 sm:px-5 py-2.5 flex items-center gap-1.5">
                       <ArrowLeft className="w-4 h-4" />
                       <span>Back</span>
                     </button>
                   ) : <div />}
 
                   {step < 4 ? (
-                    <button type="button" onClick={handleNext} className="btn-primary px-5 py-2.5">
+                    <button type="button" onClick={handleNext} className="btn-primary px-5 sm:px-6 py-2.5 flex items-center gap-1.5">
                       <span>Next Step</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   ) : (
-                    <button type="submit" disabled={isSubmitting} className="btn-primary px-5 py-2.5 disabled:opacity-50">
+                    <button type="submit" disabled={isSubmitting} className="btn-primary px-5 sm:px-6 py-2.5 disabled:opacity-50 flex items-center gap-1.5">
                       {isSubmitting ? (
                         <><Loader2 className="w-4 h-4 animate-spin" /><span>Submitting...</span></>
                       ) : (

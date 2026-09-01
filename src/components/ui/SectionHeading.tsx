@@ -25,7 +25,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
   onActionClick,
   className = '',
 }) => {
-  const linkClasses = "inline-flex items-center gap-2 bg-indigo-600 border border-indigo-700 text-white hover:bg-indigo-700 px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 active:scale-95 group";
+  const linkClasses = "w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-indigo-600 border border-indigo-700 text-white hover:bg-indigo-700 px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 active:scale-95 group text-center";
 
   return (
     <div className={`mb-8 sm:mb-12 ${className}`}>
@@ -49,7 +49,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
         </div>
 
         {actionText && (
-          <div className="shrink-0 pt-2 sm:pt-0">
+          <div className="shrink-0 pt-2 sm:pt-0 w-full sm:w-auto">
             {actionPath ? (
               <NavLink to={actionPath} className={linkClasses}>
                 <span>{actionText}</span>

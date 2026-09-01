@@ -115,11 +115,11 @@ export const EventsPage: React.FC = () => {
 
       {/* Split Tabs */}
       <section className="space-y-6">
-        <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-          <div className="flex items-center space-x-2">
+        <div className="flex items-center justify-between border-b border-slate-200 pb-3 gap-2">
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 max-w-full">
             <button
               onClick={() => setActiveTab('upcoming')}
-              className={`px-5 py-2 text-xs font-semibold rounded-lg transition-colors ${
+              className={`px-4 sm:px-5 py-2 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap ${
                 activeTab === 'upcoming'
                   ? 'bg-slate-900 text-white shadow-sm'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -129,7 +129,7 @@ export const EventsPage: React.FC = () => {
             </button>
             <button
               onClick={() => setActiveTab('past')}
-              className={`px-5 py-2 text-xs font-semibold rounded-lg transition-colors ${
+              className={`px-4 sm:px-5 py-2 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap ${
                 activeTab === 'past'
                   ? 'bg-slate-900 text-white shadow-sm'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -139,7 +139,7 @@ export const EventsPage: React.FC = () => {
             </button>
             <button
               onClick={() => setActiveTab('calendar')}
-              className={`px-5 py-2 text-xs font-semibold rounded-lg transition-colors ${
+              className={`px-4 sm:px-5 py-2 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap ${
                 activeTab === 'calendar'
                   ? 'bg-slate-900 text-white shadow-sm'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -149,7 +149,7 @@ export const EventsPage: React.FC = () => {
             </button>
           </div>
 
-          <span className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-bold rounded-full uppercase tracking-wider shadow-sm hidden sm:inline-flex">
+          <span className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-bold rounded-full uppercase tracking-wider shadow-sm hidden md:inline-flex shrink-0">
             <span className="w-1.5 h-1.5 bg-indigo-600 rounded-full animate-pulse" />
             {activeTab === 'calendar' ? 'Interactive Calendar Mode' : `Showing ${events.length} ${activeTab === 'upcoming' ? 'Upcoming Event(s)' : 'Archived Event(s)'}`}
           </span>

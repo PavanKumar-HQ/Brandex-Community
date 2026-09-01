@@ -232,7 +232,7 @@ export const WorkWithBrandexPage: React.FC = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4">
           {categories.map((cat) => {
             const Icon = cat.icon;
             const isSelected = selectedType === cat.type;
@@ -241,7 +241,7 @@ export const WorkWithBrandexPage: React.FC = () => {
                 key={cat.type}
                 type="button"
                 onClick={() => setSelectedType(cat.type)}
-                className={`text-left p-5 rounded-2xl border-2 transition-all flex flex-col justify-between space-y-3 ${
+                className={`text-left p-4 sm:p-5 rounded-2xl border-2 transition-all flex flex-col justify-between space-y-3 ${
                   isSelected
                     ? 'border-indigo-600 bg-indigo-50/40 shadow-md ring-2 ring-indigo-500/20'
                     : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50/50 shadow-sm'
@@ -271,7 +271,7 @@ export const WorkWithBrandexPage: React.FC = () => {
       </section>
 
       {/* STEP 2: ENQUIRY SUBMISSION FORM */}
-      <section className="max-w-4xl mx-auto bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-12 shadow-sm space-y-6">
+      <section className="max-w-4xl mx-auto bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-12 shadow-sm space-y-6">
         <div className="space-y-2 border-b border-slate-200 pb-4">
           <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">STEP 2</span>
           <h3 className="font-display font-bold text-2xl text-slate-900">
