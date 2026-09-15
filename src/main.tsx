@@ -12,12 +12,18 @@ if (window.location.pathname.startsWith('/admin')) {
   window.history.replaceState(null, '', window.location.pathname.replace(/^\/admin/, '') || '/');
 }
 
-// Register PWA Service Worker
+// Register PWA Service Worker & Purge Stale Caches
 if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+  // Purge any legacy v1 cache immediately
+  if ('caches' in window) {
+    caches.delete('brandex-cache-v1').catch(() => {});
+  }
+
   window.addEventListener('load', () => {
     navigator.serviceWorker
       .register('/sw.js')
-      .then(() => {
+      .then((reg) => {
+        reg.update();
         // Initial sync check on page load if online
         if (navigator.onLine) {
           syncOfflineQueue();

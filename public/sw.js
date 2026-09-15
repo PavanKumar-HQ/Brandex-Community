@@ -1,5 +1,5 @@
 // Brandex Unified PWA Service Worker (Cache-First + Stale-While-Revalidate + Push)
-const CACHE_NAME = 'brandex-cache-v1';
+const CACHE_NAME = 'brandex-cache-v2';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -32,8 +32,16 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  // Skip non-GET requests and API calls from cache (handled via IndexedDB)
-  if (event.request.method !== 'GET' || url.pathname.startsWith('/api/')) {
+  // In local development or API requests, bypass service worker cache
+  if (
+    url.hostname === 'localhost' ||
+    url.hostname === '127.0.0.1' ||
+    event.request.method !== 'GET' ||
+    url.pathname.startsWith('/api/') ||
+    url.pathname.includes('/@vite/') ||
+    url.pathname.includes('/@fs/') ||
+    url.pathname.includes('.hot-update.')
+  ) {
     return;
   }
 
