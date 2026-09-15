@@ -33,6 +33,7 @@ import { BrandexHQPage } from './pages/BrandexHQPage';
 import { ServicesPage } from './pages/ServicesPage';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { RegistrationModal } from './components/ui/RegistrationModal';
+import { CohortEnrollmentModal } from './components/ui/CohortEnrollmentModal';
 import { InstitutionPartnershipModal } from './components/ui/InstitutionPartnershipModal';
 import { BlueprintDownloadModal } from './components/ui/BlueprintDownloadModal';
 
@@ -107,6 +108,7 @@ export const App: React.FC = () => {
         </main>
 
         <RegistrationModal />
+        <CohortEnrollmentModal />
         <InstitutionPartnershipModal />
         <BlueprintDownloadModal />
         <Footer />

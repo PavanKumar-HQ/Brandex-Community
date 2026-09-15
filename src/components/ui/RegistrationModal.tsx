@@ -67,89 +67,48 @@ export const RegistrationModal: React.FC = () => {
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Dynamic context based on type
-  const isEnroll = type === 'enroll';
-  const pageTitle = isEnroll ? 'Enroll in Brandex Education' : 'Join Brandex Community';
-  const pageDesc = isEnroll
-    ? 'Register for upcoming cohort-based courses, masterclasses, and specialized training tracks.'
-    : 'Apply to join high-impact builder circles, weekly coding labs, and hackathon squads.';
+  // Community Guilds context
+  const pageTitle = 'Join Brandex Community Circles';
+  const pageDesc = 'Apply to join high-impact builder circles, weekly coding labs, and hackathon squads.';
 
   // Domain circle options with icons & descriptions
-  const domainOptions = isEnroll
-    ? [
-        {
-          id: 'AI Engineering Cohort',
-          title: 'AI Engineering Cohort',
-          desc: 'Transformers, fine-tuning, RAG architectures & autonomous agents.',
-          icon: Cpu,
-          badge: 'High Demand',
-        },
-        {
-          id: 'Cybersecurity Foundation',
-          title: 'Cybersecurity Foundation',
-          desc: 'Network enumeration, CTF methodology, web vulnerability defense.',
-          icon: ShieldCheck,
-          badge: 'Hands-On Labs',
-        },
-        {
-          id: 'Advanced System Design',
-          title: 'Advanced System Design',
-          desc: 'High-throughput distributed systems, databases, and microservices.',
-          icon: Layers,
-          badge: 'Advanced',
-        },
-        {
-          id: 'UX/UI Mastery',
-          title: 'UX/UI Mastery',
-          desc: 'Swiss editorial design, interaction ergonomics & component systems.',
-          icon: Palette,
-          badge: 'Design Track',
-        },
-        {
-          id: 'Other',
-          title: 'Other Specialized Track',
-          desc: 'Custom focus or interdisciplinary technology research.',
-          icon: Sliders,
-          badge: 'Custom',
-        },
-      ]
-    : [
-        {
-          id: 'Artificial Intelligence',
-          title: 'Artificial Intelligence Circle',
-          desc: 'LLMs, autonomous agents, computer vision, and neural architecture.',
-          icon: Cpu,
-          badge: 'Active Labs',
-        },
-        {
-          id: 'Cybersecurity & Defense',
-          title: 'Cybersecurity & Defense Circle',
-          desc: 'Offensive security, ethical hacking, CTF competitions & sandboxes.',
-          icon: ShieldCheck,
-          badge: 'Weekly CTFs',
-        },
-        {
-          id: 'Distributed Systems',
-          title: 'Distributed Systems Circle',
-          desc: 'Low-level concurrency, cloud-native infra, Go/Rust high-throughput engines.',
-          icon: Layers,
-          badge: 'Systems Code',
-        },
-        {
-          id: 'Swiss Editorial UX & Design',
-          title: 'Swiss Editorial UX & Design',
-          desc: 'Modern web aesthetics, micro-interactions, accessible design systems.',
-          icon: Palette,
-          badge: 'Visual Craft',
-        },
-        {
-          id: 'Other',
-          title: 'Other Domain / Custom',
-          desc: 'Propose a custom research interest or cross-disciplinary initiative.',
-          icon: Sliders,
-          badge: 'Custom',
-        },
-      ];
+  const domainOptions = [
+    {
+      id: 'Artificial Intelligence',
+      title: 'Artificial Intelligence Circle',
+      desc: 'LLMs, autonomous agents, computer vision, and neural architecture.',
+      icon: Cpu,
+      badge: 'Active Labs',
+    },
+    {
+      id: 'Cybersecurity & Defense',
+      title: 'Cybersecurity & Defense Circle',
+      desc: 'Offensive security, ethical hacking, CTF competitions & sandboxes.',
+      icon: ShieldCheck,
+      badge: 'Weekly CTFs',
+    },
+    {
+      id: 'Distributed Systems',
+      title: 'Distributed Systems Circle',
+      desc: 'Low-level concurrency, cloud-native infra, Go/Rust high-throughput engines.',
+      icon: Layers,
+      badge: 'Systems Code',
+    },
+    {
+      id: 'Swiss Editorial UX & Design',
+      title: 'Swiss Editorial UX & Design',
+      desc: 'Modern web aesthetics, micro-interactions, accessible design systems.',
+      icon: Palette,
+      badge: 'Visual Craft',
+    },
+    {
+      id: 'Other',
+      title: 'Other Domain / Custom',
+      desc: 'Propose a custom research interest or cross-disciplinary initiative.',
+      icon: Sliders,
+      badge: 'Custom',
+    },
+  ];
 
   // Community Contribution Roles ("What will you bring to the community?")
   const contributionRoles = [
@@ -244,9 +203,8 @@ export const RegistrationModal: React.FC = () => {
   const isStep3Complete = Boolean(formData.experienceLevel);
 
   const hasContribution = Boolean(
-    (isEnroll ? formData.goals.length > 0 : formData.contributions.length > 0) &&
-    (!formData.contributions.includes('Other / Custom') || formData.otherGoalText.trim().length >= 3) &&
-    (!formData.goals.includes('Other / Custom') || formData.otherGoalText.trim().length >= 3)
+    formData.contributions.length > 0 &&
+    (!formData.contributions.includes('Other / Custom') || formData.otherGoalText.trim().length >= 3)
   );
 
   const hasFocus = Boolean(
@@ -269,7 +227,7 @@ export const RegistrationModal: React.FC = () => {
     }
   }, [type, isOpen]);
 
-  if (!isOpen) return null;
+  if (!isOpen || type !== 'community') return null;
 
   const handleClose = () => {
     closeModal();
@@ -320,9 +278,7 @@ export const RegistrationModal: React.FC = () => {
 
     if (currentStep === 2) {
       if (formData.selections.length === 0) {
-        newErrors.selections = isEnroll
-          ? 'Please select at least one course track to enroll in.'
-          : 'Please select at least one domain circle to participate in.';
+        newErrors.selections = 'Please select at least one domain circle to participate in.';
       }
       if (formData.selections.includes('Other') && !formData.otherSelectionText.trim()) {
         newErrors.otherSelectionText = 'Please describe your custom domain or track.';
@@ -336,14 +292,8 @@ export const RegistrationModal: React.FC = () => {
     }
 
     if (currentStep === 4) {
-      const hasContrib = isEnroll
-        ? formData.goals.length > 0
-        : formData.contributions.length > 0;
-
-      if (!hasContrib) {
-        newErrors.contributions = isEnroll
-          ? 'Please select at least one learning goal.'
-          : 'Please choose at least one way you plan to contribute to the community.';
+      if (formData.contributions.length === 0) {
+        newErrors.contributions = 'Please choose at least one way you plan to contribute to the community.';
       }
 
       if (formData.focusAreas.length === 0) {
@@ -407,16 +357,16 @@ export const RegistrationModal: React.FC = () => {
     setErrorMsg('');
 
     const randomSuffix = Math.floor(1000 + Math.random() * 9000);
-    const newRefId = `BX-2026-${randomSuffix}`;
+    const newRefId = `BX-COMM-${randomSuffix}`;
     const identity = getOrCreateIdentity();
 
     const payload = {
       id: newRefId,
       userHandle: formData.name ? `@${formData.name.toLowerCase().replace(/[^a-z0-9_]/g, '')}` : identity.handle,
-      type: isEnroll ? 'cohort' : 'community',
+      type: 'community',
       domains: formData.selections.length > 0 ? formData.selections : ['Artificial Intelligence'],
       experienceLevel: formData.experienceLevel || 'Intermediate',
-      contributions: isEnroll ? formData.goals : formData.contributions,
+      contributions: formData.contributions,
       projectIdea: formData.projectIdea || 'Brandex Open Ecosystem Contribution'
     };
 
@@ -465,19 +415,11 @@ export const RegistrationModal: React.FC = () => {
   };
 
   const toggleContribution = (id: string) => {
-    if (isEnroll) {
-      setFormData((prev) => {
-        const exists = prev.goals.includes(id);
-        const updated = exists ? prev.goals.filter((g) => g !== id) : [...prev.goals, id];
-        return { ...prev, goals: updated };
-      });
-    } else {
-      setFormData((prev) => {
-        const exists = prev.contributions.includes(id);
-        const updated = exists ? prev.contributions.filter((c) => c !== id) : [...prev.contributions, id];
-        return { ...prev, contributions: updated };
-      });
-    }
+    setFormData((prev) => {
+      const exists = prev.contributions.includes(id);
+      const updated = exists ? prev.contributions.filter((c) => c !== id) : [...prev.contributions, id];
+      return { ...prev, contributions: updated };
+    });
     if (errors.contributions) {
       setErrors((prev) => ({ ...prev, contributions: '' }));
     }
@@ -567,9 +509,9 @@ export const RegistrationModal: React.FC = () => {
                 <div className="space-y-2">
                   {[
                     { num: 1, label: 'Candidate Profile', desc: 'Identity & contact' },
-                    { num: 2, label: isEnroll ? 'Course Tracks' : 'Technology Circles', desc: 'Domain areas' },
+                    { num: 2, label: 'Technology Circles', desc: 'Domain areas' },
                     { num: 3, label: 'Experience Level', desc: 'Engineering background' },
-                    { num: 4, label: isEnroll ? 'Goals & Vision' : 'Contributions & Build', desc: 'Intent & project' },
+                    { num: 4, label: 'Contributions & Build', desc: 'Intent & project' },
                   ].map((s) => {
                     const isDone = step > s.num;
                     const isCurrent = step === s.num;
@@ -660,9 +602,9 @@ export const RegistrationModal: React.FC = () => {
               <div className="min-w-0">
                 <h3 className="text-sm sm:text-base font-display font-bold text-slate-900 dark:text-white truncate">
                   {step === 1 && '01. Candidate Identity & Profile'}
-                  {step === 2 && (isEnroll ? '02. Course Track Selection' : '02. Domain Circles of Interest')}
+                  {step === 2 && '02. Domain Circles of Interest'}
                   {step === 3 && '03. Engineering Experience Level'}
-                  {step === 4 && (isEnroll ? '04. Learning Intent & Goals' : '04. What Will You Bring & Build?')}
+                  {step === 4 && '04. What Will You Bring & Build?'}
                 </h3>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block truncate">
                   {step === 1 && 'Please fill in your primary details carefully.'}
@@ -1060,7 +1002,7 @@ export const RegistrationModal: React.FC = () => {
                       <div className="space-y-1">
                         <div className="flex items-center justify-between">
                           <h4 className="font-display font-bold text-base sm:text-lg text-slate-900 dark:text-white">
-                            {isEnroll ? 'Select Target Program' : 'Select Domain Circles'}
+                            Select Domain Circles
                           </h4>
                           <span className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 px-2.5 py-0.5 rounded-full border border-indigo-100 dark:border-indigo-900">
                             {formData.selections.length} selected
@@ -1290,7 +1232,7 @@ export const RegistrationModal: React.FC = () => {
                       <div className="space-y-3">
                         <div className="flex items-center justify-between">
                           <label className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wide flex items-center gap-1.5">
-                            <span>Q1. {isEnroll ? 'What are your primary goals?' : 'What will you bring to the community?'}</span>
+                            <span>Q1. What will you bring to the community?</span>
                             <span className="text-rose-500">*</span>
                           </label>
                           {hasContribution ? (
@@ -1304,9 +1246,7 @@ export const RegistrationModal: React.FC = () => {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                           {contributionRoles.map((role) => {
-                            const isSelected = isEnroll
-                              ? formData.goals.includes(role.id)
-                              : formData.contributions.includes(role.id);
+                            const isSelected = formData.contributions.includes(role.id);
                             const Icon = role.icon;
                             return (
                               <button
@@ -1363,8 +1303,7 @@ export const RegistrationModal: React.FC = () => {
                         </div>
 
                         {/* "Other / Custom" Contribution Typeable Input */}
-                        {((!isEnroll && formData.contributions.includes('Other / Custom')) ||
-                          (isEnroll && formData.goals.includes('Other / Custom'))) && (
+                        {formData.contributions.includes('Other / Custom') && (
                           <div className="pt-2 animate-fade-in">
                             <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5 uppercase tracking-wide">
                               Please describe your specialized contribution: <span className="text-rose-500">*</span>
