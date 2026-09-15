@@ -36,6 +36,7 @@ export const EducationPage: React.FC = () => {
       ctaText: 'Inquire for School Cohort',
       accentBg: 'bg-indigo-50/70 border-indigo-100',
       badgeBg: 'bg-indigo-600 text-white',
+      action: () => openModal('partnership', { track: 'Geniusphere School Technology Series' }),
     },
     {
       number: '02',
@@ -47,6 +48,7 @@ export const EducationPage: React.FC = () => {
       ctaText: 'Explore University Track',
       accentBg: 'bg-blue-50/70 border-blue-100',
       badgeBg: 'bg-blue-600 text-white',
+      action: () => openModal('partnership', { track: 'College Research Lab & Thesis Mentorship' }),
     },
     {
       number: '03',
@@ -58,6 +60,7 @@ export const EducationPage: React.FC = () => {
       ctaText: 'View Professional Courses',
       accentBg: 'bg-purple-50/70 border-purple-100',
       badgeBg: 'bg-purple-600 text-white',
+      linkTo: '/training',
     },
     {
       number: '04',
@@ -69,6 +72,7 @@ export const EducationPage: React.FC = () => {
       ctaText: 'Register for Workshops',
       accentBg: 'bg-emerald-50/70 border-emerald-100',
       badgeBg: 'bg-emerald-600 text-white',
+      action: () => openModal('enroll', { program: 'Hands-on Workshops & Buildathons' }),
     },
   ];
 
@@ -101,7 +105,7 @@ export const EducationPage: React.FC = () => {
             </NavLink>
 
             <button
-              onClick={() => openModal('enroll')}
+              onClick={() => openModal('partnership', { track: 'College Research Lab & Thesis Mentorship' })}
               className="inline-flex items-center justify-center gap-2 bg-slate-100 text-slate-800 border border-slate-200 px-6 py-3.5 rounded-xl font-semibold text-sm hover:bg-slate-200 transition-colors text-center"
             >
               <span>Inquire for Institution Cohort</span>
@@ -191,13 +195,23 @@ export const EducationPage: React.FC = () => {
 
               {/* Right Column: Prominent CTA Button */}
               <div className="lg:col-span-3 flex justify-start lg:justify-end w-full lg:w-auto">
-                <button
-                  onClick={() => openModal('enroll')}
-                  className="btn-primary w-full sm:w-auto justify-center text-center"
-                >
-                  <span>{pw.ctaText}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
+                {pw.linkTo ? (
+                  <NavLink
+                    to={pw.linkTo}
+                    className="btn-primary w-full sm:w-auto justify-center text-center inline-flex items-center gap-2"
+                  >
+                    <span>{pw.ctaText}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </NavLink>
+                ) : (
+                  <button
+                    onClick={pw.action}
+                    className="btn-primary w-full sm:w-auto justify-center text-center inline-flex items-center gap-2"
+                  >
+                    <span>{pw.ctaText}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                )}
               </div>
             </div>
           ))}
@@ -238,8 +252,8 @@ export const EducationPage: React.FC = () => {
               <div className="pt-4 border-t border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <span className="text-xs text-slate-600 font-medium">Instructor: <strong className="text-slate-900">{ws.instructor}</strong></span>
                 <button
-                  onClick={() => openModal('enroll')}
-                  className="inline-flex items-center justify-center gap-1.5 bg-indigo-600 text-white px-4 py-2 rounded-xl text-xs font-semibold hover:bg-indigo-700 transition-colors shadow-sm w-full sm:w-auto"
+                  onClick={() => openModal('enroll', { program: ws.title })}
+                  className="inline-flex items-center justify-center gap-1.5 bg-indigo-600 text-white px-4 py-2 rounded-xl text-xs font-semibold hover:bg-indigo-700 transition-colors shadow-sm w-full sm:w-auto cursor-pointer"
                 >
                   <span>Register Session</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -275,8 +289,8 @@ export const EducationPage: React.FC = () => {
 
                 <div className="pt-2">
                   <button
-                    onClick={() => openModal('enroll')}
-                    className="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-indigo-500 transition-all shadow-sm"
+                    onClick={() => openModal('blueprint', { resourceTitle: res.title, resourceType: res.type })}
+                    className="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-indigo-500 transition-all shadow-sm cursor-pointer"
                   >
                     <Download className="w-3.5 h-3.5" />
                     <span>Download Free Blueprint</span>

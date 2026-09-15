@@ -33,6 +33,8 @@ import { BrandexHQPage } from './pages/BrandexHQPage';
 import { ServicesPage } from './pages/ServicesPage';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { RegistrationModal } from './components/ui/RegistrationModal';
+import { InstitutionPartnershipModal } from './components/ui/InstitutionPartnershipModal';
+import { BlueprintDownloadModal } from './components/ui/BlueprintDownloadModal';
 
 // Page Transition Wrapper Component
 const PageWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -105,6 +107,8 @@ export const App: React.FC = () => {
         </main>
 
         <RegistrationModal />
+        <InstitutionPartnershipModal />
+        <BlueprintDownloadModal />
         <Footer />
       </div>
     </ThemeProvider>

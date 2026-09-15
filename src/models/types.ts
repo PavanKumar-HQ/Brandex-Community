@@ -332,7 +332,7 @@ export interface Opportunity {
   status: ContentStatus;
 }
 
-export type EnquiryType = 'school' | 'corporate' | 'workshop' | 'sponsorship' | 'partnership' | 'training';
+export type EnquiryType = 'school' | 'corporate' | 'workshop' | 'sponsorship' | 'partnership' | 'training' | 'ambassador';
 export type EnquiryStatus = 'new' | 'reviewed' | 'contacted' | 'closed';
 
 export interface Enquiry {

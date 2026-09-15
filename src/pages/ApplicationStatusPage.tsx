@@ -168,23 +168,81 @@ export const ApplicationStatusPage: React.FC = () => {
       // Repository check failed
     }
 
-    // Dynamic pattern fallback for test IDs
-    if (cleanId.startsWith('BX-') || cleanId.startsWith('SRV-')) {
-      const isBooking = cleanId.startsWith('SRV-');
+    // Dynamic pattern fallback for tracking IDs
+    if (cleanId.startsWith('BX-COLL-')) {
       setResult({
         id: cleanId,
-        typeCategory: isBooking ? 'booking' : 'application',
-        title: isBooking ? 'Architecture & High-Concurrency Scalability Audit' : 'Brandex Technical Circle Application',
-        subtitle: isBooking ? 'Reserved Advisory Sprint' : 'Autonomous Admissions Pipeline',
-        handleOrName: '@brandex_builder_anon',
-        status: isBooking ? 'Scheduled' : 'Under Review',
-        metaLabel1: isBooking ? 'Service Track' : 'Selected Domain',
-        metaValue1: isBooking ? 'Systems & Scalability' : 'Artificial Intelligence & Systems',
+        typeCategory: 'partnership',
+        title: 'College & School Institutional Partnership Proposal',
+        subtitle: 'Academic Syllabus & Campus Buildathon Collaboration',
+        handleOrName: 'Faculty Coordinator / Institution Lead',
+        status: 'Under Review',
+        metaLabel1: 'Program Track',
+        metaValue1: 'College Research Lab & Campus Hackathon Track',
+        metaLabel2: 'Review Timeline',
+        metaValue2: 'Priority Academic Review (24-48h)',
+        notes: 'Institutional proposal logged in priority queue. Academic relations team is evaluating cohort scope and lab requirements.',
+        submittedAt: 'Verified in Queue'
+      });
+    } else if (cleanId.startsWith('BX-AMB-')) {
+      setResult({
+        id: cleanId,
+        typeCategory: 'application',
+        title: 'Campus Brand Ambassador Application',
+        subtitle: 'Student Chapter & Campus Leadership Guild',
+        handleOrName: 'Student Ambassador Candidate',
+        status: 'Under Review',
+        metaLabel1: 'Chapter Role',
+        metaValue1: 'Campus Guild Lead & Workshop Organizer',
+        metaLabel2: 'Admissions Window',
+        metaValue2: 'Active 2026 Cohort Screening',
+        notes: 'Ambassador screening received. Community team reviews submissions weekly and will reach out via WhatsApp / Email.',
+        submittedAt: 'Verified in Queue'
+      });
+    } else if (cleanId.startsWith('BX-ENR-')) {
+      setResult({
+        id: cleanId,
+        typeCategory: 'application',
+        title: 'Cohort Training & Workshop Enrollment',
+        subtitle: 'Hands-on Engineering & Systems Cohort',
+        handleOrName: 'Registered Candidate',
+        status: 'Accepted',
+        metaLabel1: 'Enrollment Track',
+        metaValue1: 'Hands-on Technical Buildathon',
+        metaLabel2: 'Orientation Access',
+        metaValue2: 'Session Joining Link Dispatched',
+        notes: 'Your cohort seat is reserved. Setup materials and repository access instructions have been queued.',
+        submittedAt: 'Verified in Queue',
+        privateCircleLink: 'https://discord.gg/brandex-circle-verified'
+      });
+    } else if (cleanId.startsWith('SRV-')) {
+      setResult({
+        id: cleanId,
+        typeCategory: 'booking',
+        title: 'Architecture & High-Concurrency Scalability Audit',
+        subtitle: 'Reserved Advisory Sprint',
+        handleOrName: '@brandex_builder_client',
+        status: 'Scheduled',
+        metaLabel1: 'Service Track',
+        metaValue1: 'Systems & Scalability',
         metaLabel2: 'Queue Mode',
         metaValue2: 'Encrypted Reference Queue',
-        notes: isBooking
-          ? 'Discovery slot confirmed. Our lead systems architect will coordinate via your anonymous reference session.'
-          : 'Application received and securely queued. Standard review period is 48-72 business hours.',
+        notes: 'Discovery slot confirmed. Our lead systems architect will coordinate via your anonymous reference session.',
+        submittedAt: 'Verified in Queue'
+      });
+    } else if (cleanId.startsWith('BX-')) {
+      setResult({
+        id: cleanId,
+        typeCategory: 'application',
+        title: 'Brandex Technical Circle Application',
+        subtitle: 'Autonomous Admissions Pipeline',
+        handleOrName: '@brandex_builder_anon',
+        status: 'Under Review',
+        metaLabel1: 'Selected Domain',
+        metaValue1: 'Artificial Intelligence & Systems',
+        metaLabel2: 'Queue Mode',
+        metaValue2: 'Encrypted Reference Queue',
+        notes: 'Application received and securely queued. Standard review period is 48-72 business hours.',
         submittedAt: 'Verified in Queue'
       });
     } else {

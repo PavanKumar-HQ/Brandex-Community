@@ -92,8 +92,8 @@ export const TrainingDetailPage: React.FC = () => {
 
           <div className="shrink-0 pt-4 md:pt-0 border-t md:border-t-0 border-slate-100">
             <button
-              onClick={() => openModal('enroll')}
-              className="w-full md:w-auto inline-flex items-center justify-center gap-2.5 bg-indigo-600 text-white px-8 py-4 rounded-xl text-sm font-bold hover:bg-indigo-700 transition-all shadow-md hover:shadow-lg active:scale-95 whitespace-nowrap"
+              onClick={() => openModal('enroll', { program: program.title })}
+              className="w-full md:w-auto inline-flex items-center justify-center gap-2.5 bg-indigo-600 text-white px-8 py-4 rounded-xl text-sm font-bold hover:bg-indigo-700 transition-all shadow-md hover:shadow-lg active:scale-95 whitespace-nowrap cursor-pointer"
             >
               <span>Enroll in Cohort</span>
               <ArrowRight className="w-4 h-4" />

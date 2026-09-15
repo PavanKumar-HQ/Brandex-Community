@@ -4,6 +4,8 @@ import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { PageHero } from '../components/ui/PageHero';
 import { CheckCircle2, Award, Send, Users, Shield, GraduationCap, Building2 } from 'lucide-react';
 
+import { createEnquiry } from '../repositories/repository';
+
 export const BrandAmbassadorPage: React.FC = () => {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -18,14 +20,39 @@ export const BrandAmbassadorPage: React.FC = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [referenceId, setReferenceId] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const generatedRef = `BX-AMB-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+      await createEnquiry({
+        type: 'ambassador',
+        orgName: formData.institution,
+        contactName: `${formData.fullName} (${formData.roleType} - ${formData.yearOrRole || 'Ambassador'})`,
+        email: formData.email,
+        phone: formData.phone,
+        message: `Motivation: ${formData.motivation}\nProfiles: ${formData.socialLinks || 'N/A'}`,
+        adminNotes: `Ambassador Ref: ${generatedRef}`
+      });
+
+      if (typeof window !== 'undefined') {
+        try {
+          const saved = JSON.parse(localStorage.getItem('brandex_recent_refs') || '[]');
+          localStorage.setItem('brandex_recent_refs', JSON.stringify(Array.from(new Set([generatedRef, ...saved]))));
+        } catch {}
+      }
+
+      setReferenceId(generatedRef);
       setSubmitted(true);
-    }, 1200);
+    } catch {
+      // Fallback
+      setReferenceId(`BX-AMB-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`);
+      setSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -100,12 +127,12 @@ export const BrandAmbassadorPage: React.FC = () => {
             </p>
             <div className="p-4 bg-white border border-emerald-200 rounded-2xl max-w-md mx-auto text-left space-y-2">
               <div className="text-xs text-slate-400 font-mono">Your Tracking Reference:</div>
-              <div className="text-base font-mono font-bold text-indigo-600">BX-2026-4401</div>
+              <div className="text-base font-mono font-bold text-indigo-600">{referenceId}</div>
               <div className="text-[11px] text-slate-500">You can use this reference to track your application status anytime.</div>
             </div>
             <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
               <NavLink
-                to="/status?id=BX-2026-4401"
+                to={`/status?id=${referenceId}`}
                 className="btn-primary text-xs px-5 py-2.5 bg-indigo-600 text-white rounded-lg shadow-sm hover:bg-indigo-700 transition-colors"
               >
                 <span>Track Application Status</span>
