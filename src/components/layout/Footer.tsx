@@ -115,19 +115,19 @@ export const Footer: React.FC = () => {
             </h4>
             <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-xs font-medium">
               {[
-                { name: 'Work With Brandex', path: '/work-with-us' },
-                { name: 'Application Status', path: '/status' },
+                { name: '12 Core Services', path: '/services' },
+                { name: 'Track Your Status', path: '/status' },
+                { name: 'Open-Source Registry', path: '/projects' },
+                { name: 'Careers & Roles', path: '/careers' },
                 { name: 'Community Circles', path: '/community' },
-                { name: 'Community Guidelines', path: '/community/guidelines' },
                 { name: 'Education Pathways', path: '/education' },
                 { name: 'Technical Training', path: '/training' },
-                { name: 'Events & Summits', path: '/events' },
-                { name: 'Media & Videos', path: '/media' },
-                { name: 'Global Search', path: '/search' },
+                { name: 'Live Events & Summits', path: '/events' },
+                { name: 'Work With Brandex', path: '/work-with-us' },
                 { name: 'Campus Ambassadors', path: '/ambassador' },
                 { name: 'Impact Stories', path: '/stories' },
-                { name: 'Careers & Team', path: '/careers' },
-                { name: 'About Brandex', path: '/about' },
+                { name: 'Global Search', path: '/search' },
+                { name: 'Community Guidelines', path: '/community/guidelines' },
                 { name: 'Parent Ecosystem', path: '/brandex' },
               ].map((link) => (
                 <NavLink

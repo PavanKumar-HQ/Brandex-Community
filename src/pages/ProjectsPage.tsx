@@ -19,6 +19,8 @@ import {
   ArrowRight
 } from 'lucide-react';
 
+import { SkeletonCard } from '../components/ui/Skeleton';
+
 interface Project {
   id: string;
   title: string;
@@ -277,72 +279,78 @@ export const ProjectsPage: React.FC = () => {
 
         {/* Project Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((project) => (
-            <div
-              key={project.id}
-              className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-start justify-between gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 flex items-center justify-center font-mono font-bold text-sm">
-                    {project.title.substring(0, 2).toUpperCase()}
+          {isLoading ? (
+            Array.from({ length: 6 }).map((_, i) => (
+              <SkeletonCard key={i} className="min-h-[260px]" />
+            ))
+          ) : (
+            filteredProjects.map((project) => (
+              <div
+                key={project.id}
+                className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-start justify-between gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 flex items-center justify-center font-mono font-bold text-sm">
+                      {project.title.substring(0, 2).toUpperCase()}
+                    </div>
+                    <div className="flex items-center gap-3 text-xs font-mono text-slate-500 dark:text-slate-400">
+                      <span className="flex items-center gap-1">
+                        <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+                        <span>{project.starsCount}</span>
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <GitFork className="w-3.5 h-3.5 text-slate-400" />
+                        <span>{project.openIssuesCount} issues</span>
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3 text-xs font-mono text-slate-500 dark:text-slate-400">
-                    <span className="flex items-center gap-1">
-                      <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                      <span>{project.starsCount}</span>
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <GitFork className="w-3.5 h-3.5 text-slate-400" />
-                      <span>{project.openIssuesCount} issues</span>
-                    </span>
+
+                  <h3 className="font-bold text-slate-900 dark:text-white text-lg mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 line-clamp-3 mb-4 leading-relaxed">
+                    {project.description}
+                  </p>
+
+                  {/* Tech Stack Badges */}
+                  <div className="flex flex-wrap gap-1.5 mb-6">
+                    {project.techStack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[11px] font-mono text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700/80"
+                      >
+                        {tech}
+                      </span>
+                    ))}
                   </div>
                 </div>
 
-                <h3 className="font-bold text-slate-900 dark:text-white text-lg mb-2">
-                  {project.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 line-clamp-3 mb-4 leading-relaxed">
-                  {project.description}
-                </p>
+                <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                  {project.hasGoodFirstIssues ? (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60">
+                      <Tag className="w-3 h-3" />
+                      <span>Good First Issues</span>
+                    </span>
+                  ) : (
+                    <span className="text-[11px] font-mono text-slate-400">Standard Backlog</span>
+                  )}
 
-                {/* Tech Stack Badges */}
-                <div className="flex flex-wrap gap-1.5 mb-6">
-                  {project.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[11px] font-mono text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700/80"
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={project.repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-indigo-50 dark:bg-indigo-950/50 hover:bg-indigo-600 hover:text-white text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 text-xs font-bold rounded-xl transition-all shadow-2xs active:scale-98"
                     >
-                      {tech}
-                    </span>
-                  ))}
+                      <span>Inspect</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
                 </div>
               </div>
-
-              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                {project.hasGoodFirstIssues ? (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60">
-                    <Tag className="w-3 h-3" />
-                    <span>Good First Issues</span>
-                  </span>
-                ) : (
-                  <span className="text-[11px] font-mono text-slate-400">Standard Backlog</span>
-                )}
-
-                <div className="flex items-center gap-2">
-                  <a
-                    href={project.repoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 transition-colors"
-                  >
-                    <span>Inspect</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
 
         {/* PR Claim Modal */}

@@ -406,8 +406,77 @@ export const ServicesPage: React.FC = () => {
                 ))}
               </div>
 
-              {/* 12 Services Cards Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              {/* MOBILE: Compact Square App-Style Tiles Grid (Eliminating endless scroll on mobile!) */}
+              <div className="grid grid-cols-2 sm:hidden gap-2.5">
+                {filteredServices.map((service) => {
+                  const Icon = service.icon;
+                  const isSelected = service.id === selectedServiceId;
+
+                  return (
+                    <div
+                      key={`mobile-${service.id}`}
+                      onClick={() => handleSelectService(service)}
+                      className={`p-3 rounded-2xl border cursor-pointer transition-all duration-200 flex flex-col justify-between min-h-[115px] active:scale-95 select-none ${
+                        isSelected
+                          ? 'border-indigo-600 dark:border-indigo-500 bg-indigo-50/70 dark:bg-indigo-950/40 ring-2 ring-indigo-500/20 shadow-xs'
+                          : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/70 hover:border-slate-300 dark:hover:border-slate-700'
+                      }`}
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
+                          isSelected
+                            ? 'bg-indigo-600 text-white'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
+                        }`}>
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        {isSelected ? (
+                          <span className="w-4 h-4 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px] font-bold">
+                            ✓
+                          </span>
+                        ) : (
+                          <span className="w-3.5 h-3.5 rounded-full border border-slate-300 dark:border-slate-600" />
+                        )}
+                      </div>
+
+                      <div className="mt-2">
+                        <h4 className="font-bold text-xs text-slate-900 dark:text-white leading-tight line-clamp-1">
+                          {service.name}
+                        </h4>
+                        <p className="text-[10px] font-medium text-indigo-600 dark:text-indigo-400 truncate mt-0.5">
+                          {service.tagline}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Mobile Quick Selection Action Bar */}
+              <div className="sm:hidden p-3 bg-slate-900 text-white dark:bg-indigo-950/80 dark:border dark:border-indigo-800 rounded-2xl flex items-center justify-between shadow-md">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center shrink-0">
+                    <currentService.icon className="w-3.5 h-3.5" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-[10px] text-slate-400 block font-mono leading-none">Selected Service</span>
+                    <span className="text-xs font-bold truncate block mt-0.5">{currentService.name}</span>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    const formEl = document.getElementById('booking-form-section');
+                    if (formEl) formEl.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shrink-0 flex items-center gap-1 shadow-xs active:scale-95"
+                >
+                  <span>Request Quote</span>
+                  <ArrowRight className="w-3 h-3" />
+                </button>
+              </div>
+
+              {/* DESKTOP: Spacious 12 Services Cards Grid */}
+              <div className="hidden sm:grid sm:grid-cols-2 gap-3.5">
                 {filteredServices.map((service) => {
                   const Icon = service.icon;
                   const isSelected = service.id === selectedServiceId;

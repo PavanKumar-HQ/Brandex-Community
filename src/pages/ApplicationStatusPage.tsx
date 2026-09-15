@@ -20,6 +20,7 @@ import {
   Loader2
 } from 'lucide-react';
 import { getEnquiries } from '../repositories/repository';
+import { SkeletonCard } from '../components/ui/Skeleton';
 
 interface DisplayStatusRecord {
   id: string;
@@ -312,6 +313,11 @@ export const ApplicationStatusPage: React.FC = () => {
             ))}
           </div>
         </div>
+
+        {/* Loading Skeleton */}
+        {isLoading && (
+          <SkeletonCard className="mb-8 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800" />
+        )}
 
         {/* Real Status Result Card */}
         {result && (

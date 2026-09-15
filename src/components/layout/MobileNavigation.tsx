@@ -82,7 +82,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
         { name: '12 Core Services & Booking', path: '/services', icon: Layers, badge: 'No Account' },
         { name: 'Open-Source Registry', path: '/projects', icon: Code2, badge: 'PR Claims' },
         { name: 'Domain Circles', path: '/community', icon: Users, badge: 'Active' },
-        { name: 'Application Tracker', path: '/status', icon: Search, badge: 'Lookup' }
+        { name: 'Track Your Status', path: '/status', icon: Search, badge: 'Live' }
       ]
     },
     {

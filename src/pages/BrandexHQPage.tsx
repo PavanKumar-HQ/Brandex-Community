@@ -89,7 +89,7 @@ export const BrandexHQPage: React.FC = () => {
               href="https://www.brandex.co.in/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-xs font-bold text-indigo-600 hover:underline pt-2"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-slate-50 hover:bg-indigo-50 hover:text-indigo-700 text-slate-700 border border-slate-200 hover:border-indigo-200 text-xs font-bold rounded-xl transition-all shadow-2xs active:scale-98 w-fit"
             >
               <span>brandex.co.in</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -110,7 +110,7 @@ export const BrandexHQPage: React.FC = () => {
             </div>
             <NavLink
               to="/education"
-              className="inline-flex items-center gap-1 text-xs font-bold text-indigo-600 hover:underline pt-2"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-slate-50 hover:bg-indigo-50 hover:text-indigo-700 text-slate-700 border border-slate-200 hover:border-indigo-200 text-xs font-bold rounded-xl transition-all shadow-2xs active:scale-98 w-fit"
             >
               <span>View Education Pathways</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -131,7 +131,7 @@ export const BrandexHQPage: React.FC = () => {
             </div>
             <NavLink
               to="/terms"
-              className="inline-flex items-center gap-1 text-xs font-bold text-indigo-600 hover:underline pt-2"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-slate-50 hover:bg-indigo-50 hover:text-indigo-700 text-slate-700 border border-slate-200 hover:border-indigo-200 text-xs font-bold rounded-xl transition-all shadow-2xs active:scale-98 w-fit"
             >
               <span>Read Legal & Terms</span>
               <ArrowUpRight className="w-3.5 h-3.5" />

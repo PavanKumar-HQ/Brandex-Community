@@ -59,7 +59,7 @@ export const Navbar: React.FC = () => {
     { name: 'Education', path: '/education' },
     { name: 'Training', path: '/training' },
     { name: 'Careers', path: '/careers' },
-    { name: 'Tracker', path: '/status' },
+    { name: 'Track Your Status', path: '/status' },
   ];
 
   const identicon = getIdenticonSvg(identity.avatarSeed);

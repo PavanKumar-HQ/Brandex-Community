@@ -265,7 +265,7 @@ export const Home: React.FC = () => {
 
               <div className="pt-6 flex items-center justify-between border-t border-slate-200/60">
                 <span className="text-xs font-semibold text-slate-500">Applications Open</span>
-                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 group-hover:translate-x-1 transition-transform">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 group-hover:bg-indigo-600 group-hover:text-white text-indigo-700 text-xs font-bold rounded-xl transition-all shadow-2xs">
                   <span>View Syllabus</span>
                   <ArrowRight className="w-4 h-4" />
                 </span>
@@ -297,7 +297,7 @@ export const Home: React.FC = () => {
 
               <div className="pt-4 flex items-center justify-between border-t border-slate-200/60">
                 <span className="text-xs text-slate-500">Geniusphere Series</span>
-                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 group-hover:translate-x-1 transition-transform">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 group-hover:bg-indigo-600 group-hover:text-white text-indigo-700 text-xs font-bold rounded-xl transition-all shadow-2xs">
                   <span>Explore Tracks</span>
                   <ArrowRight className="w-4 h-4" />
                 </span>
