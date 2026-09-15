@@ -343,9 +343,8 @@ export const CohortEnrollmentModal: React.FC = () => {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-4 lg:p-6 bg-slate-950/80 backdrop-blur-2xl animate-fade-in font-sans overflow-hidden"
-      role="dialog"
-      aria-modal="true"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-4 lg:p-6 bg-slate-950/80 backdrop-blur-sm animate-fade-in font-sans overflow-hidden transform-gpu"
+      onClick={handleClose}
     >
       <div
         className={`relative w-full h-[100dvh] md:h-[92vh] md:max-h-[850px] md:max-w-5xl bg-white dark:bg-slate-900 md:rounded-3xl shadow-2xl border-0 md:border border-slate-200 dark:border-slate-800 flex flex-col md:flex-row overflow-hidden animate-slide-up transition-all ${

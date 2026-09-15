@@ -134,7 +134,7 @@ export const EventRegistrationModal: React.FC<EventRegistrationModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xl animate-fade-in font-sans overflow-y-auto"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-fade-in font-sans overflow-y-auto transform-gpu"
       onClick={handleReset}
     >
       <div

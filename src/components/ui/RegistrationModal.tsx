@@ -468,7 +468,7 @@ export const RegistrationModal: React.FC = () => {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-4 lg:p-6 bg-slate-950/80 backdrop-blur-2xl animate-fade-in font-sans overflow-hidden"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-4 lg:p-6 bg-slate-950/80 backdrop-blur-sm animate-fade-in font-sans overflow-hidden transform-gpu"
       role="dialog"
       aria-modal="true"
     >
