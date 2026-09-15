@@ -745,4 +745,172 @@ router.get('/stats', (req: Request, res: Response) => {
   }
 });
 
+/**
+ * GET /api/pwa/check-handle
+ * Instagram-style globally unique handle check.
+ * Validates syntax, checks collisions in SQLite users, and generates smart suggestions if taken.
+ */
+router.get('/check-handle', (req: Request, res: Response) => {
+  try {
+    const rawHandle = String(req.query.handle || '').trim();
+    if (!rawHandle) {
+      return res.status(400).json({
+        available: false,
+        error: 'Handle is required'
+      });
+    }
+
+    // Strip leading @ and normalize
+    const cleanHandle = rawHandle.replace(/^@+/, '').toLowerCase();
+
+    // Enforce Instagram-style alphanumeric & underscore format (3-30 chars)
+    const handleRegex = /^[a-zA-Z0-9_]{3,30}$/;
+    if (!handleRegex.test(cleanHandle)) {
+      return res.status(200).json({
+        available: false,
+        handle: `@${cleanHandle}`,
+        error: 'Username must be 3-30 characters using letters, numbers, and underscores.'
+      });
+    }
+
+    // Reserved administrative usernames
+    const RESERVED_HANDLES = new Set([
+      'admin', 'administrator', 'brandex', 'system', 'root', 'support', 'official',
+      'help', 'security', 'moderator', 'api', 'dashboard', 'status', 'auth'
+    ]);
+
+    if (RESERVED_HANDLES.has(cleanHandle)) {
+      const suggestions = [
+        `@${cleanHandle}_builder`,
+        `@${cleanHandle}_node`,
+        `@${cleanHandle}_hq`
+      ];
+      return res.status(200).json({
+        available: false,
+        handle: `@${cleanHandle}`,
+        reason: 'This username is reserved by the Brandex core system.',
+        suggestions
+      });
+    }
+
+    // Check SQLite database
+    const existing = db.prepare('SELECT id, handle FROM users WHERE LOWER(handle) = LOWER(?) OR LOWER(handle) = LOWER(?)')
+      .get(`@${cleanHandle}`, cleanHandle);
+
+    if (existing) {
+      // Generate 3 available suggestions
+      const candidateSuffixes = ['_dev', '_hq', `_${Math.floor(10 + Math.random() * 90)}`, '_node', '_build'];
+      const suggestions: string[] = [];
+
+      for (const suffix of candidateSuffixes) {
+        const candidate = `@${cleanHandle}${suffix}`;
+        const found = db.prepare('SELECT id FROM users WHERE LOWER(handle) = LOWER(?)').get(candidate);
+        if (!found && !suggestions.includes(candidate)) {
+          suggestions.push(candidate);
+        }
+        if (suggestions.length >= 3) break;
+      }
+
+      return res.status(200).json({
+        available: false,
+        handle: `@${cleanHandle}`,
+        reason: 'Username is already taken.',
+        suggestions
+      });
+    }
+
+    // Available!
+    return res.status(200).json({
+      available: true,
+      handle: `@${cleanHandle}`
+    });
+  } catch (err: any) {
+    res.status(500).json({ available: false, error: err.message });
+  }
+});
+
+/**
+ * POST /api/pwa/register
+ * Register a pseudo-anonymous builder account with zero PII.
+ * Enforces Instagram-style global uniqueness on handle in SQLite.
+ */
+router.post('/register', (req: Request, res: Response) => {
+  try {
+    const { handle, avatarSeed, displayName, domain } = req.body;
+
+    if (!handle) {
+      return res.status(400).json({
+        success: false,
+        message: 'Username/handle is required.'
+      });
+    }
+
+    const cleanHandle = String(handle).trim().replace(/^@+/, '').toLowerCase();
+    const handleRegex = /^[a-zA-Z0-9_]{3,30}$/;
+    if (!handleRegex.test(cleanHandle)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Username must be 3-30 characters using letters, numbers, and underscores.'
+      });
+    }
+
+    const fullHandle = `@${cleanHandle}`;
+    const cleanAvatar = avatarSeed || 'avatar-cyber-sentinel';
+    const createdAt = new Date().toISOString();
+    const userId = `usr-${crypto.randomUUID()}`;
+
+    // Atomically check uniqueness in database
+    const existing = db.prepare('SELECT id, handle FROM users WHERE LOWER(handle) = LOWER(?) OR LOWER(handle) = LOWER(?)')
+      .get(fullHandle, cleanHandle);
+
+    if (existing) {
+      return res.status(409).json({
+        success: false,
+        message: `Username ${fullHandle} is already registered by another builder. Please pick another unique handle.`
+      });
+    }
+
+    // Insert user into SQLite
+    db.prepare(`
+      INSERT INTO users (id, handle, avatar_seed, role, created_at)
+      VALUES (?, ?, ?, 'Member', ?)
+    `).run(userId, fullHandle, cleanAvatar, createdAt);
+
+    // Create a zero-PII welcome notification
+    try {
+      const notifId = `notif-${Date.now()}-${crypto.randomBytes(2).toString('hex')}`;
+      db.prepare(`
+        INSERT INTO notifications (id, user_handle, title, message, category, read, action_url, action_label, created_at)
+        VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?)
+      `).run(
+        notifId,
+        fullHandle,
+        'Welcome to Brandex Circle!',
+        `Your anonymous account ${fullHandle} is verified with zero-PII storage. +150 builder points granted.`,
+        'community',
+        '/join',
+        'Explore Circles',
+        createdAt
+      );
+    } catch {}
+
+    invalidateCache('pwa:stats');
+
+    res.status(201).json({
+      success: true,
+      user: {
+        id: userId,
+        handle: fullHandle,
+        avatarSeed: cleanAvatar,
+        role: 'Member',
+        displayName: displayName || null,
+        domain: domain || 'Software Engineering',
+        createdAt
+      }
+    });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 export default router;

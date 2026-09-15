@@ -113,4 +113,60 @@ describe('PWA Unified Ecosystem Endpoints', () => {
     expect(res.body.stats).toHaveProperty('verifiedContributions');
     expect(res.body.stats).toHaveProperty('activeProjects');
   });
+
+  it('GET /api/pwa/check-handle validates syntax, reserved handles, and uniqueness', async () => {
+    // 1. Available handle
+    const availRes = await request(app).get('/api/pwa/check-handle?handle=brandex_test_unique_99');
+    expect(availRes.status).toBe(200);
+    expect(availRes.body.available).toBe(true);
+    expect(availRes.body.handle).toBe('@brandex_test_unique_99');
+
+    // 2. Reserved handle
+    const reservedRes = await request(app).get('/api/pwa/check-handle?handle=admin');
+    expect(reservedRes.status).toBe(200);
+    expect(reservedRes.body.available).toBe(false);
+    expect(reservedRes.body.suggestions).toBeDefined();
+
+    // 3. Invalid handle
+    const invalidRes = await request(app).get('/api/pwa/check-handle?handle=a!');
+    expect(invalidRes.status).toBe(200);
+    expect(invalidRes.body.available).toBe(false);
+    expect(invalidRes.body.error).toBeDefined();
+  });
+
+  it('POST /api/pwa/register registers account and prevents duplicate handle collisions', async () => {
+    const handle = `@unique_builder_${Date.now()}`;
+
+    // 1. Initial successful registration
+    const regRes = await request(app)
+      .post('/api/pwa/register')
+      .send({
+        handle,
+        avatarSeed: 'avatar-cyber-sentinel',
+        displayName: 'Test Builder',
+        domain: 'Artificial Intelligence'
+      });
+
+    expect(regRes.status).toBe(201);
+    expect(regRes.body.success).toBe(true);
+    expect(regRes.body.user.handle).toBe(handle.toLowerCase());
+    expect(regRes.body.user.avatarSeed).toBe('avatar-cyber-sentinel');
+
+    // 2. Check handle endpoint now reports taken
+    const checkRes = await request(app).get(`/api/pwa/check-handle?handle=${handle}`);
+    expect(checkRes.status).toBe(200);
+    expect(checkRes.body.available).toBe(false);
+    expect(checkRes.body.suggestions.length).toBeGreaterThanOrEqual(1);
+
+    // 3. Attempt duplicate registration fails with 409 Conflict
+    const dupRes = await request(app)
+      .post('/api/pwa/register')
+      .send({
+        handle,
+        avatarSeed: 'avatar-quantum-core'
+      });
+
+    expect(dupRes.status).toBe(409);
+    expect(dupRes.body.success).toBe(false);
+  });
 });
