@@ -43,7 +43,7 @@ export interface BrandexService {
   isEcosystemLayer?: boolean;
 }
 
-export const BRANDEX_12_SERVICES: BrandexService[] = [
+const BRANDEX_12_SERVICES: BrandexService[] = [
   {
     id: 'websites',
     name: 'Websites',
