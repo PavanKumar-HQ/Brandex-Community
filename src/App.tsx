@@ -66,7 +66,7 @@ export const App: React.FC = () => {
       <div className="min-h-screen flex flex-col bg-white text-brand-dark selection:bg-indigo-600 selection:text-white font-sans transition-colors duration-300 w-full overflow-x-hidden">
         <Navbar />
 
-        <main className="flex-1 flex flex-col w-full">
+        <main className="flex-1 flex flex-col w-full pb-20 lg:pb-0">
           <Suspense fallback={<PageLoadingScreen />}>
             <AnimatePresence mode="wait">
               <Routes location={location} key={location.pathname}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   Calendar,
@@ -8,7 +8,6 @@ import {
   BookOpen,
   Search,
   ArrowRight,
-  Sparkles,
   ShieldCheck,
   CheckCircle2,
   Cpu,
@@ -17,25 +16,36 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { useRegistration } from '../../contexts/RegistrationContext';
+import { isUserRegistered } from '../../utils/identity';
+import { AppAuthModal } from '../ui/AppAuthModal';
 
 export const BrandexUnifiedHub: React.FC = () => {
   const { openModal } = useRegistration();
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+
+  const handleJoinCircle = () => {
+    if (!isUserRegistered()) {
+      setAuthModalOpen(true);
+    } else {
+      openModal('community');
+    }
+  };
 
   const verticals = [
     {
       id: 'services',
-      tag: 'Systems & AI Audits',
-      title: 'Service Booking Engine',
-      description: 'Engage Brandex engineering fellows for high-concurrency architecture audits, enterprise multi-agent workflows, and sandbox defense sprints.',
+      tag: '12 Core Services',
+      title: 'Services & Fast Quote',
+      description: 'Websites, Web Apps, Mobile, SaaS, Automation, AI Integration, Internal Tools, CRM, Consulting, Workshops, Training & Community.',
       features: [
-        '50k+ req/sec Go & Rust load testing',
-        'Enterprise RAG & local LLM pipelines',
-        'Penetration tests & code sandbox escape checks'
+        'Web, Mobile, SaaS & Internal Tools',
+        'AI Integration, Workflow Automation & CRM',
+        'Zero account required • Fast 30-sec quote'
       ],
       link: '/services',
-      actionText: 'Book Service Sprint',
+      actionText: 'Explore & Book Services',
       isPrimary: true,
-      badge: 'Immediate Availability'
+      badge: '12 Core Services'
     },
     {
       id: 'community',
@@ -49,8 +59,8 @@ export const BrandexUnifiedHub: React.FC = () => {
       ],
       link: '/community',
       actionText: 'Join a Domain Circle',
-      onClick: () => openModal('community'),
-      badge: 'Active Intake'
+      onClick: handleJoinCircle,
+      badge: 'Account Required'
     },
     {
       id: 'projects',
@@ -116,10 +126,6 @@ export const BrandexUnifiedHub: React.FC = () => {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-8 border-b border-slate-200 dark:border-slate-800">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60 mb-3">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Unified Brandex Ecosystem</span>
-            </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
               Everything in One Installable PWA
             </h2>
@@ -207,6 +213,14 @@ export const BrandexUnifiedHub: React.FC = () => {
           ))}
         </div>
       </div>
+
+      {/* Account Required Modal for Domain Circles */}
+      <AppAuthModal
+        isOpen={authModalOpen}
+        intent="circle"
+        onProceedToCircle={() => openModal('community')}
+        onClose={() => setAuthModalOpen(false)}
+      />
     </section>
   );
 };

@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import compression from 'compression';
 import publicRoutes from './routes/publicRoutes.js';
 import applicationRoutes from './routes/applicationRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
@@ -17,7 +18,13 @@ export const createApp = () => {
 
   const app = express();
 
-  // 1. Security Headers & CORS
+  // 1. Payload Compression (Gzip / Deflate for fast mobile & desktop payload delivery)
+  app.use(compression({
+    level: 6,
+    threshold: 512 // compress responses larger than 512 bytes
+  }));
+
+  // 2. Security Headers & CORS
   app.use(helmet({
     contentSecurityPolicy: false,
     crossOriginEmbedderPolicy: false
@@ -47,6 +54,8 @@ export const createApp = () => {
 
   // 5. API Routes
   app.use('/api/pwa', pwaRoutes);
+  app.use('/api/pwa/crm', integrationRoutes);
+  app.use('/api/crm', integrationRoutes);
   app.use('/api/public', publicRoutes);
   app.use('/api/application', applicationRoutes);
   app.use('/api/admin', adminRoutes);

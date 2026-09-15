@@ -9,7 +9,7 @@ import {
   User,
   Mail,
   Building2,
-  Sparkles,
+  Sliders,
   AlertCircle,
   Code2,
   Users,
@@ -109,7 +109,7 @@ export const RegistrationModal: React.FC = () => {
           id: 'Other',
           title: 'Other Specialized Track',
           desc: 'Custom focus or interdisciplinary technology research.',
-          icon: Sparkles,
+          icon: Sliders,
           badge: 'Custom',
         },
       ]
@@ -146,7 +146,7 @@ export const RegistrationModal: React.FC = () => {
           id: 'Other',
           title: 'Other Domain / Custom',
           desc: 'Propose a custom research interest or cross-disciplinary initiative.',
-          icon: Sparkles,
+          icon: Sliders,
           badge: 'Custom',
         },
       ];
@@ -193,7 +193,7 @@ export const RegistrationModal: React.FC = () => {
       title: 'Specialized Contributor',
       role: 'Custom Value',
       desc: 'Offer cross-functional expertise like technical writing, UI design, or venture building.',
-      icon: Sparkles,
+      icon: Sliders,
     },
   ];
 
@@ -442,6 +442,11 @@ export const RegistrationModal: React.FC = () => {
       setIsOfflineQueued(true);
     } finally {
       setApplicationRefId(newRefId);
+      try {
+        const existing = JSON.parse(localStorage.getItem('brandex_recent_refs') || '[]');
+        const updated = Array.from(new Set([newRefId, ...existing])).slice(0, 5);
+        localStorage.setItem('brandex_recent_refs', JSON.stringify(updated));
+      } catch {}
       addContributorPoints(100);
       setIsSubmitting(false);
       setIsSuccess(true);

@@ -69,4 +69,99 @@ describe('Audit: CRM Integration & Idempotency Layer', () => {
     expect(res.status).toBe(200);
     expect(res.body.refCode).toBe('BX-SPAM-TRAPPED');
   });
+
+  it('4. GET /api/crm/leads returns aggregated leads for external CRM synchronization', async () => {
+    const res = await request(app)
+      .get('/api/crm/leads')
+      .set('x-crm-api-key', 'crm_live_secret_brandex_2026_internal');
+
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body).toHaveProperty('leads');
+    expect(res.body).toHaveProperty('sqliteBookings');
+    expect(res.body).toHaveProperty('sqliteApplications');
+    expect(res.body.count).toBeGreaterThan(0);
+  });
+
+  it('5. POST /api/crm/sync receives external CRM status update and triggers real notification', async () => {
+    // 1. Create a service booking first
+    const bookRes = await request(app)
+      .post('/api/pwa/bookings')
+      .send({
+        userHandle: '@crm_client_99',
+        serviceTitle: 'Cloud AI Integration',
+        organization: 'Acme Systems',
+        scopeDescription: 'Deploy RAG pipeline and fine-tuned model',
+        preferredSlot: 'Next Week'
+      });
+
+    expect(bookRes.status).toBe(201);
+    const bookingId = bookRes.body.id;
+
+    // 2. Push status update from external CRM
+    const syncRes = await request(app)
+      .post('/api/crm/sync')
+      .set('x-crm-api-key', 'crm_live_secret_brandex_2026_internal')
+      .send({
+        refCode: bookingId,
+        newStatus: 'Confirmed',
+        notes: 'Engineering lead confirmed time slot and architecture brief.'
+      });
+
+    expect(syncRes.status).toBe(200);
+    expect(syncRes.body.success).toBe(true);
+    expect(syncRes.body.newStatus).toBe('Confirmed');
+    expect(syncRes.body.targetHandle).toBe('@crm_client_99');
+
+    // 3. Verify notification arrived for the client
+    const notifRes = await request(app).get(`/api/pwa/notifications?handle=@crm_client_99`);
+    expect(notifRes.status).toBe(200);
+    const notifications = notifRes.body.notifications;
+    const found = notifications.find((n: any) => n.title.includes('Confirmed') || n.message.includes('Confirmed'));
+    expect(found).toBeDefined();
+  });
+
+  it('6. GET /api/crm/health returns pipeline connection health report', async () => {
+    const res = await request(app).get('/api/crm/health');
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.status).toBe('connected');
+    expect(res.body.pipeline).toHaveProperty('activeLeadsInCRM');
+  });
+
+  it('7. POST /api/pwa/crm/sync-status syncs status for cohort/career application', async () => {
+    // 1. Create an application
+    const appRes = await request(app)
+      .post('/api/pwa/applications')
+      .send({
+        userHandle: '@test_candidate_1',
+        name: 'Test Candidate',
+        email: 'test.candidate@domain.com',
+        domains: ['AI Engineering Cohort'],
+        experienceLevel: 'Advanced',
+        projectIdea: 'Distributed consensus testing pipeline'
+      });
+
+    expect(appRes.status).toBe(201);
+    const appId = appRes.body.applicationId;
+
+    // 2. External CRM syncs status to 'Interview Scheduled'
+    const syncRes = await request(app)
+      .post('/api/pwa/crm/sync-status')
+      .send({
+        refCode: appId,
+        status: 'Interview Scheduled',
+        reviewerNotes: 'Candidate screened; interview scheduled with core lead.'
+      });
+
+    expect(syncRes.status).toBe(200);
+    expect(syncRes.body.success).toBe(true);
+    expect(syncRes.body.status).toBe('Interview Scheduled');
+
+    // 3. Query status via public lookup
+    const statusRes = await request(app).get(`/api/pwa/status/${appId}`);
+    expect(statusRes.status).toBe(200);
+    expect(statusRes.body.status).toBe('Interview Scheduled');
+    expect(statusRes.body.notes).toContain('Candidate screened');
+  });
 });

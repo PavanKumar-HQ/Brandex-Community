@@ -243,18 +243,138 @@ class CRMService {
   }
 
   /**
-   * Operational: Update CRM lead status from Admin / Webhook
+   * Operational: Update CRM lead status from Admin / Webhook / External CRM
    */
-  public updateLeadStatus(refCode: string, newStatus: CRMInternalStatus, notes?: string): boolean {
-    const lead = this.crmDatabase.get(refCode);
+  public updateLeadStatus(
+    refCode: string,
+    newStatus: CRMInternalStatus | string,
+    notes?: string
+  ): boolean {
+    const upperRef = refCode.trim().toUpperCase();
+    const lead = this.crmDatabase.get(upperRef) ||
+      Array.from(this.crmDatabase.values()).find(l => l.refCode.toUpperCase() === upperRef);
     if (!lead) return false;
 
-    lead.internalStatus = newStatus;
+    const internalStatusMap: Record<string, CRMInternalStatus> = {
+      'Application Received': 'NEW_LEAD',
+      'Under Review': 'CONTACTED',
+      'Under Technical Evaluation': 'QUALIFIED',
+      'Interview Scheduled': 'INTERVIEW',
+      'Action Required': 'DOCUMENTS_REQUIRED',
+      'Application Closed': 'REJECTED',
+      'Selected': 'CONVERTED',
+      'Accepted': 'CONVERTED'
+    };
+
+    lead.internalStatus = (internalStatusMap[newStatus] || newStatus) as CRMInternalStatus;
     lead.updatedAt = new Date().toISOString();
     if (notes) {
       lead.actionRequiredInstructions = notes;
+      lead.message = `${lead.message} | Update: ${notes}`;
     }
+
+    auditService.log({
+      actorEmail: 'external-crm-sync',
+      actorRole: 'CRM_INTEGRATION',
+      action: 'CRM_LEAD_STATUS_UPDATED',
+      entity: 'crm_lead',
+      entityId: upperRef,
+      summary: `Lead ${upperRef} status updated to ${lead.internalStatus}`
+    });
+
     return true;
+  }
+
+  /**
+   * Pipeline: Sync incoming PWA service booking to CRM
+   */
+  public syncLeadFromBooking(booking: {
+    id: string;
+    userHandle: string;
+    serviceTitle: string;
+    organization: string;
+    scopeDescription: string;
+    preferredSlot: string;
+  }): CRMLeadRecord {
+    const crmId = `crm-srv-${Date.now()}`;
+    const now = new Date().toISOString();
+    const lead: CRMLeadRecord = {
+      crmId,
+      refCode: booking.id,
+      type: 'service_booking',
+      orgName: booking.organization,
+      contactName: booking.userHandle,
+      email: `${booking.userHandle.replace(/^@/, '')}@brandex.internal`,
+      message: `[SERVICE] ${booking.serviceTitle} | Slot: ${booking.preferredSlot} | Scope: ${booking.scopeDescription}`,
+      internalStatus: 'NEW_LEAD',
+      createdAt: now,
+      updatedAt: now
+    };
+    this.crmDatabase.set(booking.id, lead);
+
+    auditService.log({
+      actorEmail: 'system-gateway',
+      actorRole: 'ENQUIRY_MANAGER',
+      action: 'CRM_PIPELINE_BOOKING_SYNC',
+      entity: 'crm_lead',
+      entityId: booking.id,
+      summary: `Service booking ${booking.id} synced into CRM lead pipeline`
+    });
+
+    return lead;
+  }
+
+  /**
+   * Pipeline: Sync incoming PWA circle/cohort application to CRM
+   */
+  public syncLeadFromApplication(app: {
+    id: string;
+    userHandle: string;
+    name?: string;
+    email?: string;
+    organization?: string;
+    domains: string[];
+    experienceLevel: string;
+    projectIdea: string;
+  }): CRMLeadRecord {
+    const crmId = `crm-app-${Date.now()}`;
+    const now = new Date().toISOString();
+    const lead: CRMLeadRecord = {
+      crmId,
+      refCode: app.id,
+      type: 'circle_application',
+      orgName: app.organization || 'Independent Builder',
+      contactName: app.name || app.userHandle,
+      email: app.email || `${app.userHandle.replace(/^@/, '')}@brandex.internal`,
+      message: `[DOMAINS] ${app.domains.join(', ')} | Level: ${app.experienceLevel} | Project: ${app.projectIdea}`,
+      internalStatus: 'NEW_LEAD',
+      createdAt: now,
+      updatedAt: now
+    };
+    this.crmDatabase.set(app.id, lead);
+
+    auditService.log({
+      actorEmail: 'system-gateway',
+      actorRole: 'ENQUIRY_MANAGER',
+      action: 'CRM_PIPELINE_APPLICATION_SYNC',
+      entity: 'crm_lead',
+      entityId: app.id,
+      summary: `Application ${app.id} synced into CRM lead pipeline`
+    });
+
+    return lead;
+  }
+
+
+  /**
+   * Return all CRM leads for external synchronization
+   */
+  public getAllLeads(filterType?: string): CRMLeadRecord[] {
+    const leads = Array.from(this.crmDatabase.values());
+    if (filterType && filterType !== 'all') {
+      return leads.filter(l => l.type === filterType);
+    }
+    return leads.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   }
 
   /**

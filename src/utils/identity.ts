@@ -8,9 +8,11 @@ export interface AnonymousIdentity {
   avatarSeed: string;
   contributorPoints: number;
   createdAt: string;
+  isRegistered?: boolean;
 }
 
 const IDENTITY_KEY = 'brandex_anon_identity';
+const REGISTERED_KEY = 'brandex_user_registered';
 
 const ADJECTIVES = ['crypto', 'kernel', 'neural', 'vector', 'distributed', 'swiss', 'quantum', 'matrix', 'agentic', 'cyber'];
 const NOUNS = ['builder', 'hacker', 'node', 'daemon', 'architect', 'compiler', 'sprint', 'mesh', 'runner', 'forge'];
@@ -22,20 +24,47 @@ export function generateRandomHandle(): string {
   return `@${adj}_${noun}_${num}`;
 }
 
+export function isUserRegistered(): boolean {
+  if (typeof window === 'undefined') return false;
+  return localStorage.getItem(REGISTERED_KEY) === 'true';
+}
+
+export function registerUserAccount(handle?: string): AnonymousIdentity {
+  const current = getOrCreateIdentity();
+  const finalHandle = handle ? (handle.startsWith('@') ? handle : `@${handle}`) : current.handle;
+  const updated: AnonymousIdentity = {
+    ...current,
+    handle: finalHandle,
+    isRegistered: true,
+    contributorPoints: Math.max(current.contributorPoints, 150)
+  };
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(IDENTITY_KEY, JSON.stringify(updated));
+    localStorage.setItem(REGISTERED_KEY, 'true');
+  }
+  return updated;
+}
+
 export function getOrCreateIdentity(): AnonymousIdentity {
   if (typeof window === 'undefined') {
     return {
       handle: '@brandex_builder_101',
       avatarSeed: 'seed_101',
       contributorPoints: 50,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      isRegistered: false
     };
   }
 
+  const registeredFlag = localStorage.getItem(REGISTERED_KEY) === 'true';
   const existing = localStorage.getItem(IDENTITY_KEY);
   if (existing) {
     try {
-      return JSON.parse(existing);
+      const parsed = JSON.parse(existing);
+      return {
+        ...parsed,
+        isRegistered: registeredFlag || Boolean(parsed.isRegistered)
+      };
     } catch {
       // If corrupted, re-generate below
     }
@@ -45,7 +74,8 @@ export function getOrCreateIdentity(): AnonymousIdentity {
     handle: generateRandomHandle(),
     avatarSeed: Math.random().toString(36).substring(2, 10),
     contributorPoints: 50,
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
+    isRegistered: false
   };
 
   localStorage.setItem(IDENTITY_KEY, JSON.stringify(newIdentity));
@@ -57,9 +87,13 @@ export function updateIdentityHandle(newHandle: string): AnonymousIdentity {
   const sanitized = newHandle.startsWith('@') ? newHandle : `@${newHandle}`;
   const updated: AnonymousIdentity = {
     ...current,
-    handle: sanitized
+    handle: sanitized,
+    isRegistered: true
   };
-  localStorage.setItem(IDENTITY_KEY, JSON.stringify(updated));
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(IDENTITY_KEY, JSON.stringify(updated));
+    localStorage.setItem(REGISTERED_KEY, 'true');
+  }
   return updated;
 }
 

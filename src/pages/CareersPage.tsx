@@ -1,14 +1,35 @@
 import { useSEO } from '../hooks/useSEO';
-import React from 'react';
-import { Briefcase, Heart, Cpu, Globe, ArrowRight, Loader2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import {
+  Briefcase,
+  Heart,
+  Cpu,
+  Globe,
+  ArrowRight,
+  Loader2,
+  CheckCircle2,
+  Clock,
+  Calendar,
+  AlertCircle,
+  Search,
+  Copy,
+  Check,
+  Send,
+  Mail
+} from 'lucide-react';
 import { PageHero } from '../components/ui/PageHero';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { SectionHeading } from '../components/ui/SectionHeading';
+import { CareerApplyModal } from '../components/careers/CareerApplyModal';
+import { SkeletonCard } from '../components/ui/Skeleton';
 
 export const CareersPage: React.FC = () => {
   useSEO("Careers & Team", "Join our team. Work remotely and help build the future of tech education.");
+  const [applyModalOpen, setApplyModalOpen] = useState(false);
   return (
     <div className="w-full space-y-8 pb-20 pt-20 sm:pt-24 px-4 sm:px-8 lg:px-12 xl:px-16 bg-white text-slate-900 font-sans">
+      <CareerApplyModal isOpen={applyModalOpen} onClose={() => setApplyModalOpen(false)} />
       <Breadcrumb items={[{ label: 'Careers' }]} />
         
         {/* Hero Section */}
@@ -81,111 +102,262 @@ export const CareersPage: React.FC = () => {
           <p className="text-slate-600 max-w-md">
             We aren't actively hiring at this exact moment, but we are always on the lookout for exceptional talent. Check back soon or follow us on our socials for updates!
           </p>
-          <a href="mailto:careers@brandex.network" className="inline-flex items-center gap-2 mt-4 text-indigo-600 font-semibold hover:text-indigo-700 transition-colors">
-            Send us your resume anyway
-            <ArrowRight className="w-4 h-4" />
-          </a>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-5 w-full max-w-md">
+            <button
+              type="button"
+              onClick={() => setApplyModalOpen(true)}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-98 text-white font-bold text-xs shadow-md shadow-indigo-500/20 transition-all cursor-pointer"
+            >
+              <Send className="w-4 h-4 text-white" />
+              <span>Submit Candidacy / Send Resume</span>
+            </button>
+            <a
+              href="mailto:careers@brandex.network?subject=Brandex%20Talent%20Pool%20Candidacy"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-slate-100 active:scale-98 border border-slate-300 text-slate-700 font-bold text-xs shadow-xs transition-all"
+            >
+              <Mail className="w-4 h-4 text-slate-500" />
+              <span>Email Resume Directly</span>
+            </a>
+          </div>
         </div>
       </section>
 
-      {/* Application Status Tracker */}
+      {/* Fused Application & Career Status Tracker */}
       <section className="space-y-6 pt-8 border-t border-slate-200">
         <SectionHeading
-          tag="STATUS CHECKER"
-          title="Check Review Status"
-          subtitle="Input your application email to check your status."
+          tag="STATUS TRACKER"
+          title="Fused Application & Career Tracker"
+          subtitle="Query live admissions, fellowship pipelines, or circular evaluation using your email or reference code."
         />
-        <StatusCheckerForm />
+        <FusedCareerTracker />
       </section>
 
     </div>
   );
 };
 
-const StatusCheckerForm: React.FC = () => {
-  const [email, setEmail] = React.useState(() => sessionStorage.getItem('careerEmail') || '');
-  const [result, setResult] = React.useState<string | null>(null);
-  const [statusType, setStatusType] = React.useState<'info' | 'success' | 'warning' | 'error' | null>(null);
-  const [loading, setLoading] = React.useState(false);
+interface StatusRecord {
+  id: string;
+  refCode?: string;
+  type?: string;
+  status: string;
+  program?: string;
+  serviceTitle?: string;
+  applicationType?: string;
+  userHandle?: string;
+  email?: string;
+  notes?: string;
+  reviewerNotes?: string;
+  createdAt?: string;
+  submittedAt?: string;
+}
 
-  React.useEffect(() => {
-    sessionStorage.setItem('careerEmail', email);
-  }, [email]);
+const FusedCareerTracker: React.FC = () => {
+  const [query, setQuery] = useState(() => sessionStorage.getItem('careerEmail') || '');
+  const [record, setRecord] = useState<StatusRecord | null>(null);
+  const [notFound, setNotFound] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
-  const handleCheck = (e: React.FormEvent) => {
+  useEffect(() => {
+    sessionStorage.setItem('careerEmail', query);
+  }, [query]);
+
+  const handleCheck = async (e: React.FormEvent) => {
     e.preventDefault();
-    const cleanEmail = email.trim().toLowerCase();
-    if (!cleanEmail) {
-      setResult("Please enter a valid email address.");
-      setStatusType('error');
+    const cleanQuery = query.trim();
+    if (!cleanQuery) {
+      setErrorMsg("Please enter a valid email address or reference ID (e.g. BX-...).");
+      setRecord(null);
+      setNotFound(false);
       return;
     }
 
     setLoading(true);
-    setResult(null);
+    setErrorMsg(null);
+    setRecord(null);
+    setNotFound(false);
 
-    setTimeout(() => {
-      setLoading(false);
-      // Mock Database for Career Submissions
-      const mockDb: Record<string, { status: string; type: 'info' | 'success' | 'warning' | 'error' }> = {
-        'pavan@brandex.network': { status: 'Application Approved - Welcome to the Core Executive Team.', type: 'success' },
-        'alex.mercer@gmail.com': { status: 'Under Technical Evaluation - Engineering task review is active.', type: 'info' },
-        'sathvik@brandex.network': { status: 'Application Approved - Welcome to the Core Tech Team.', type: 'success' },
-        'candidate@example.com': { status: 'Interview Scheduled - Please check your calendar for the invite link.', type: 'success' },
-        'rejected@example.com': { status: 'Review Concluded - Thank you for applying. We are not moving forward at this time.', type: 'warning' },
-      };
-
-      if (mockDb[cleanEmail]) {
-        setResult(mockDb[cleanEmail].status);
-        setStatusType(mockDb[cleanEmail].type);
+    try {
+      const res = await fetch(`/api/pwa/status/${encodeURIComponent(cleanQuery)}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.success) {
+          setRecord(data);
+        } else {
+          setNotFound(true);
+        }
       } else {
-        setResult("No application record found for this email address. Submit your CV to careers@brandex.network first.");
-        setStatusType('error');
+        setNotFound(true);
       }
-    }, 2000);
+    } catch {
+      setErrorMsg("Unable to connect to live status verification pipeline. Please try again or visit the main tracker.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const copyRef = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const renderBadge = (status: string) => {
+    const s = (status || '').toLowerCase();
+    if (s.includes('accept') || s.includes('select') || s.includes('approved')) {
+      return (
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold rounded-full">
+          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+          <span>{status}</span>
+        </span>
+      );
+    }
+    if (s.includes('interview')) {
+      return (
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold rounded-full">
+          <Calendar className="w-3.5 h-3.5 text-blue-600" />
+          <span>{status}</span>
+        </span>
+      );
+    }
+    if (s.includes('action') || s.includes('document') || s.includes('waitlist')) {
+      return (
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 text-amber-700 border border-amber-200 text-xs font-bold rounded-full">
+          <AlertCircle className="w-3.5 h-3.5 text-amber-600" />
+          <span>{status}</span>
+        </span>
+      );
+    }
+    return (
+      <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 text-indigo-700 border border-indigo-200 text-xs font-bold rounded-full">
+        <Clock className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
+        <span>{status || 'Under Technical Review'}</span>
+      </span>
+    );
   };
 
   return (
-    <div className="bg-slate-50 border border-slate-200 p-6 w-full space-y-4 rounded-2xl">
-      <form onSubmit={handleCheck} className="space-y-3">
-        <div className="flex flex-col space-y-1.5">
-          <label htmlFor="email" className="text-xs font-bold text-slate-700 uppercase tracking-wider">
-            Registered Email Address
+    <div className="bg-slate-50 border border-slate-200 p-6 sm:p-8 w-full space-y-6 rounded-2xl">
+      <form onSubmit={handleCheck} className="space-y-4">
+        <div className="flex flex-col space-y-2">
+          <label htmlFor="tracker-input" className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+            Registered Email Address or Reference ID
           </label>
-          <input
-            id="email"
-            type="email"
-            placeholder="candidate@example.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            disabled={loading}
-            className="border border-slate-200 px-3.5 py-2.5 text-sm bg-white text-slate-900 focus:outline-none focus:border-indigo-600 w-full rounded-lg disabled:bg-slate-100 disabled:cursor-not-allowed"
-          />
+          <div className="flex flex-col sm:flex-row gap-3">
+            <div className="relative flex-1">
+              <input
+                id="tracker-input"
+                type="text"
+                placeholder="e.g. karthik@example.com or BX-2026-1003"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                disabled={loading}
+                className="border border-slate-200 px-4 py-3 text-sm bg-white text-slate-900 focus:outline-none focus:border-indigo-600 w-full rounded-xl disabled:bg-slate-100 disabled:cursor-not-allowed font-mono"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-2 shrink-0 disabled:bg-indigo-400 disabled:cursor-not-allowed"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin text-white" />
+                  <span>Checking...</span>
+                </>
+              ) : (
+                <>
+                  <Search className="w-4 h-4 text-white" />
+                  <span>Track Status</span>
+                </>
+              )}
+            </button>
+          </div>
         </div>
-        <button
-          type="submit"
-          disabled={loading}
-          className="btn-primary w-full py-2.5 text-sm font-semibold rounded-lg flex items-center justify-center gap-2 disabled:bg-indigo-400 disabled:cursor-not-allowed"
-        >
-          {loading ? (
-            <>
-              <Loader2 className="w-5 h-5 animate-spin text-white" />
-              <span className="text-white">Verifying application...</span>
-            </>
-          ) : (
-            <span>Check Application Status</span>
-          )}
-        </button>
       </form>
 
-      {result && (
-        <div className={`p-4 text-xs font-medium border rounded-lg ${
-          statusType === 'success' ? 'bg-emerald-50 border-emerald-250 text-emerald-800' :
-          statusType === 'warning' ? 'bg-amber-50 border-amber-250 text-amber-800' :
-          statusType === 'error' ? 'bg-red-50 border-red-200 text-red-800' :
-          'bg-blue-50 border-blue-200 text-blue-800'
-        }`}>
-          {result}
+      {errorMsg && (
+        <div className="p-4 text-xs font-medium border rounded-xl bg-red-50 border-red-200 text-red-700 flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 shrink-0 text-red-600" />
+          <span>{errorMsg}</span>
+        </div>
+      )}
+
+      {record && (
+        <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-4 shadow-xs">
+          <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Ref ID:</span>
+              <span className="font-mono text-xs font-bold text-slate-900 bg-slate-100 px-2.5 py-1 rounded-md">
+                {record.id || record.refCode}
+              </span>
+              <button
+                type="button"
+                onClick={() => copyRef(record.id || record.refCode || '')}
+                className="text-slate-400 hover:text-slate-700 transition-colors p-1"
+                title="Copy Reference Code"
+              >
+                {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+              </button>
+            </div>
+            {renderBadge(record.status)}
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <span className="text-[11px] font-mono text-slate-500 uppercase">Program / Role</span>
+              <p className="text-sm font-semibold text-slate-900 mt-0.5">
+                {record.program || record.serviceTitle || record.applicationType || 'Talent Application'}
+              </p>
+            </div>
+            <div>
+              <span className="text-[11px] font-mono text-slate-500 uppercase">Applicant Identifier</span>
+              <p className="text-sm font-semibold text-slate-900 mt-0.5">
+                {record.userHandle || record.email || 'Confidential'}
+              </p>
+            </div>
+          </div>
+
+          {(record.notes || record.reviewerNotes) && (
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-700 space-y-1">
+              <span className="font-bold text-slate-900">Admissions / Evaluation Notes:</span>
+              <p className="text-slate-600 leading-relaxed">{record.notes || record.reviewerNotes}</p>
+            </div>
+          )}
+
+          <div className="pt-2 flex flex-wrap items-center justify-between gap-3 text-xs border-t border-slate-100">
+            <span className="text-slate-500">
+              Submitted on {record.createdAt ? new Date(record.createdAt).toLocaleDateString() : 'Recent Submission'}
+            </span>
+            <NavLink
+              to={`/status?id=${encodeURIComponent(record.id || record.refCode || query.trim())}`}
+              className="inline-flex items-center gap-1.5 font-bold text-indigo-600 hover:text-indigo-700 transition-colors"
+            >
+              <span>View in Full Platform Tracker</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </NavLink>
+          </div>
+        </div>
+      )}
+
+      {notFound && (
+        <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-3 text-center">
+          <AlertCircle className="w-8 h-8 text-amber-500 mx-auto" />
+          <h4 className="text-sm font-bold text-slate-900">No Application Record Found</h4>
+          <p className="text-xs text-slate-600 max-w-md mx-auto">
+            We couldn't find a record for <strong className="font-mono">{query}</strong>. If you applied recently, please ensure your email or reference code matches exactly.
+          </p>
+          <div className="pt-2">
+            <NavLink
+              to="/status"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-semibold transition-colors"
+            >
+              <span>Search Platform Tracker</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </NavLink>
+          </div>
         </div>
       )}
     </div>

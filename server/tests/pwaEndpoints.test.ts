@@ -85,4 +85,32 @@ describe('PWA Unified Ecosystem Endpoints', () => {
     expect(res.body.success).toBe(true);
     expect(res.body).toHaveProperty('pointsAwarded');
   });
+
+  it('GET /api/pwa/notifications returns real notifications and POST mark-read updates status', async () => {
+    // 1. Fetch broadcast / user notifications
+    const getRes = await request(app).get('/api/pwa/notifications?handle=@test_contributor');
+    expect(getRes.status).toBe(200);
+    expect(getRes.body.success).toBe(true);
+    expect(Array.isArray(getRes.body.notifications)).toBe(true);
+    expect(getRes.body.notifications.length).toBeGreaterThan(0);
+
+    const firstNotif = getRes.body.notifications[0];
+
+    // 2. Mark specific notification as read
+    const markRes = await request(app)
+      .post('/api/pwa/notifications/mark-read')
+      .send({ id: firstNotif.id });
+    expect(markRes.status).toBe(200);
+    expect(markRes.body.success).toBe(true);
+  });
+
+  it('GET /api/pwa/stats returns real live metrics from SQLite database', async () => {
+    const res = await request(app).get('/api/pwa/stats');
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.stats).toHaveProperty('totalBookings');
+    expect(res.body.stats).toHaveProperty('totalApplications');
+    expect(res.body.stats).toHaveProperty('verifiedContributions');
+    expect(res.body.stats).toHaveProperty('activeProjects');
+  });
 });

@@ -17,7 +17,6 @@ import {
   Lock,
   ExternalLink,
   MessageSquare,
-  Sparkles,
   Loader2
 } from 'lucide-react';
 import { getEnquiries } from '../repositories/repository';
@@ -52,55 +51,34 @@ export const ApplicationStatusPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  // Sample persistent mock entries for live demo lookup
-  const fallbackMocks: DisplayStatusRecord[] = [
-    {
-      id: 'BX-2026-8812',
-      typeCategory: 'application',
-      title: 'Advanced AI Systems & Agent Architecture',
-      subtitle: 'Technical Training Cohort 04',
-      handleOrName: '@neural_builder_101',
-      status: 'Accepted',
-      metaLabel1: 'Assigned Circle',
-      metaValue1: 'Artificial Intelligence & Agents',
-      metaLabel2: 'Experience Level',
-      metaValue2: 'Advanced Builder',
-      notes: 'Application approved by technical admissions board. Private circle access token and onboarding orientation dispatched.',
-      submittedAt: 'August 22, 2026',
-      privateCircleLink: 'https://discord.gg/brandex-circle-verified'
-    },
-    {
-      id: 'SRV-2026-4401',
-      typeCategory: 'booking',
-      title: 'Architecture & High-Concurrency Scalability Audit',
-      subtitle: 'Enterprise Engineering Sprint',
-      handleOrName: '@kernel_sprint_88',
-      status: 'Scheduled',
-      metaLabel1: 'Organization',
-      metaValue1: 'Apex Distributed Labs',
-      metaLabel2: 'Reserved Slot',
-      metaValue2: 'Oct 02, 2026 @ 10:00 AM IST',
-      notes: 'Initial discovery brief confirmed. Core systems engineering lead assigned to lead the containerized stress test sprint.',
-      submittedAt: 'August 26, 2026'
+  // Dynamically load user's real recent reference IDs from localStorage + SQLite seed
+  const [recentRefIds, setRecentRefIds] = useState<string[]>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = JSON.parse(localStorage.getItem('brandex_recent_refs') || '[]');
+        return Array.from(new Set([...saved, 'BX-2026-8812']));
+      } catch {}
     }
-  ];
+    return ['BX-2026-8812'];
+  });
 
   const handleSearch = async (query: string) => {
-    const cleanId = query.trim().toUpperCase();
-    if (!cleanId) {
-      setErrorMsg('Please enter a valid BX- or SRV- Reference ID.');
+    const cleanQuery = query.trim();
+    if (!cleanQuery) {
+      setErrorMsg('Please enter a valid Reference ID (BX- or SRV-) or registered email.');
       setResult(null);
       return;
     }
 
+    const cleanId = cleanQuery.toUpperCase();
     setErrorMsg('');
     setSearched(true);
     setIsLoading(true);
-    setSearchParams({ id: cleanId });
+    setSearchParams({ id: cleanQuery });
 
     try {
       // 1. Check real SQLite Database via backend endpoint
-      const res = await fetch(`/api/pwa/status/${cleanId}`);
+      const res = await fetch(`/api/pwa/status/${encodeURIComponent(cleanQuery)}`);
       if (res.ok) {
         const data = await res.json();
         if (data.type === 'application') {
@@ -128,12 +106,29 @@ export const ApplicationStatusPage: React.FC = () => {
             title: data.serviceTitle,
             subtitle: `Organization: ${data.organization}`,
             handleOrName: data.userHandle,
-            status: 'Scheduled',
+            status: data.status || 'Scheduled',
             metaLabel1: 'Client Organization',
             metaValue1: data.organization,
             metaLabel2: 'Reserved Discovery Slot',
             metaValue2: data.preferredSlot,
-            notes: `Scope: ${data.scopeNotes || 'Comprehensive audit deliverables confirmed'}. Technical lead will initiate briefing at the designated slot.`,
+            notes: `Scope: ${data.scopeNotes || 'Comprehensive audit deliverables confirmed'}. ${data.reviewerNotes || ''}`,
+            submittedAt: data.createdAt ? new Date(data.createdAt).toLocaleDateString() : 'Recent Submission'
+          });
+          setIsLoading(false);
+          return;
+        } else if (data.type === 'career_lead') {
+          setResult({
+            id: data.id,
+            typeCategory: 'application',
+            title: 'CAREER & TALENT SUBMISSION',
+            subtitle: data.program || 'Brandex Engineering / Campus Fellow Track',
+            handleOrName: data.userHandle || data.email,
+            status: data.status,
+            metaLabel1: 'Candidate Name / Handle',
+            metaValue1: data.userHandle || data.email,
+            metaLabel2: 'Registered Email',
+            metaValue2: data.email || 'Confidential',
+            notes: data.notes || 'Application is being reviewed in the talent pipeline.',
             submittedAt: data.createdAt ? new Date(data.createdAt).toLocaleDateString() : 'Recent Submission'
           });
           setIsLoading(false);
@@ -141,18 +136,10 @@ export const ApplicationStatusPage: React.FC = () => {
         }
       }
     } catch {
-      // If backend is booting, proceed to fallbacks
+      // Backend temporarily unreachable
     }
 
-    // 2. Check local fallback mock list
-    const foundMock = fallbackMocks.find((m) => m.id === cleanId || m.handleOrName.toLowerCase() === query.trim().toLowerCase());
-    if (foundMock) {
-      setResult(foundMock);
-      setIsLoading(false);
-      return;
-    }
-
-    // 3. Check legacy enquiries repository
+    // 2. Check legacy enquiries repository
     try {
       const enquiries = await getEnquiries();
       const foundEnquiry = enquiries.find(
@@ -248,10 +235,10 @@ export const ApplicationStatusPage: React.FC = () => {
   };
 
   return (
-    <div className="w-full min-h-screen bg-slate-50/50 dark:bg-brand-canvas transition-colors pb-24">
-      {/* Top Header */}
-      <div className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 backdrop-blur-md sticky top-14 z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+    <div className="w-full min-h-screen bg-slate-50/50 dark:bg-brand-canvas transition-colors pt-24 sm:pt-28 md:pt-32 pb-24">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Breadcrumb */}
+        <div className="mb-6">
           <Breadcrumb
             items={[
               { label: 'Home', path: '/' },
@@ -259,15 +246,9 @@ export const ApplicationStatusPage: React.FC = () => {
             ]}
           />
         </div>
-      </div>
 
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
         {/* Title Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60 mb-3">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Deterministic Reference Verifier • SQLite Persistent</span>
-          </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
             Pseudo-Anonymous Status Tracker
           </h1>
@@ -286,14 +267,14 @@ export const ApplicationStatusPage: React.FC = () => {
             className="space-y-4"
           >
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-              Enter Reference ID (BX- or SRV-)
+              Enter Reference ID or Registered Email
             </label>
             <div className="flex flex-col sm:flex-row gap-3">
               <input
                 type="text"
                 value={searchId}
                 onChange={(e) => setSearchId(e.target.value)}
-                placeholder="e.g. BX-2026-8812 or SRV-2026-4401"
+                placeholder="e.g. BX-2026-8812, SRV-2026-4401, or candidate@example.com"
                 className="flex-1 px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-sm font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
               <button
@@ -316,17 +297,17 @@ export const ApplicationStatusPage: React.FC = () => {
 
           {/* Quick Demo Reference Badges */}
           <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-2 text-xs">
-            <span className="font-semibold text-slate-500 dark:text-slate-400">Quick Test IDs:</span>
-            {fallbackMocks.map((m) => (
+            <span className="font-semibold text-slate-500 dark:text-slate-400">Recent References:</span>
+            {recentRefIds.map((id) => (
               <button
-                key={m.id}
+                key={id}
                 onClick={() => {
-                  setSearchId(m.id);
-                  handleSearch(m.id);
+                  setSearchId(id);
+                  handleSearch(id);
                 }}
                 className="font-mono text-[11px] px-2.5 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 hover:text-indigo-600 dark:hover:text-indigo-400 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 rounded-lg transition-colors"
               >
-                {m.id}
+                {id}
               </button>
             ))}
           </div>

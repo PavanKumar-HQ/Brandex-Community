@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   ShieldCheck,
-  Sparkles,
   Award,
   CheckCircle2,
   RefreshCw,
@@ -27,9 +26,17 @@ interface AppAuthModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSuccess?: (identity: AnonymousIdentity) => void;
+  intent?: 'circle' | 'general';
+  onProceedToCircle?: () => void;
 }
 
-export const AppAuthModal: React.FC<AppAuthModalProps> = ({ isOpen, onClose, onSuccess }) => {
+export const AppAuthModal: React.FC<AppAuthModalProps> = ({
+  isOpen,
+  onClose,
+  onSuccess,
+  intent = 'general',
+  onProceedToCircle
+}) => {
   const [mode, setMode] = useState<'signup' | 'signin'>('signup');
   const [handleInput, setHandleInput] = useState<string>(generateRandomHandle());
   const [selectedDomain, setSelectedDomain] = useState<string>('Artificial Intelligence');
@@ -93,14 +100,21 @@ export const AppAuthModal: React.FC<AppAuthModalProps> = ({ isOpen, onClose, onS
         {/* LOADING ANIMATION STATE */}
         {isLoading ? (
           <div className="py-8 text-center space-y-6 animate-fade-in">
-            <div className="relative w-24 h-24 mx-auto flex items-center justify-center">
-              {/* Outer rotating pulse ring */}
-              <div className="absolute inset-0 rounded-3xl border-2 border-indigo-600/30 border-t-indigo-600 animate-spin" />
-              <div className="absolute inset-2 rounded-2xl border-2 border-slate-200 dark:border-slate-700 border-b-emerald-500 animate-spin [animation-direction:reverse] [animation-duration:3s]" />
+            <div className="relative w-28 h-28 mx-auto flex items-center justify-center">
+              {/* Outer ambient glow */}
+              <div className="absolute inset-0 rounded-full bg-indigo-500/10 dark:bg-indigo-500/20 blur-md animate-pulse" />
+              {/* Precision outer rotating ring */}
+              <div className="absolute inset-0 rounded-full border-2 border-indigo-600/20 border-t-indigo-600 animate-spin [animation-duration:1.8s]" />
+              {/* Counter-rotating ring */}
+              <div className="absolute inset-2.5 rounded-full border border-dashed border-slate-300 dark:border-slate-700 border-r-indigo-500 animate-spin [animation-direction:reverse] [animation-duration:4s]" />
               
-              {/* Inner geometric core */}
-              <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-950/60 rounded-xl flex items-center justify-center border border-indigo-200 dark:border-indigo-800">
-                <Cpu className="w-6 h-6 text-indigo-600 dark:text-indigo-400 animate-pulse" />
+              {/* Centered Brandex Logo mark */}
+              <div className="relative z-10 w-14 h-14 bg-white dark:bg-slate-800 rounded-2xl p-2.5 flex items-center justify-center shadow-md border border-slate-200/80 dark:border-slate-700">
+                <img
+                  src="/brandex-navbar-logo.webp"
+                  alt="Brandex"
+                  className="w-full h-auto object-contain animate-pulse"
+                />
               </div>
             </div>
 
@@ -161,10 +175,15 @@ export const AppAuthModal: React.FC<AppAuthModalProps> = ({ isOpen, onClose, onS
             </div>
 
             <button
-              onClick={onClose}
+              onClick={() => {
+                onClose();
+                if (intent === 'circle' && onProceedToCircle) {
+                  onProceedToCircle();
+                }
+              }}
               className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-sm transition-all flex items-center justify-center gap-2"
             >
-              <span>Enter Brandex Ecosystem</span>
+              <span>{intent === 'circle' ? 'Continue to Domain Circle Registration' : 'Enter Brandex Ecosystem'}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -172,15 +191,24 @@ export const AppAuthModal: React.FC<AppAuthModalProps> = ({ isOpen, onClose, onS
           /* FORM STATE */
           <div className="space-y-6">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 mb-2">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Zero-PII Privacy Guaranteed</span>
-              </div>
+              {intent === 'circle' ? (
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800 mb-2">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  <span>Account Required to Join Domain Circles</span>
+                </div>
+              ) : (
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 mb-2">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  <span>Zero-PII Privacy Guaranteed</span>
+                </div>
+              )}
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
                 {mode === 'signup' ? 'Create Anonymous Account' : 'Sign In to Brandex'}
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                No phone numbers or invasive tracking. Participate in engineering sprints and community circles with a secure cryptographic handle.
+                {intent === 'circle'
+                  ? 'Domain circles require an active cryptographic handle to assign verified peer review badges and CTF credentials.'
+                  : 'No phone numbers or invasive tracking. Participate in engineering sprints and community circles with a secure cryptographic handle.'}
               </p>
             </div>
 

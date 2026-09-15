@@ -15,10 +15,13 @@ if (!fs.existsSync(dataDir)) {
 const dbPath = process.env.NODE_ENV === 'test' ? ':memory:' : path.join(dataDir, 'brandex.db');
 export const db = new Database(dbPath, { timeout: 10000 });
 
-// Enable WAL mode for high concurrency if file-based
+// Enable WAL mode, cache, and memory pragmas for high performance
 try {
   if (dbPath !== ':memory:') {
     db.pragma('journal_mode = WAL');
+    db.pragma('synchronous = NORMAL');
+    db.pragma('cache_size = -32000'); // 32MB cache
+    db.pragma('temp_store = MEMORY');
   }
 } catch (err) {
   // Pragmas may fail safely in multi-threaded concurrent tests
@@ -96,6 +99,30 @@ export function initDatabase() {
       keys TEXT NOT NULL,
       created_at TEXT NOT NULL
     );
+
+    CREATE TABLE IF NOT EXISTS notifications (
+      id TEXT PRIMARY KEY,
+      user_handle TEXT NOT NULL,
+      title TEXT NOT NULL,
+      message TEXT NOT NULL,
+      category TEXT NOT NULL,
+      read INTEGER DEFAULT 0,
+      action_url TEXT,
+      action_label TEXT,
+      created_at TEXT NOT NULL
+    );
+
+    -- Performance Indexes
+    CREATE INDEX IF NOT EXISTS idx_apps_email ON applications(email);
+    CREATE INDEX IF NOT EXISTS idx_apps_user_handle ON applications(user_handle);
+    CREATE INDEX IF NOT EXISTS idx_apps_status ON applications(status);
+    CREATE INDEX IF NOT EXISTS idx_apps_created_at ON applications(created_at);
+    CREATE INDEX IF NOT EXISTS idx_bookings_user_handle ON service_bookings(user_handle);
+    CREATE INDEX IF NOT EXISTS idx_bookings_status ON service_bookings(status);
+    CREATE INDEX IF NOT EXISTS idx_notifications_user_handle ON notifications(user_handle);
+    CREATE INDEX IF NOT EXISTS idx_notifications_created_at ON notifications(created_at);
+    CREATE INDEX IF NOT EXISTS idx_projects_slug ON projects(slug);
+    CREATE INDEX IF NOT EXISTS idx_projects_category ON projects(category);
   `);
 
   // Seed default open source projects if table is empty
@@ -191,6 +218,51 @@ export function initDatabase() {
       'Accepted',
       'Application approved by technical admissions board. Onboarding materials dispatched to email.',
       '2026-08-22T10:00:00.000Z'
+    );
+  }
+
+  // Seed default broadcast notifications if empty
+  const notifCount = (db.prepare('SELECT COUNT(*) as count FROM notifications').get() as { count: number }).count;
+  if (notifCount === 0) {
+    const insertNotif = db.prepare(`
+      INSERT INTO notifications (id, user_handle, title, message, category, read, action_url, action_label, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `);
+
+    insertNotif.run(
+      'notif-init-1',
+      'ALL',
+      '12 Core Engineering Services Active',
+      'Architecture audits, custom SaaS MVPs, and AI integration sprints are now accepting client scopes with zero account barrier.',
+      'booking',
+      0,
+      '/services',
+      'Book Service',
+      new Date(Date.now() - 15 * 60 * 1000).toISOString()
+    );
+
+    insertNotif.run(
+      'notif-init-2',
+      'ALL',
+      'Open-Source Good First Issues Live',
+      'Inspect production repositories and claim verified pull request contributor points directly through GitHub API.',
+      'pr',
+      0,
+      '/projects',
+      'Explore Registry',
+      new Date(Date.now() - 45 * 60 * 1000).toISOString()
+    );
+
+    insertNotif.run(
+      'notif-init-3',
+      'ALL',
+      'Domain Circles Technical Admissions',
+      'Quarterly admissions open for AI Engineering, Cybersecurity, and Distributed Systems peer groups.',
+      'circle',
+      1,
+      '/community',
+      'View Circles',
+      new Date(Date.now() - 120 * 60 * 1000).toISOString()
     );
   }
 }

@@ -30,9 +30,6 @@ export const BrandexHQPage: React.FC = () => {
       {/* Main Light Bridge Section */}
       <section className="bg-slate-50 border border-slate-200 rounded-2xl p-8 sm:p-12 relative overflow-hidden">
         <div className="relative z-10 max-w-4xl space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-wider">
-            <span>Official Portal: brandex.co.in</span>
-          </div>
 
           <div className="space-y-3">
             <h2 className="text-2xl sm:text-4xl font-display font-bold text-slate-900 tracking-tight leading-tight">

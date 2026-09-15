@@ -9,7 +9,6 @@ import {
   CheckCircle2,
   Code2,
   Filter,
-  Sparkles,
   GitPullRequest,
   AlertCircle,
   ShieldCheck,
@@ -194,10 +193,10 @@ export const ProjectsPage: React.FC = () => {
   });
 
   return (
-    <div className="w-full min-h-screen bg-slate-50/50 dark:bg-brand-canvas transition-colors pb-24">
-      {/* Top Header */}
-      <div className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 backdrop-blur-md sticky top-14 z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+    <div className="w-full min-h-screen bg-slate-50/50 dark:bg-brand-canvas transition-colors pt-24 sm:pt-28 md:pt-32 pb-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Breadcrumb */}
+        <div className="mb-6">
           <Breadcrumb
             items={[
               { label: 'Home', path: '/' },
@@ -205,16 +204,10 @@ export const ProjectsPage: React.FC = () => {
             ]}
           />
         </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
         {/* Title Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-8 border-b border-slate-200 dark:border-slate-800">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60 mb-3">
-              <Code2 className="w-3.5 h-3.5" />
-              <span>Public Engineering Core • Zero Auth Verification</span>
-            </div>
             <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
               Open-Source Registry & PR Badges
             </h1>
@@ -329,7 +322,7 @@ export const ProjectsPage: React.FC = () => {
               <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                 {project.hasGoodFirstIssues ? (
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60">
-                    <Sparkles className="w-3 h-3" />
+                    <Tag className="w-3 h-3" />
                     <span>Good First Issues</span>
                   </span>
                 ) : (

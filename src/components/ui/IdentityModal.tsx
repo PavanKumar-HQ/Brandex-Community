@@ -9,7 +9,6 @@ import {
 import { getPendingQueue, syncOfflineQueue } from '../../utils/offlineDb';
 import {
   ShieldCheck,
-  Sparkles,
   Award,
   RefreshCw,
   Wifi,
