@@ -15,16 +15,15 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onCl
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Work With Brandex', path: '/work-with-us' },
-    { name: 'Application Status', path: '/status' },
+    { name: 'Services & Audits', path: '/services' },
+    { name: 'Open-Source Registry', path: '/projects' },
+    { name: 'Application Tracker', path: '/status' },
     { name: 'Community Circles', path: '/community' },
     { name: 'Education & Schools', path: '/education' },
     { name: 'Training Cohorts', path: '/training' },
     { name: 'Events & Summits', path: '/events' },
-    { name: 'Media & Videos', path: '/media' },
-    { name: 'Impact Stories', path: '/stories' },
-    { name: 'About Us', path: '/about' },
-    { name: 'Careers & Ambassadors', path: '/careers' },
+    { name: 'Careers & Fellows', path: '/careers' },
+    { name: 'Work With Brandex', path: '/work-with-us' },
     { name: 'Community Guidelines', path: '/community/guidelines' },
   ];
 

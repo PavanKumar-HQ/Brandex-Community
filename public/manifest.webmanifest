@@ -1,0 +1,25 @@
+{
+  "name": "Brandex Platform",
+  "short_name": "Brandex",
+  "description": "Unified technology, education, service engineering, and developer ecosystem.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#030712",
+  "theme_color": "#4338ca",
+  "categories": ["education", "developer", "technology"],
+  "icons": [
+    {
+      "src": "/brandex-icon.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/brandex-dp.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    }
+  ]
+}

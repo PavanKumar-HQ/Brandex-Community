@@ -7,7 +7,11 @@ import adminRoutes from './routes/adminRoutes.js';
 import integrationRoutes from './routes/integrationRoutes.js';
 import { globalLimiter } from './middleware/rateLimiter.js';
 import { globalErrorHandler } from './middleware/security.js';
+import pwaRoutes from './routes/pwaRoutes.js';
+import { initDatabase } from './db/index.js';
 export const createApp = () => {
+    // Initialize persistent SQLite database
+    initDatabase();
     const app = express();
     // 1. Security Headers & CORS
     app.use(helmet({
@@ -33,6 +37,7 @@ export const createApp = () => {
         });
     });
     // 5. API Routes
+    app.use('/api/pwa', pwaRoutes);
     app.use('/api/public', publicRoutes);
     app.use('/api/application', applicationRoutes);
     app.use('/api/admin', adminRoutes);

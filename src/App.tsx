@@ -30,6 +30,8 @@ import { ApplicationStatusPage } from './pages/ApplicationStatusPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { CareersPage } from './pages/CareersPage';
 import { BrandexHQPage } from './pages/BrandexHQPage';
+import { ServicesPage } from './pages/ServicesPage';
+import { ProjectsPage } from './pages/ProjectsPage';
 import { RegistrationModal } from './components/ui/RegistrationModal';
 
 // Page Transition Wrapper Component
@@ -71,6 +73,8 @@ export const App: React.FC = () => {
                 <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
 
                 <Route path="/work-with-us" element={<PageWrapper><WorkWithBrandexPage /></PageWrapper>} />
+                <Route path="/services" element={<PageWrapper><ServicesPage /></PageWrapper>} />
+                <Route path="/projects" element={<PageWrapper><ProjectsPage /></PageWrapper>} />
                 <Route path="/search" element={<PageWrapper><SearchPage /></PageWrapper>} />
                 <Route path="/status" element={<PageWrapper><ApplicationStatusPage /></PageWrapper>} />
                 <Route path="/community" element={<PageWrapper><CommunityPage /></PageWrapper>} />

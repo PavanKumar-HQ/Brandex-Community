@@ -13,6 +13,7 @@ import { EventRegistrationModal } from '../components/events/EventRegistrationMo
 import { VideoModalPlayer } from '../components/ui/VideoModalPlayer';
 import { MediaPlaceholderCard } from '../components/ui/MediaPlaceholders';
 import { useSEO } from '../hooks/useSEO';
+import { BrandexUnifiedHub } from '../components/home/BrandexUnifiedHub';
 import { getTrainingPrograms, getEvents, getMedia, getCommunities, getStories, getAchievements } from '../repositories/repository';
 import { TrainingProgram, Event, Media, Community, Story, Achievement } from '../models/types';
 
@@ -183,7 +184,12 @@ export const Home: React.FC = () => {
       <Marquee items={marqueeItems} />
 
       {/* ==========================================
-          02. IMPACT / STATISTICS (Configurable Admin Telemetry)
+          02. UNIFIED BRANDEX ECOSYSTEM (6 Core Pillars)
+         ========================================== */}
+      <BrandexUnifiedHub />
+
+      {/* ==========================================
+          03. IMPACT / STATISTICS (Configurable Admin Telemetry)
          ========================================== */}
       <div className="bg-slate-50/50">
         <ImpactStatisticsSection />

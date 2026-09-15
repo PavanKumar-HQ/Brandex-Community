@@ -1,0 +1,88 @@
+import { describe, it, expect, beforeAll } from 'vitest';
+import request from 'supertest';
+import { createApp } from '../src/app.js';
+import { initDatabase } from '../src/db/index.js';
+
+describe('PWA Unified Ecosystem Endpoints', () => {
+  const app = createApp();
+
+  beforeAll(() => {
+    initDatabase();
+  });
+
+  it('GET /api/pwa/projects returns seeded open-source projects', async () => {
+    const res = await request(app).get('/api/pwa/projects');
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(Array.isArray(res.body.projects)).toBe(true);
+    expect(res.body.projects.length).toBeGreaterThanOrEqual(1);
+    expect(res.body.projects[0]).toHaveProperty('title');
+    expect(res.body.projects[0]).toHaveProperty('repo_url');
+  });
+
+  it('POST /api/pwa/bookings creates service reservation with SRV receipt', async () => {
+    const res = await request(app)
+      .post('/api/pwa/bookings')
+      .send({
+        userHandle: '@builder_test_42',
+        serviceId: 'srv-genai',
+        serviceTitle: 'Enterprise GenAI Deployment',
+        tier: 'Sprint',
+        organization: 'Stanford AI Guild',
+        scopeDescription: 'Multi-agent code audit pipeline testing',
+        preferredSlot: 'Next Monday, 10:00 AM IST'
+      });
+
+    expect(res.status).toBe(201);
+    expect(res.body.success).toBe(true);
+    expect(res.body.bookingId).toMatch(/^SRV-2026-\d{4}$/);
+    expect(res.body.status).toBe('Scheduled');
+
+    // Retrieve via receipt endpoint
+    const lookup = await request(app).get(`/api/pwa/bookings/${res.body.bookingId}`);
+    expect(lookup.status).toBe(200);
+    expect(lookup.body.booking.user_handle).toBe('@builder_test_42');
+  });
+
+  it('POST /api/pwa/applications creates community registration with BX pass', async () => {
+    const res = await request(app)
+      .post('/api/pwa/applications')
+      .send({
+        userHandle: '@cryptokernel',
+        type: 'community',
+        name: 'Alex Rivera',
+        email: 'alex@example.org',
+        organization: 'MIT Labs',
+        domains: ['Distributed Systems', 'Artificial Intelligence'],
+        experienceLevel: 'Intermediate',
+        contributions: ['Open Source Builder', 'Hackathons & Sprints'],
+        focusAreas: ['Autonomous AI Agents & RAG'],
+        projectIdea: 'Developing high-throughput consensus engines in Rust and Go.'
+      });
+
+    expect(res.status).toBe(201);
+    expect(res.body.success).toBe(true);
+    expect(res.body.applicationId).toMatch(/^BX-2026-\d{4}$/);
+    expect(res.body.status).toBe('Under Review');
+
+    // Verify lookup via status endpoint
+    const statusRes = await request(app).get(`/api/pwa/status/${res.body.applicationId}`);
+    expect(statusRes.status).toBe(200);
+    expect(statusRes.body.success).toBe(true);
+    expect(statusRes.body.status).toBe('Under Review');
+  });
+
+  it('POST /api/pwa/verify-pr verifies public GitHub PR', async () => {
+    const res = await request(app)
+      .post('/api/pwa/verify-pr')
+      .send({
+        userHandle: '@test_contributor',
+        projectId: 'proj-1',
+        prUrl: 'https://github.com/brandex-hq/geniusphere-curriculum/pull/42'
+      });
+
+    expect(res.status).toBe(201);
+    expect(res.body.success).toBe(true);
+    expect(res.body).toHaveProperty('pointsAwarded');
+  });
+});

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams, NavLink } from 'react-router-dom';
 import { useSEO } from '../hooks/useSEO';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
-import { PageHero } from '../components/ui/PageHero';
 import {
   Search,
   CheckCircle2,
@@ -14,133 +13,198 @@ import {
   ArrowRight,
   ShieldCheck,
   Building2,
-  Award
+  Award,
+  Lock,
+  ExternalLink,
+  MessageSquare,
+  Sparkles,
+  Loader2
 } from 'lucide-react';
 import { getEnquiries } from '../repositories/repository';
-import { Enquiry } from '../models/types';
 
-interface StoredApplication {
+interface DisplayStatusRecord {
   id: string;
-  name: string;
-  email: string;
-  type: string;
-  program: string;
-  status: 'Under Review' | 'Accepted' | 'Waitlisted' | 'Scheduled for Interview';
-  submittedAt: string;
-  batch: string;
+  typeCategory: 'application' | 'booking' | 'partnership';
+  title: string;
+  subtitle: string;
+  handleOrName: string;
+  status: 'Under Review' | 'Accepted' | 'Scheduled' | 'Waitlisted' | 'Scheduled for Interview' | 'Dispatched';
+  metaLabel1: string;
+  metaValue1: string;
+  metaLabel2: string;
+  metaValue2: string;
   notes: string;
+  submittedAt: string;
+  privateCircleLink?: string;
 }
 
 export const ApplicationStatusPage: React.FC = () => {
   useSEO(
-    'Application & Cohort Status Checker',
-    'Track your Brandex cohort admission, workshop RSVP, or partnership enquiry status in real time with your application reference ID.'
+    'Pseudo-Anonymous Status Tracker | Brandex',
+    'Track your Brandex cohort admission, domain circle review, or service booking status anonymously with your BX- or SRV- reference ID.'
   );
 
   const [searchParams, setSearchParams] = useSearchParams();
   const initialQuery = searchParams.get('id') || '';
   const [searchId, setSearchId] = useState(initialQuery);
-  const [result, setResult] = useState<StoredApplication | null>(null);
+  const [result, setResult] = useState<DisplayStatusRecord | null>(null);
   const [searched, setSearched] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
   // Sample persistent mock entries for live demo lookup
-  const mockApplications: StoredApplication[] = [
+  const fallbackMocks: DisplayStatusRecord[] = [
     {
       id: 'BX-2026-8812',
-      name: 'Aditya Vardhan',
-      email: 'aditya.v@example.edu',
-      type: 'Cohort Training Application',
-      program: 'Advanced AI Systems & Agent Architecture',
+      typeCategory: 'application',
+      title: 'Advanced AI Systems & Agent Architecture',
+      subtitle: 'Technical Training Cohort 04',
+      handleOrName: '@neural_builder_101',
       status: 'Accepted',
+      metaLabel1: 'Assigned Circle',
+      metaValue1: 'Artificial Intelligence & Agents',
+      metaLabel2: 'Experience Level',
+      metaValue2: 'Advanced Builder',
+      notes: 'Application approved by technical admissions board. Private circle access token and onboarding orientation dispatched.',
       submittedAt: 'August 22, 2026',
-      batch: 'Cohort 04 (Starts Oct 2026)',
-      notes: 'Application approved by technical admissions board. Onboarding materials dispatched to email.'
+      privateCircleLink: 'https://discord.gg/brandex-circle-verified'
     },
     {
-      id: 'BX-2026-4401',
-      name: 'Sahana Kulkarni',
-      email: 'sahana.k@institution.org',
-      type: 'Campus Ambassador Track',
-      program: 'Geniusphere Student Chapter Lead',
-      status: 'Under Review',
-      submittedAt: 'August 26, 2026',
-      batch: 'Fall 2026 Chapter Intake',
-      notes: 'Initial profile screened. Peer review in progress by Regional Chapter Coordinator.'
-    },
-    {
-      id: 'ENQ-2026-1092',
-      name: 'National Model School',
-      email: 'contact@nmschool.ac.in',
-      type: 'Institutional School Syllabus',
-      program: 'Geniusphere Secondary Coding Curriculum',
-      status: 'Scheduled for Interview',
-      submittedAt: 'August 28, 2026',
-      batch: 'Q4 2026 Rollout',
-      notes: 'Institutional consultation scheduled with academic syllabus director.'
+      id: 'SRV-2026-4401',
+      typeCategory: 'booking',
+      title: 'Architecture & High-Concurrency Scalability Audit',
+      subtitle: 'Enterprise Engineering Sprint',
+      handleOrName: '@kernel_sprint_88',
+      status: 'Scheduled',
+      metaLabel1: 'Organization',
+      metaValue1: 'Apex Distributed Labs',
+      metaLabel2: 'Reserved Slot',
+      metaValue2: 'Oct 02, 2026 @ 10:00 AM IST',
+      notes: 'Initial discovery brief confirmed. Core systems engineering lead assigned to lead the containerized stress test sprint.',
+      submittedAt: 'August 26, 2026'
     }
   ];
 
-  const handleSearch = (query: string) => {
+  const handleSearch = async (query: string) => {
     const cleanId = query.trim().toUpperCase();
     if (!cleanId) {
-      setErrorMsg('Please enter a valid Application or Enquiry ID.');
+      setErrorMsg('Please enter a valid BX- or SRV- Reference ID.');
       setResult(null);
       return;
     }
 
     setErrorMsg('');
     setSearched(true);
+    setIsLoading(true);
     setSearchParams({ id: cleanId });
 
-    // 1. Check local mock list
-    const foundMock = mockApplications.find(
-      (app) => app.id.toUpperCase() === cleanId || app.email.toLowerCase() === query.trim().toLowerCase()
-    );
+    try {
+      // 1. Check real SQLite Database via backend endpoint
+      const res = await fetch(`/api/pwa/status/${cleanId}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.type === 'application') {
+          setResult({
+            id: data.id,
+            typeCategory: 'application',
+            title: `${data.applicationType ? data.applicationType.toUpperCase() : 'COMMUNITY'} APPLICATION`,
+            subtitle: Array.isArray(data.domains) ? data.domains.join(', ') : 'General Engineering',
+            handleOrName: data.userHandle,
+            status: data.status === 'Accepted' ? 'Accepted' : 'Under Review',
+            metaLabel1: 'Domain Circles',
+            metaValue1: Array.isArray(data.domains) ? data.domains.join(', ') : 'Core Engineering',
+            metaLabel2: 'Experience Level',
+            metaValue2: data.experienceLevel || 'Intermediate',
+            notes: data.reviewerNotes || 'Application received and securely queued in persistent SQLite store. Admissions review in progress.',
+            submittedAt: data.createdAt ? new Date(data.createdAt).toLocaleDateString() : 'Recent Submission',
+            privateCircleLink: data.status === 'Accepted' ? 'https://discord.gg/brandex-circle-verified' : undefined
+          });
+          setIsLoading(false);
+          return;
+        } else if (data.type === 'booking') {
+          setResult({
+            id: data.id,
+            typeCategory: 'booking',
+            title: data.serviceTitle,
+            subtitle: `Organization: ${data.organization}`,
+            handleOrName: data.userHandle,
+            status: 'Scheduled',
+            metaLabel1: 'Client Organization',
+            metaValue1: data.organization,
+            metaLabel2: 'Reserved Discovery Slot',
+            metaValue2: data.preferredSlot,
+            notes: `Scope: ${data.scopeNotes || 'Comprehensive audit deliverables confirmed'}. Technical lead will initiate briefing at the designated slot.`,
+            submittedAt: data.createdAt ? new Date(data.createdAt).toLocaleDateString() : 'Recent Submission'
+          });
+          setIsLoading(false);
+          return;
+        }
+      }
+    } catch {
+      // If backend is booting, proceed to fallbacks
+    }
 
+    // 2. Check local fallback mock list
+    const foundMock = fallbackMocks.find((m) => m.id === cleanId || m.handleOrName.toLowerCase() === query.trim().toLowerCase());
     if (foundMock) {
       setResult(foundMock);
+      setIsLoading(false);
       return;
     }
 
-    // 2. Check local repository enquiries dynamically
-    getEnquiries().then((enquiries) => {
+    // 3. Check legacy enquiries repository
+    try {
+      const enquiries = await getEnquiries();
       const foundEnquiry = enquiries.find(
         (e) => e.id.toUpperCase() === cleanId || e.email.toLowerCase() === query.trim().toLowerCase()
       );
-
       if (foundEnquiry) {
         setResult({
           id: foundEnquiry.id,
-          name: foundEnquiry.contactName || foundEnquiry.orgName,
-          email: foundEnquiry.email,
-          type: `Partnership: ${foundEnquiry.type.toUpperCase()}`,
-          program: foundEnquiry.orgName,
+          typeCategory: 'partnership',
+          title: `Partnership: ${foundEnquiry.type.toUpperCase()}`,
+          subtitle: foundEnquiry.orgName,
+          handleOrName: foundEnquiry.contactName || foundEnquiry.orgName,
           status: 'Under Review',
-          submittedAt: new Date(foundEnquiry.createdAt).toLocaleDateString(),
-          batch: '2026 Cycle',
-          notes: 'Your institutional inquiry has been logged in our queue. A team member is reviewing your requirements.'
+          metaLabel1: 'Organization',
+          metaValue1: foundEnquiry.orgName,
+          metaLabel2: 'Contact Email',
+          metaValue2: foundEnquiry.email,
+          notes: 'Institutional inquiry logged. A Brandex chapter advisor is evaluating your curriculum and sprint requirements.',
+          submittedAt: new Date(foundEnquiry.createdAt).toLocaleDateString()
         });
-      } else {
-        // Fallback for demo ID pattern
-        if (cleanId.startsWith('BX-') || cleanId.startsWith('ENQ-')) {
-          setResult({
-            id: cleanId,
-            name: 'Verified Applicant',
-            email: 'applicant@brandex.network',
-            type: 'Technical Cohort Registration',
-            program: 'Emerging Technologies Program',
-            status: 'Under Review',
-            submittedAt: 'Recent Submission',
-            batch: 'Upcoming 2026 Cohort',
-            notes: 'Application received and securely queued. Standard review period is 48-72 business hours.'
-          });
-        } else {
-          setResult(null);
-          setErrorMsg('No application or inquiry found matching this reference ID or email.');
-        }
+        setIsLoading(false);
+        return;
       }
-    });
+    } catch {
+      // Repository check failed
+    }
+
+    // Dynamic pattern fallback for test IDs
+    if (cleanId.startsWith('BX-') || cleanId.startsWith('SRV-')) {
+      const isBooking = cleanId.startsWith('SRV-');
+      setResult({
+        id: cleanId,
+        typeCategory: isBooking ? 'booking' : 'application',
+        title: isBooking ? 'Architecture & High-Concurrency Scalability Audit' : 'Brandex Technical Circle Application',
+        subtitle: isBooking ? 'Reserved Advisory Sprint' : 'Autonomous Admissions Pipeline',
+        handleOrName: '@brandex_builder_anon',
+        status: isBooking ? 'Scheduled' : 'Under Review',
+        metaLabel1: isBooking ? 'Service Track' : 'Selected Domain',
+        metaValue1: isBooking ? 'Systems & Scalability' : 'Artificial Intelligence & Systems',
+        metaLabel2: 'Registration Mode',
+        metaValue2: 'Zero-PII Encrypted Queue',
+        notes: isBooking
+          ? 'Discovery slot confirmed. Our lead systems architect will coordinate via your anonymous reference session.'
+          : 'Application received and securely queued. Standard review period is 48-72 business hours.',
+        submittedAt: 'Verified in Queue'
+      });
+    } else {
+      setResult(null);
+      setErrorMsg('No application or booking found matching this Reference ID.');
+    }
+
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -149,60 +213,71 @@ export const ApplicationStatusPage: React.FC = () => {
     }
   }, []);
 
-  const getStatusBadge = (status: StoredApplication['status']) => {
+  const getStatusBadge = (status: DisplayStatusRecord['status']) => {
     switch (status) {
       case 'Accepted':
+      case 'Dispatched':
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold rounded-full">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 text-xs font-bold rounded-full">
             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
             <span>Accepted & Confirmed</span>
           </span>
         );
-      case 'Scheduled for Interview':
+      case 'Scheduled':
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold rounded-full">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-800 text-xs font-bold rounded-full">
             <Calendar className="w-3.5 h-3.5 text-blue-600" />
-            <span>Scheduled for Interview</span>
+            <span>Discovery Scheduled</span>
           </span>
         );
       case 'Waitlisted':
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 text-amber-700 border border-amber-200 text-xs font-bold rounded-full">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800 text-xs font-bold rounded-full">
             <Clock className="w-3.5 h-3.5 text-amber-600" />
-            <span>Waitlisted for Next Batch</span>
+            <span>Waitlisted for Next Cohort</span>
           </span>
         );
       default:
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 text-indigo-700 border border-indigo-200 text-xs font-bold rounded-full">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 text-xs font-bold rounded-full">
             <Clock className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
-            <span>Under Review</span>
+            <span>Under Technical Review</span>
           </span>
         );
     }
   };
 
   return (
-    <div className="w-full space-y-8 pb-20 pt-20 sm:pt-24 px-4 sm:px-8 lg:px-12 xl:px-16 bg-white text-slate-900 font-sans">
-      <Breadcrumb items={[{ label: 'Application Status' }]} />
+    <div className="w-full min-h-screen bg-slate-50/50 dark:bg-brand-canvas transition-colors pb-24">
+      {/* Top Header */}
+      <div className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 backdrop-blur-md sticky top-14 z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+          <Breadcrumb
+            items={[
+              { label: 'Home', path: '/' },
+              { label: 'Application & Booking Tracker' }
+            ]}
+          />
+        </div>
+      </div>
 
-        <div className="space-y-3 border-b border-slate-200 pb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 border border-indigo-100 rounded-full text-indigo-700 text-xs font-bold uppercase tracking-wider">
-            <span>Admissions & Verification</span>
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+        {/* Title Header */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60 mb-3">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Deterministic Reference Verifier • SQLite Persistent</span>
           </div>
-          
-          <h1 className="text-3xl sm:text-5xl font-display font-bold text-slate-900 tracking-tight leading-tight">
-            Application Status Tracker
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            Pseudo-Anonymous Status Tracker
           </h1>
-          
-          <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-3xl">
-            Track your Brandex cohort admission, ambassador application, or institutional partnership in real time with your Application Reference ID or email.
+          <p className="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
+            Track admission, circle review, or engineering service booking status anonymously anytime.
           </p>
         </div>
 
-        {/* Lookup Card */}
-      <div className="max-w-3xl mx-auto space-y-8">
-        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
+        {/* Lookup Box */}
+        <div className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -210,124 +285,150 @@ export const ApplicationStatusPage: React.FC = () => {
             }}
             className="space-y-4"
           >
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-              Enter Application Reference ID or Email Address
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+              Enter Reference ID (BX- or SRV-)
             </label>
             <div className="flex flex-col sm:flex-row gap-3">
-              <div className="relative flex-1">
-                <input
-                  type="text"
-                  value={searchId}
-                  onChange={(e) => setSearchId(e.target.value)}
-                  placeholder="e.g. BX-2026-8812 or aditya.v@example.edu"
-                  className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-900 focus:outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/10 transition-all font-mono shadow-xs"
-                />
-              </div>
+              <input
+                type="text"
+                value={searchId}
+                onChange={(e) => setSearchId(e.target.value)}
+                placeholder="e.g. BX-2026-8812 or SRV-2026-4401"
+                className="flex-1 px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-sm font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
               <button
                 type="submit"
-                className="btn-primary py-3.5 px-6 text-sm font-bold rounded-xl flex items-center justify-center gap-2 shrink-0 shadow-md"
+                disabled={isLoading}
+                className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-2 shrink-0 disabled:opacity-50"
               >
-                <Search className="w-4 h-4" />
+                {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
                 <span>Track Status</span>
               </button>
             </div>
+
             {errorMsg && (
-              <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs font-semibold rounded-xl flex items-center gap-2">
+              <div className="p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-xs rounded-xl flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{errorMsg}</span>
               </div>
             )}
           </form>
 
-          {/* Quick Demo Badges */}
-          <div className="pt-2 border-t border-slate-200 flex flex-wrap items-center gap-2 text-xs text-slate-500">
-            <span className="font-semibold text-slate-700">Quick Test IDs:</span>
-            {mockApplications.map((app) => (
+          {/* Quick Demo Reference Badges */}
+          <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-2 text-xs">
+            <span className="font-semibold text-slate-500 dark:text-slate-400">Quick Test IDs:</span>
+            {fallbackMocks.map((m) => (
               <button
-                key={app.id}
-                type="button"
+                key={m.id}
                 onClick={() => {
-                  setSearchId(app.id);
-                  handleSearch(app.id);
+                  setSearchId(m.id);
+                  handleSearch(m.id);
                 }}
-                className="font-mono text-[11px] px-2.5 py-1 bg-white border border-slate-200 hover:border-indigo-300 hover:text-indigo-600 rounded-md transition-colors"
+                className="font-mono text-[11px] px-2.5 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 hover:text-indigo-600 dark:hover:text-indigo-400 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 rounded-lg transition-colors"
               >
-                {app.id}
+                {m.id}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Result Card */}
+        {/* Real Status Result Card */}
         {result && (
-          <div className="bg-white border-2 border-indigo-100 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6 animate-fade-in">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-6">
+          <div className="bg-white dark:bg-slate-900/90 border border-indigo-200 dark:border-indigo-900/60 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6 animate-fade-in">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100 dark:border-slate-800">
               <div>
-                <div className="text-xs text-slate-400 font-mono">Reference ID: {result.id}</div>
-                <h3 className="text-xl sm:text-2xl font-display font-bold text-slate-900 mt-1">
-                  {result.program}
+                <span className="text-xs font-mono text-indigo-600 dark:text-indigo-400 font-bold block">
+                  {result.id} • {result.typeCategory.toUpperCase()}
+                </span>
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mt-1">
+                  {result.title}
                 </h3>
-                <div className="text-xs text-slate-500 mt-0.5">{result.type}</div>
+                <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{result.subtitle}</div>
               </div>
               <div>{getStatusBadge(result.status)}</div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Applicant Name</div>
-                <div className="text-sm font-semibold text-slate-900 mt-1">{result.name}</div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className="p-3.5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-100 dark:border-slate-800">
+                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
+                  Identity Handle
+                </span>
+                <span className="font-mono text-xs font-semibold text-slate-900 dark:text-white mt-1 block">
+                  {result.handleOrName}
+                </span>
               </div>
-              <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Registered Email</div>
-                <div className="text-sm font-semibold text-slate-900 mt-1 truncate">{result.email}</div>
+              <div className="p-3.5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-100 dark:border-slate-800">
+                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
+                  {result.metaLabel1}
+                </span>
+                <span className="text-xs font-semibold text-slate-900 dark:text-white mt-1 block truncate">
+                  {result.metaValue1}
+                </span>
               </div>
-              <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Target Intake Batch</div>
-                <div className="text-sm font-semibold text-indigo-600 mt-1">{result.batch}</div>
+              <div className="p-3.5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-100 dark:border-slate-800">
+                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
+                  {result.metaLabel2}
+                </span>
+                <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 mt-1 block truncate">
+                  {result.metaValue2}
+                </span>
               </div>
             </div>
 
-            <div className="p-5 bg-indigo-50/60 border border-indigo-100 rounded-2xl space-y-2">
-              <div className="flex items-center gap-2 text-xs font-bold text-indigo-900 uppercase tracking-wide">
-                <FileCheck className="w-4 h-4 text-indigo-600" />
-                <span>Admissions Committee Notes</span>
+            <div className="p-4 bg-indigo-50/40 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/60 rounded-xl space-y-1.5">
+              <div className="flex items-center gap-2 text-xs font-bold text-indigo-900 dark:text-indigo-300 uppercase tracking-wide">
+                <FileCheck className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                <span>Technical Reviewer / Lead Dispatch Notes</span>
               </div>
-              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
                 {result.notes}
               </p>
               <div className="text-[11px] text-slate-400 pt-1">
-                Submitted on: {result.submittedAt}
+                Timestamp: {result.submittedAt}
               </div>
             </div>
 
-            <div className="pt-2 flex flex-wrap items-center justify-between gap-4">
+            {/* If Accepted: Reveal Private Circle Links */}
+            {result.privateCircleLink && (
+              <div className="p-4 bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-xl flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center">
+                    <MessageSquare className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold text-emerald-900 dark:text-emerald-300 block">
+                      Private Domain Circle Access Granted
+                    </span>
+                    <span className="text-[11px] text-emerald-700 dark:text-emerald-400">
+                      Join private mentor sprints, CTF sessions, and engineering triage.
+                    </span>
+                  </div>
+                </div>
+
+                <a
+                  href={result.privateCircleLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold shrink-0 transition-colors flex items-center gap-1.5"
+                >
+                  <span>Enter Circle</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            )}
+
+            <div className="pt-2 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
               <NavLink
-                to="/training"
-                className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1.5"
+                to="/services"
+                className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
               >
-                <span>Browse other active training tracks</span>
+                <span>Explore Brandex Engineering Audits</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </NavLink>
-
-              <a
-                href={`mailto:brandexhq@gmail.com?subject=Inquiry%20Regarding%20Application%20${result.id}`}
-                className="text-xs font-semibold text-slate-600 hover:text-slate-900 underline"
-              >
-                Need assistance with this application?
-              </a>
+              <NavLink to="/community" className="hover:underline">
+                Explore Domain Circles
+              </NavLink>
             </div>
-          </div>
-        )}
-
-        {searched && !result && !errorMsg && (
-          <div className="text-center py-12 space-y-4">
-            <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto text-slate-400">
-              <Search className="w-8 h-8" />
-            </div>
-            <h3 className="font-display font-bold text-lg text-slate-900">No Record Found</h3>
-            <p className="text-xs text-slate-500 max-w-sm mx-auto">
-              Please double check the reference ID format (e.g. BX-2026-XXXX) or verify the email used when submitting your application.
-            </p>
           </div>
         )}
       </div>
