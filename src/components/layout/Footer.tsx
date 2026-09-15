@@ -116,7 +116,7 @@ export const Footer: React.FC = () => {
             <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-xs font-medium">
               {[
                 { name: '12 Core Services', path: '/services' },
-                { name: 'Track Your Status', path: '/status' },
+                { name: 'Track Status', path: '/status' },
                 { name: 'Open-Source Registry', path: '/projects' },
                 { name: 'Careers & Roles', path: '/careers' },
                 { name: 'Community Circles', path: '/community' },

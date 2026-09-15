@@ -52,14 +52,11 @@ export const Navbar: React.FC = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', path: '/' },
     { name: 'Services', path: '/services' },
     { name: 'Open Source', path: '/projects' },
     { name: 'Community', path: '/community' },
-    { name: 'Education', path: '/education' },
-    { name: 'Training', path: '/training' },
     { name: 'Careers', path: '/careers' },
-    { name: 'Track Your Status', path: '/status' },
+    { name: 'Track Status', path: '/status' },
   ];
 
   const identicon = getIdenticonSvg(identity.avatarSeed);

@@ -313,24 +313,19 @@ export const AppAuthModal: React.FC<AppAuthModalProps> = ({
           /* FORM STATE */
           <div className="space-y-5">
             <div>
-              {intent === 'circle' ? (
+              {intent === 'circle' && (
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800 mb-2">
                   <ShieldCheck className="w-3.5 h-3.5" />
-                  <span>Account Required to Join Domain Circles</span>
-                </div>
-              ) : (
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 mb-2">
-                  <ShieldCheck className="w-3.5 h-3.5" />
-                  <span>Zero-PII Privacy Guaranteed</span>
+                  <span>Account needed to join Domain Circles</span>
                 </div>
               )}
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-                {mode === 'signup' ? 'Create Anonymous Account' : 'Sign In to Brandex'}
+                {mode === 'signup' ? 'Create Account' : 'Sign In'}
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 {mode === 'signup'
-                  ? 'No image uploads, real names, or invasive data. Choose your avatar and reserve your unique @handle.'
-                  : 'Enter your registered cryptographic handle to authenticate your session.'}
+                  ? 'Pick an avatar preset and reserve your unique @handle.'
+                  : 'Enter your unique handle to sign in to your account.'}
               </p>
             </div>
 
@@ -339,24 +334,24 @@ export const AppAuthModal: React.FC<AppAuthModalProps> = ({
               <button
                 type="button"
                 onClick={() => setMode('signup')}
-                className={`py-1.5 rounded-lg transition-colors ${
+                className={`py-2 rounded-lg transition-colors text-center ${
                   mode === 'signup'
-                    ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs'
-                    : 'text-slate-500 dark:text-slate-400'
+                    ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs font-bold'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
                 }`}
               >
-                Sign Up (Pick Avatar & Handle)
+                Sign Up
               </button>
               <button
                 type="button"
                 onClick={() => setMode('signin')}
-                className={`py-1.5 rounded-lg transition-colors ${
+                className={`py-2 rounded-lg transition-colors text-center ${
                   mode === 'signin'
-                    ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs'
-                    : 'text-slate-500 dark:text-slate-400'
+                    ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs font-bold'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
                 }`}
               >
-                Sign In (Existing Handle)
+                Sign In
               </button>
             </div>
 
@@ -368,16 +363,13 @@ export const AppAuthModal: React.FC<AppAuthModalProps> = ({
             )}
 
             <form onSubmit={mode === 'signup' ? handleCreateAccount : handleSignIn} className="space-y-4">
-              {/* AVATAR SELECTOR (5 CURATED PRESETS - ZERO IMAGE UPLOAD) */}
+              {/* AVATAR SELECTOR (5 CURATED PRESETS) */}
               {mode === 'signup' && (
                 <div className="space-y-2.5 p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80">
                   <div className="flex items-center justify-between">
                     <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                      1. Choose Your Vector Avatar (5 Presets)
+                      1. Select Avatar
                     </label>
-                    <span className="text-[10px] font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
-                      No Uploads Needed
-                    </span>
                   </div>
 
                   {/* Active Selected Avatar Highlight Card */}
@@ -444,7 +436,7 @@ export const AppAuthModal: React.FC<AppAuthModalProps> = ({
               <div>
                 <div className="flex items-center justify-between mb-1">
                   <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                    {mode === 'signup' ? '2. Unique Username / Handle' : 'Your Handle'}
+                    {mode === 'signup' ? '2. Unique Handle' : 'Your Handle'}
                   </label>
                   {mode === 'signup' && (
                     <button
@@ -565,7 +557,7 @@ export const AppAuthModal: React.FC<AppAuthModalProps> = ({
                     : 'bg-indigo-600 hover:bg-indigo-700 text-white'
                 }`}
               >
-                <span>{mode === 'signup' ? 'Create Unique Account (Instant)' : 'Authenticate Handle'}</span>
+                <span>{mode === 'signup' ? 'Create Account' : 'Sign In'}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </form>

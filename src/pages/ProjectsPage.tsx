@@ -235,7 +235,7 @@ export const ProjectsPage: React.FC = () => {
 
         {/* Filters & Search */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
-          <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0">
+          <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 no-scrollbar">
             {[
               { id: 'all', label: 'All Projects' },
               { id: 'ai', label: 'AI & Agents' },
@@ -244,11 +244,12 @@ export const ProjectsPage: React.FC = () => {
             ].map((tab) => (
               <button
                 key={tab.id}
+                type="button"
                 onClick={() => setFilterCategory(tab.id)}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
+                className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold whitespace-nowrap transition-all border shadow-xs ${
                   filterCategory === tab.id
-                    ? 'bg-slate-900 text-white dark:bg-indigo-600 dark:text-white'
-                    : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 hover:bg-slate-50'
+                    ? 'bg-slate-900 text-white border-slate-900 dark:bg-indigo-600 dark:border-indigo-500'
+                    : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-300 hover:bg-slate-50'
                 }`}
               >
                 {tab.label}

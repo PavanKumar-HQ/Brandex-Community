@@ -19,6 +19,7 @@ import {
   Users,
   CheckCircle2,
   ArrowRight,
+  ArrowLeft,
   Copy,
   Check,
   Building2,
@@ -28,7 +29,8 @@ import {
   WifiOff,
   AlertCircle,
   FileCheck,
-  ShieldCheck
+  ShieldCheck,
+  Sparkles
 } from 'lucide-react';
 
 export interface BrandexService {
@@ -149,11 +151,12 @@ export const ServicesPage: React.FC = () => {
 
   const identity = getOrCreateIdentity();
 
-  // Selected Service
+  // 2-Step Smooth Flow: 'catalog' -> 'booking'
+  const [viewMode, setViewMode] = useState<'catalog' | 'booking'>('catalog');
   const [selectedServiceId, setSelectedServiceId] = useState<string>('web-apps');
   const [activeCategory, setActiveCategory] = useState<string>('all');
 
-  // Short & Concise Booking Form State (Zero account required!)
+  // Short & Concise Booking Form State (Zero account required)
   const [contactName, setContactName] = useState<string>('');
   const [contactInfo, setContactInfo] = useState<string>('');
   const [scopeDescription, setScopeDescription] = useState<string>('');
@@ -178,13 +181,22 @@ export const ServicesPage: React.FC = () => {
     return s.category === activeCategory;
   });
 
+  // Step 1 -> Step 2 transition
   const handleSelectService = (s: BrandexService) => {
     setSelectedServiceId(s.id);
     setErrorMsg('');
-    // Scroll down smoothly to the concise booking box on mobile
-    const formEl = document.getElementById('booking-form-section');
-    if (formEl && window.innerWidth < 1024) {
-      formEl.scrollIntoView({ behavior: 'smooth' });
+    setViewMode('booking');
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  // Step 2 -> Step 1 back navigation
+  const handleBackToCatalog = () => {
+    setViewMode('catalog');
+    setErrorMsg('');
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -250,6 +262,9 @@ export const ServicesPage: React.FC = () => {
         status: data.status || 'Scheduled',
         isOfflineQueued: false
       });
+      if (typeof window !== 'undefined') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     } catch {
       // Offline fallback: Queue in IndexedDB for Background Sync
       await queueOfflineAction('booking', '/api/pwa/bookings', payload);
@@ -265,6 +280,9 @@ export const ServicesPage: React.FC = () => {
         status: 'Offline Queued (Will sync automatically)',
         isOfflineQueued: true
       });
+      if (typeof window !== 'undefined') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -280,40 +298,31 @@ export const ServicesPage: React.FC = () => {
 
   return (
     <div className="w-full min-h-screen bg-slate-50/50 dark:bg-brand-canvas transition-colors pt-24 sm:pt-28 md:pt-32 pb-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Breadcrumb Navigation */}
-        <div className="mb-6">
+        <div className="mb-5">
           <Breadcrumb
             items={[
               { label: 'Home', path: '/' },
-              { label: 'Services & Booking' }
+              { label: 'Services', path: '/services' },
+              ...(viewMode === 'booking' ? [{ label: currentService.name }] : [])
             ]}
           />
         </div>
 
-        {/* Header Title */}
-        <div className="mb-10">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-            12 Core Services & Solutions
-          </h1>
-          <p className="mt-3 text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
-            From websites and custom web/mobile platforms to AI integrations, internal tools, and institutional training. No account required to request a quote.
-          </p>
-        </div>
-
         {/* SUCCESS RECEIPT STATE */}
         {bookingReceipt ? (
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 sm:p-12 shadow-sm text-center max-w-2xl mx-auto animate-fade-in">
-            <div className="w-16 h-16 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 rounded-2xl flex items-center justify-center mx-auto mb-5 border border-emerald-200 dark:border-emerald-800">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-10 shadow-lg text-center max-w-xl mx-auto animate-fade-in">
+            <div className="w-16 h-16 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 rounded-2xl flex items-center justify-center mx-auto mb-5 border border-emerald-200 dark:border-emerald-800 shadow-xs">
               <CheckCircle2 className="w-8 h-8" />
             </div>
 
             <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
               Service Request Confirmed
             </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mt-2 max-w-md mx-auto">
-              Your service quote inquiry has been registered in the Brandex database. We will review your scope and get in touch.
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 max-w-md mx-auto">
+              Your inquiry has been stored with zero-PII security in the Brandex database. We will review your scope and follow up promptly.
             </p>
 
             {bookingReceipt.isOfflineQueued && (
@@ -323,8 +332,8 @@ export const ServicesPage: React.FC = () => {
               </div>
             )}
 
-            <div className="mt-6 p-6 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700/80 text-left">
-              <div className="flex items-center justify-between text-xs text-slate-400 uppercase font-mono tracking-wider mb-2">
+            <div className="mt-6 p-5 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700/80 text-left">
+              <div className="flex items-center justify-between text-[11px] text-slate-400 uppercase font-mono tracking-wider mb-2">
                 <span>Deterministic Reference ID</span>
                 <span className="text-emerald-600 dark:text-emerald-400 font-semibold lowercase font-sans">
                   {bookingReceipt.status}
@@ -335,15 +344,16 @@ export const ServicesPage: React.FC = () => {
                   {bookingReceipt.id}
                 </span>
                 <button
+                  type="button"
                   onClick={copyReceiptId}
-                  className="px-3.5 py-2 rounded-xl border border-slate-300 dark:border-slate-600 text-xs font-semibold flex items-center gap-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                  className="px-3.5 py-2 rounded-xl bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-xs font-bold text-slate-700 dark:text-slate-200 shadow-xs flex items-center gap-1.5 hover:bg-slate-100 dark:hover:bg-slate-600 active:scale-95 transition-all"
                 >
                   {copiedId ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedId ? 'Copied' : 'Copy'}</span>
                 </button>
               </div>
 
-              <div className="mt-5 pt-4 border-t border-slate-200 dark:border-slate-700 grid grid-cols-2 gap-3 text-xs">
+              <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700 grid grid-cols-2 gap-3 text-xs">
                 <div>
                   <span className="text-slate-400 block font-medium">Selected Service:</span>
                   <span className="font-bold text-slate-900 dark:text-white mt-0.5 block">{bookingReceipt.serviceName}</span>
@@ -355,321 +365,320 @@ export const ServicesPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <div className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">
               <NavLink
                 to={`/status?id=${bookingReceipt.id}`}
-                className="w-full sm:w-auto px-6 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-sm transition-all flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-sm active:scale-95 transition-all flex items-center justify-center gap-2 border border-indigo-700"
               >
                 <span>Track Status in Real-Time</span>
                 <ArrowRight className="w-4 h-4" />
               </NavLink>
 
               <button
+                type="button"
                 onClick={() => {
                   setBookingReceipt(null);
+                  setViewMode('catalog');
                   setContactName('');
                   setContactInfo('');
                   setScopeDescription('');
                 }}
-                className="w-full sm:w-auto px-6 py-3.5 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-semibold transition-colors"
+                className="w-full sm:w-auto px-6 py-3 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-bold shadow-xs active:scale-95 transition-all"
               >
-                Book Another Service
+                Explore Other Services
               </button>
             </div>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            {/* LEFT COLUMN: THE 12 CORE SERVICES (7 COLS) */}
-            <div className="lg:col-span-7 space-y-6">
-              
-              {/* Category Filter Pills */}
-              <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
+        ) : viewMode === 'catalog' ? (
+          /* STEP 1: 12 CORE SERVICES CATALOG */
+          <div className="space-y-6 animate-fade-in">
+            {/* Header Title */}
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-2 border-b border-slate-200/60 dark:border-slate-800/60">
+              <div>
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                  12 Core Engineering Services
+                </h1>
+                <p className="mt-1.5 text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+                  Select a service below to request a fast, non-binding quote in 30 seconds.
+                </p>
+              </div>
+
+              {/* Small Category Filter Pills */}
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar shrink-0">
                 {[
-                  { id: 'all', label: 'All Services (12)' },
+                  { id: 'all', label: 'All (12)' },
                   { id: 'dev', label: 'Web & Apps' },
                   { id: 'ai', label: 'AI & Automation' },
-                  { id: 'consulting', label: 'Consulting & Training' },
+                  { id: 'consulting', label: 'Consulting' },
                   { id: 'ecosystem', label: 'Community' },
                 ].map((tab) => (
                   <button
                     key={tab.id}
+                    type="button"
                     onClick={() => setActiveCategory(tab.id)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold whitespace-nowrap transition-all border shadow-xs ${
                       activeCategory === tab.id
-                        ? 'bg-slate-900 text-white dark:bg-indigo-600 dark:text-white'
-                        : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50'
+                        ? 'bg-slate-900 text-white border-slate-900 dark:bg-indigo-600 dark:border-indigo-500'
+                        : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-300 hover:bg-slate-50'
                     }`}
                   >
                     {tab.label}
                   </button>
                 ))}
               </div>
+            </div>
 
-              {/* MOBILE: Compact Square App-Style Tiles Grid (Eliminating endless scroll on mobile!) */}
-              <div className="grid grid-cols-2 sm:hidden gap-2.5">
-                {filteredServices.map((service) => {
-                  const Icon = service.icon;
-                  const isSelected = service.id === selectedServiceId;
+            {/* MOBILE: Compact 2-Column Grid (Zero endless scrolling) */}
+            <div className="grid grid-cols-2 sm:hidden gap-2.5">
+              {filteredServices.map((service) => {
+                const Icon = service.icon;
+                return (
+                  <div
+                    key={`mobile-${service.id}`}
+                    onClick={() => handleSelectService(service)}
+                    className="p-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 active:scale-95 transition-all shadow-xs flex flex-col justify-between min-h-[140px] cursor-pointer group hover:border-indigo-500"
+                  >
+                    <div>
+                      <div className="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-2 shadow-xs group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                        <Icon className="w-4 h-4" />
+                      </div>
+                      <h3 className="font-bold text-xs text-slate-900 dark:text-white leading-tight line-clamp-1">
+                        {service.name}
+                      </h3>
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5 leading-snug">
+                        {service.tagline}
+                      </p>
+                    </div>
 
-                  return (
-                    <div
-                      key={`mobile-${service.id}`}
-                      onClick={() => handleSelectService(service)}
-                      className={`p-3 rounded-2xl border cursor-pointer transition-all duration-200 flex flex-col justify-between min-h-[115px] active:scale-95 select-none ${
-                        isSelected
-                          ? 'border-indigo-600 dark:border-indigo-500 bg-indigo-50/70 dark:bg-indigo-950/40 ring-2 ring-indigo-500/20 shadow-xs'
-                          : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/70 hover:border-slate-300 dark:hover:border-slate-700'
-                      }`}
+                    {/* Tactile Mobile Button */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleSelectService(service);
+                      }}
+                      className="mt-2.5 w-full py-1.5 px-2 rounded-lg bg-slate-100 dark:bg-slate-800 group-hover:bg-indigo-600 text-slate-700 dark:text-slate-300 group-hover:text-white text-[10px] font-bold transition-colors flex items-center justify-center gap-1 border border-slate-200 dark:border-slate-700 shadow-xs"
                     >
-                      <div className="flex items-start justify-between">
-                        <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
-                          isSelected
-                            ? 'bg-indigo-600 text-white'
-                            : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
-                        }`}>
-                          <Icon className="w-4 h-4" />
+                      <span>Select</span>
+                      <ArrowRight className="w-2.5 h-2.5" />
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* DESKTOP & TABLET: Crisp 3-Column Modernist Cards Grid */}
+            <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filteredServices.map((service) => {
+                const Icon = service.icon;
+                return (
+                  <div
+                    key={service.id}
+                    onClick={() => handleSelectService(service)}
+                    className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/70 hover:border-indigo-400 dark:hover:border-indigo-600 hover:shadow-md transition-all duration-200 flex flex-col justify-between group cursor-pointer"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shadow-xs group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                          <Icon className="w-5 h-5" />
                         </div>
-                        {isSelected ? (
-                          <span className="w-4 h-4 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px] font-bold">
-                            ✓
+                        {service.isEcosystemLayer && (
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+                            Ecosystem
                           </span>
-                        ) : (
-                          <span className="w-3.5 h-3.5 rounded-full border border-slate-300 dark:border-slate-600" />
                         )}
                       </div>
 
-                      <div className="mt-2">
-                        <h4 className="font-bold text-xs text-slate-900 dark:text-white leading-tight line-clamp-1">
-                          {service.name}
-                        </h4>
-                        <p className="text-[10px] font-medium text-indigo-600 dark:text-indigo-400 truncate mt-0.5">
-                          {service.tagline}
-                        </p>
-                      </div>
+                      <h3 className="font-bold text-sm text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                        {service.name}
+                      </h3>
+                      <p className="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 mb-2">
+                        {service.tagline}
+                      </p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-2">
+                        {service.coverage}
+                      </p>
                     </div>
-                  );
-                })}
-              </div>
 
-              {/* Mobile Quick Selection Action Bar */}
-              <div className="sm:hidden p-3 bg-slate-900 text-white dark:bg-indigo-950/80 dark:border dark:border-indigo-800 rounded-2xl flex items-center justify-between shadow-md">
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center shrink-0">
-                    <currentService.icon className="w-3.5 h-3.5" />
-                  </div>
-                  <div className="min-w-0">
-                    <span className="text-[10px] text-slate-400 block font-mono leading-none">Selected Service</span>
-                    <span className="text-xs font-bold truncate block mt-0.5">{currentService.name}</span>
-                  </div>
-                </div>
-                <button
-                  onClick={() => {
-                    const formEl = document.getElementById('booking-form-section');
-                    if (formEl) formEl.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shrink-0 flex items-center gap-1 shadow-xs active:scale-95"
-                >
-                  <span>Request Quote</span>
-                  <ArrowRight className="w-3 h-3" />
-                </button>
-              </div>
-
-              {/* DESKTOP: Spacious 12 Services Cards Grid */}
-              <div className="hidden sm:grid sm:grid-cols-2 gap-3.5">
-                {filteredServices.map((service) => {
-                  const Icon = service.icon;
-                  const isSelected = service.id === selectedServiceId;
-
-                  return (
-                    <div
-                      key={service.id}
-                      onClick={() => handleSelectService(service)}
-                      className={`p-4 sm:p-4.5 rounded-2xl border cursor-pointer transition-all duration-200 flex flex-col justify-between relative ${
-                        isSelected
-                          ? 'border-indigo-600 dark:border-indigo-500 bg-indigo-50/50 dark:bg-indigo-950/30 ring-4 ring-indigo-500/10 shadow-sm'
-                          : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 hover:border-slate-300 dark:hover:border-slate-700'
-                      }`}
-                    >
-                      <div>
-                        <div className="flex items-center justify-between gap-2 mb-2.5">
-                          <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
-                            isSelected
-                              ? 'bg-indigo-600 text-white'
-                              : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
-                          }`}>
-                            <Icon className="w-4 h-4" />
-                          </div>
-                          {service.isEcosystemLayer && (
-                            <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
-                              Ecosystem Layer
-                            </span>
-                          )}
-                        </div>
-
-                        <h3 className="font-bold text-sm text-slate-900 dark:text-white">
-                          {service.name}
-                        </h3>
-                        <p className="text-[11px] font-medium text-indigo-600 dark:text-indigo-400 mb-1.5">
-                          {service.tagline}
-                        </p>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-2">
-                          {service.coverage}
-                        </p>
-                      </div>
-
-                      <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-                        <span className={`font-semibold ${isSelected ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400'}`}>
-                          {isSelected ? 'Selected ✓' : 'Click to select'}
-                        </span>
-                        <ArrowRight className={`w-3.5 h-3.5 ${isSelected ? 'text-indigo-600 dark:text-indigo-400 translate-x-1' : 'text-slate-300'} transition-transform`} />
-                      </div>
+                    {/* Real Tactile Button on Card */}
+                    <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleSelectService(service);
+                        }}
+                        className="w-full py-2 px-3 rounded-xl bg-slate-100 hover:bg-indigo-600 text-slate-800 hover:text-white dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-indigo-600 dark:hover:text-white text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-1.5 border border-slate-200 dark:border-slate-700 active:scale-95"
+                      >
+                        <span>Select Service & Continue</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          /* STEP 2: DEDICATED BOOKING FORM PAGE FOR CHOSEN SERVICE */
+          <div className="max-w-xl mx-auto animate-fade-in space-y-6">
+            {/* Back Navigation Tactile Button */}
+            <div className="flex items-center justify-between">
+              <button
+                type="button"
+                onClick={handleBackToCatalog}
+                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 shadow-xs hover:bg-slate-50 dark:hover:bg-slate-700 active:scale-95 transition-all"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>← Back to 12 Services</span>
+              </button>
 
-              {/* Ecosystem Layer Note */}
-              <div className="p-4 bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-200 dark:border-indigo-800/60 rounded-2xl flex items-start gap-3 text-xs text-indigo-900 dark:text-indigo-300">
-                <Users className="w-4 h-4 shrink-0 text-indigo-600 dark:text-indigo-400 mt-0.5" />
-                <div>
-                  <span className="font-bold block">Community is an Ecosystem Layer</span>
-                  <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5 leading-relaxed">
-                    Community connects all Brandex events, open-source projects, student workshops, and chapter partnerships. Account creation is required when joining circles.
-                  </p>
-                </div>
-              </div>
+              <span className="text-[11px] font-mono text-slate-400">Step 2 of 2: Quote Details</span>
             </div>
 
-            {/* RIGHT COLUMN: SHORT & CONCISE BOOKING FORM (5 COLS) */}
-            <div id="booking-form-section" className="lg:col-span-5 sticky top-24">
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-lg space-y-6">
-                
-                <div>
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 mb-2">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
-                    <span>No Account Required</span>
-                  </div>
-                  <h2 className="text-xl font-bold text-slate-900 dark:text-white">
-                    Request a Fast Quote
+            {/* Selected Service Card Header */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 flex items-center justify-between gap-4 shadow-xs">
+              <div className="flex items-center gap-3.5 min-w-0">
+                <div className="w-12 h-12 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+                  <currentService.icon className="w-6 h-6" />
+                </div>
+                <div className="min-w-0">
+                  <span className="text-[10px] uppercase font-mono tracking-wider text-indigo-600 dark:text-indigo-400 font-bold block">
+                    Selected Service
+                  </span>
+                  <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white truncate">
+                    {currentService.name}
                   </h2>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                    Fill in these 3 essential details. We'll assess your requirements and dispatch quote receipt.
+                  <p className="text-xs text-slate-600 dark:text-slate-400 truncate">
+                    {currentService.tagline}
                   </p>
                 </div>
+              </div>
 
-                <form onSubmit={handleSubmitBooking} className="space-y-4">
-                  {/* Selected Service Pill */}
-                  <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      <currentService.icon className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                      <div>
-                        <span className="text-[10px] uppercase tracking-wider font-mono text-slate-400 block">Selected Service</span>
-                        <span className="text-xs font-bold text-slate-900 dark:text-white">{currentService.name}</span>
-                      </div>
-                    </div>
-                    <span className="text-[11px] text-indigo-600 dark:text-indigo-400 font-semibold">Change ↗</span>
-                  </div>
+              <button
+                type="button"
+                onClick={handleBackToCatalog}
+                className="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-indigo-300 dark:border-indigo-700 text-[11px] font-bold text-indigo-600 dark:text-indigo-400 shadow-xs shrink-0 hover:bg-indigo-50 active:scale-95 transition-all"
+              >
+                Change
+              </button>
+            </div>
 
-                  {/* 1. Name or Organization */}
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
-                      Your Name or Organization <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      value={contactName}
-                      onChange={(e) => setContactName(e.target.value)}
-                      placeholder="e.g. Apex Labs or Rahul Verma"
-                      required
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
-                  </div>
-
-                  {/* 2. Contact Info */}
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
-                      Contact (Email / Phone / Telegram) <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      value={contactInfo}
-                      onChange={(e) => setContactInfo(e.target.value)}
-                      placeholder="e.g. contact@apex.io or @apex_team"
-                      required
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
-                  </div>
-
-                  {/* 3. Short Scope Description */}
-                  <div>
-                    <div className="flex items-center justify-between mb-1">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                        What Do You Need? <span className="text-red-500">*</span>
-                      </label>
-                      <span className="text-[10px] text-slate-400 font-mono">Short & concise</span>
-                    </div>
-                    <textarea
-                      rows={3}
-                      value={scopeDescription}
-                      onChange={(e) => setScopeDescription(e.target.value)}
-                      placeholder="Briefly state deliverables, tech stack, or problem you want us to solve..."
-                      required
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 leading-relaxed"
-                    />
-                  </div>
-
-                  {/* 4. Timeline */}
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
-                      Preferred Timeline
-                    </label>
-                    <select
-                      value={timeline}
-                      onChange={(e) => setTimeline(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    >
-                      <option value="Immediate (Next 2-4 weeks)">Immediate (Next 2-4 weeks)</option>
-                      <option value="Within 1-2 Months">Within 1-2 Months</option>
-                      <option value="Quarterly Exploration">Quarterly Exploration</option>
-                      <option value="Flexible / Ongoing">Flexible / Ongoing</option>
-                    </select>
-                  </div>
-
-                  {/* Error Notification */}
-                  {errorMsg && (
-                    <div className="p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 rounded-xl text-xs text-red-600 dark:text-red-400 flex items-center gap-2">
-                      <AlertCircle className="w-4 h-4 shrink-0" />
-                      <span>{errorMsg}</span>
-                    </div>
-                  )}
-
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm transition-all flex items-center justify-center gap-2 disabled:opacity-50"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        <span>Generating SRV Receipt...</span>
-                      </>
-                    ) : (
-                      <>
-                        <FileCheck className="w-4 h-4" />
-                        <span>Submit Request & Get Quote</span>
-                      </>
-                    )}
-                  </button>
-                </form>
-
-                <div className="pt-2 border-t border-slate-100 dark:border-slate-800 text-center">
-                  <span className="text-[11px] text-slate-400 flex items-center justify-center gap-1.5">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-                    <span>Instant immutable receipt • Track anytime at /status</span>
-                  </span>
+            {/* Concise Booking Form */}
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-5">
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 mb-2">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>Direct Project Submission</span>
                 </div>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                  Tell Us What You Want Built
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  We'll evaluate scope, match engineering leads, and dispatch quote reference.
+                </p>
+              </div>
+
+              <form onSubmit={handleSubmitBooking} className="space-y-4">
+                {/* 1. Name or Organization */}
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
+                    Your Name or Organization <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={contactName}
+                    onChange={(e) => setContactName(e.target.value)}
+                    placeholder="e.g. Apex Labs or Rahul Verma"
+                    required
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-2xs"
+                  />
+                </div>
+
+                {/* 2. Contact Info */}
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
+                    Contact (Email / Phone / Telegram / @handle) <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={contactInfo}
+                    onChange={(e) => setContactInfo(e.target.value)}
+                    placeholder="e.g. contact@apex.io or @apex_team"
+                    required
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-2xs"
+                  />
+                </div>
+
+                {/* 3. Short Scope Description */}
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                      Deliverables & Requirements <span className="text-red-500">*</span>
+                    </label>
+                    <span className="text-[10px] text-slate-400 font-mono">Short & concise</span>
+                  </div>
+                  <textarea
+                    rows={3}
+                    value={scopeDescription}
+                    onChange={(e) => setScopeDescription(e.target.value)}
+                    placeholder="Describe deliverables, tech stack preference, or specific features you need..."
+                    required
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 leading-relaxed shadow-2xs"
+                  />
+                </div>
+
+                {/* 4. Timeline */}
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
+                    Target Timeline
+                  </label>
+                  <select
+                    value={timeline}
+                    onChange={(e) => setTimeline(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-2xs"
+                  >
+                    <option value="Immediate (Next 2-4 weeks)">Immediate (Next 2-4 weeks)</option>
+                    <option value="Within 1-2 Months">Within 1-2 Months</option>
+                    <option value="Quarterly Exploration">Quarterly Exploration</option>
+                    <option value="Flexible / Ongoing">Flexible / Ongoing</option>
+                  </select>
+                </div>
+
+                {/* Error Notification */}
+                {errorMsg && (
+                  <div className="p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 rounded-xl text-xs text-red-600 dark:text-red-400 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0" />
+                    <span>{errorMsg}</span>
+                  </div>
+                )}
+
+                {/* Real Tactile Submit Button */}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-3.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md active:scale-95 transition-all flex items-center justify-center gap-2 border border-indigo-700 disabled:opacity-50"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <span>Generating Immutable SRV Receipt...</span>
+                    </>
+                  ) : (
+                    <>
+                      <FileCheck className="w-4 h-4" />
+                      <span>Submit Request & Get Instant Quote</span>
+                      <ArrowRight className="w-4 h-4 ml-1" />
+                    </>
+                  )}
+                </button>
+              </form>
+
+              <div className="pt-2 border-t border-slate-100 dark:border-slate-800 text-center">
+                <span className="text-[11px] text-slate-400 flex items-center justify-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+                  <span>Instant immutable reference • Track anytime at /status</span>
+                </span>
               </div>
             </div>
           </div>
@@ -678,3 +687,4 @@ export const ServicesPage: React.FC = () => {
     </div>
   );
 };
+

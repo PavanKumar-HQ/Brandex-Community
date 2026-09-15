@@ -217,128 +217,131 @@ export const NotificationCenter: React.FC = () => {
 
       {/* Notification Center Popover */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 overflow-hidden animate-fade-in font-sans">
-          {/* Header */}
-          <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-sm text-slate-900 dark:text-white">
-                Live Notifications
-              </span>
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" title="Live Database Feed" />
-              {unreadCount > 0 && (
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-900/60">
-                  {unreadCount} new
-                </span>
-              )}
-            </div>
+        <>
+          {/* Backdrop for outside click */}
+          <div
+            className="fixed inset-0 z-40 bg-slate-950/20 backdrop-blur-[2px]"
+            onClick={() => setIsOpen(false)}
+          />
 
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => fetchLiveNotifications(false)}
-                className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
-                title="Refresh feed"
-              >
-                <RefreshCw className="w-3.5 h-3.5" />
-              </button>
-              {unreadCount > 0 && (
+          <div className="fixed inset-x-3 top-16 sm:absolute sm:inset-auto sm:right-0 sm:top-full sm:mt-2 sm:w-96 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 overflow-hidden animate-fade-in font-sans">
+            {/* Header */}
+            <div className="p-3.5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-sm text-slate-900 dark:text-white">
+                  Notifications
+                </span>
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" title="Live Database Feed" />
+                {unreadCount > 0 && (
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-900/60">
+                    {unreadCount} new
+                  </span>
+                )}
+              </div>
+
+              <div className="flex items-center gap-2">
                 <button
-                  onClick={markAllAsRead}
-                  className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold hover:underline"
+                  type="button"
+                  onClick={() => fetchLiveNotifications(false)}
+                  className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                  title="Refresh feed"
                 >
-                  Mark all read
+                  <RefreshCw className="w-3.5 h-3.5" />
                 </button>
-              )}
+                {unreadCount > 0 && (
+                  <button
+                    type="button"
+                    onClick={markAllAsRead}
+                    className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold hover:underline"
+                  >
+                    Mark all read
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
 
-          {/* Web Push Permission Banner */}
-          {pushStatus !== 'granted' && (
-            <div className="p-3 bg-indigo-50/70 dark:bg-indigo-950/30 border-b border-indigo-100 dark:border-indigo-900/50 flex items-center justify-between gap-3">
-              <div className="flex items-center gap-2 min-w-0">
-                <Bell className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 shrink-0" />
+            {/* Web Push Permission Banner */}
+            {pushStatus !== 'granted' && (
+              <div className="p-2.5 bg-indigo-50/70 dark:bg-indigo-950/30 border-b border-indigo-100 dark:border-indigo-900/50 flex items-center justify-between gap-2 text-xs">
                 <span className="text-[11px] text-slate-700 dark:text-slate-300 truncate">
-                  Real-time booking & admission alerts
+                  Get instant status alerts
                 </span>
-              </div>
-              <button
-                onClick={handleRequestPush}
-                disabled={isEnablingPush}
-                className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-[11px] font-bold shrink-0 transition-colors"
-              >
-                {isEnablingPush ? 'Enabling...' : 'Enable'}
-              </button>
-            </div>
-          )}
-
-          {/* List of Real Notifications */}
-          <div className="max-h-80 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/80">
-            {notifications.length === 0 ? (
-              <div className="p-8 text-center text-xs text-slate-400">
-                No notifications logged in the database yet.
-              </div>
-            ) : (
-              notifications.map((item) => (
-                <div
-                  key={item.id}
-                  onClick={() => markItemAsRead(item.id)}
-                  className={`p-3.5 transition-colors cursor-pointer ${
-                    item.read
-                      ? 'bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/50'
-                      : 'bg-indigo-50/25 dark:bg-indigo-950/15 hover:bg-indigo-50/40'
-                  }`}
+                <button
+                  type="button"
+                  onClick={handleRequestPush}
+                  disabled={isEnablingPush}
+                  className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-[10px] font-bold shrink-0 transition-colors"
                 >
-                  <div className="flex items-start justify-between gap-2 mb-1">
-                    <div className="flex items-center gap-1.5 min-w-0">
-                      <div className="w-5 h-5 rounded-md bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0">
-                        {getCategoryIcon(item.category)}
+                  {isEnablingPush ? 'Enabling...' : 'Enable'}
+                </button>
+              </div>
+            )}
+
+            {/* List of Real Notifications */}
+            <div className="max-h-80 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/80">
+              {notifications.length === 0 ? (
+                <div className="p-8 text-center text-xs text-slate-400">
+                  No new notifications.
+                </div>
+              ) : (
+                notifications.map((item) => (
+                  <div
+                    key={item.id}
+                    onClick={() => markItemAsRead(item.id)}
+                    className={`p-3.5 transition-colors cursor-pointer ${
+                      item.read
+                        ? 'bg-white dark:bg-slate-900 opacity-70'
+                        : 'bg-indigo-50/30 dark:bg-indigo-950/20'
+                    } hover:bg-slate-50 dark:hover:bg-slate-800/60`}
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <div className="p-1 rounded-lg bg-slate-100 dark:bg-slate-800 shrink-0">
+                          {getCategoryIcon(item.category)}
+                        </div>
+                        <span className="text-xs font-bold text-slate-900 dark:text-white">
+                          {item.title}
+                        </span>
                       </div>
-                      <span
-                        className={`text-xs font-bold truncate ${
-                          item.read
-                            ? 'text-slate-700 dark:text-slate-300'
-                            : 'text-slate-900 dark:text-white'
-                        }`}
-                      >
-                        {item.title}
+                      <span className="text-[10px] text-slate-400 shrink-0 font-mono">
+                        {formatRelativeTime(item.createdAt || item.timestamp)}
                       </span>
                     </div>
-                    <span className="text-[10px] font-mono text-slate-400 shrink-0">
-                      {formatRelativeTime(item.createdAt || item.timestamp)}
-                    </span>
+
+                    <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 leading-relaxed pl-7">
+                      {item.message}
+                    </p>
+
+                    {item.actionUrl && (
+                      <div className="mt-2 pl-7">
+                        <NavLink
+                          to={item.actionUrl}
+                          onClick={() => setIsOpen(false)}
+                          className="inline-flex items-center gap-1 text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
+                        >
+                          <span>{item.actionLabel || 'View Status'}</span>
+                          <ArrowRight className="w-3 h-3" />
+                        </NavLink>
+                      </div>
+                    )}
                   </div>
+                ))
+              )}
+            </div>
 
-                  <p className="text-xs text-slate-600 dark:text-slate-400 pl-6.5 leading-relaxed">
-                    {item.message}
-                  </p>
-
-                  {item.actionUrl && (
-                    <div className="mt-2 pl-6.5">
-                      <NavLink
-                        to={item.actionUrl}
-                        onClick={() => setIsOpen(false)}
-                        className="inline-flex items-center gap-1 text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline"
-                      >
-                        <span>{item.actionLabel || 'View Status'}</span>
-                        <ArrowRight className="w-3 h-3" />
-                      </NavLink>
-                    </div>
-                  )}
-                </div>
-              ))
-            )}
+            {/* Footer Link to Tracker */}
+            <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800 text-center">
+              <NavLink
+                to="/status"
+                onClick={() => setIsOpen(false)}
+                className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-1"
+              >
+                <span>Track Status by Reference ID</span>
+                <ArrowRight className="w-3 h-3" />
+              </NavLink>
+            </div>
           </div>
-
-          {/* Footer Link to Tracker */}
-          <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800 text-center">
-            <NavLink
-              to="/status"
-              onClick={() => setIsOpen(false)}
-              className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400"
-            >
-              Deterministic Reference Verifier →
-            </NavLink>
-          </div>
-        </div>
+        </>
       )}
     </div>
   );

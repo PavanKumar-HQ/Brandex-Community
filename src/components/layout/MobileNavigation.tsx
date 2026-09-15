@@ -76,29 +76,22 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
 
   const primarySections: Section[] = [
     {
-      title: 'Core Ecosystem',
+      title: 'Platform Navigation',
       links: [
-        { name: 'Home Hub', path: '/', icon: Home },
-        { name: '12 Core Services & Booking', path: '/services', icon: Layers, badge: 'No Account' },
-        { name: 'Open-Source Registry', path: '/projects', icon: Code2, badge: 'PR Claims' },
-        { name: 'Domain Circles', path: '/community', icon: Users, badge: 'Active' },
-        { name: 'Track Your Status', path: '/status', icon: Search, badge: 'Live' }
+        { name: 'Home', path: '/', icon: Home },
+        { name: 'Services & Booking', path: '/services', icon: Layers },
+        { name: 'Open-Source Projects', path: '/projects', icon: Code2 },
+        { name: 'Community Circles', path: '/community', icon: Users },
+        { name: 'Track Status', path: '/status', icon: Search }
       ]
     },
     {
-      title: 'Learning & Cohorts',
+      title: 'Programs & Careers',
       links: [
+        { name: 'Careers & Fellowships', path: '/careers', icon: Briefcase },
         { name: 'Education & Schools', path: '/education', icon: BookOpen },
         { name: 'Training Bootcamps', path: '/training', icon: Zap },
         { name: 'Events & Summits', path: '/events', icon: Calendar }
-      ]
-    },
-    {
-      title: 'Ecosystem & Governance',
-      links: [
-        { name: 'Careers & Fellows', path: '/careers', icon: Briefcase },
-        { name: 'Work With Brandex', path: '/work-with-us', icon: ShieldCheck },
-        { name: 'Community Guidelines', path: '/community/guidelines', icon: CheckCircle2 }
       ]
     }
   ];
@@ -149,7 +142,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
               <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
                 {registered
                   ? `${identity.contributorPoints} XP • Circle Verified`
-                  : 'Account required for Domain Circles'}
+                  : 'Anonymous Handle & Profile'}
               </p>
             </div>
           </div>
@@ -227,7 +220,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
           className="w-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/60 text-slate-800 dark:text-slate-200 py-2.5 px-4 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all"
         >
           <Layers className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-          <span>Book Service (Zero Account Required)</span>
+          <span>Book Engineering Service</span>
         </button>
       </div>
     </div>
