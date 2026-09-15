@@ -121,45 +121,45 @@ export const Home: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-16 sm:space-y-24 pb-12 pt-24 sm:pt-32 bg-white text-slate-900">
+    <div className="space-y-8 sm:space-y-16 pb-12 pt-20 sm:pt-28 bg-white text-slate-900">
       
       {/* ==========================================
           01. HERO SECTION (High Quality Institutional Media + Messaging)
          ========================================== */}
       <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-16 items-center">
           
           {/* Left Column */}
-          <div className="lg:col-span-6 space-y-8">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-50 text-indigo-700 text-sm font-semibold rounded-full uppercase tracking-wider shadow-sm border border-indigo-100">
+          <div className="lg:col-span-6 space-y-4 sm:space-y-8">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1 bg-indigo-50 text-indigo-700 text-xs sm:text-sm font-semibold rounded-full uppercase tracking-wider shadow-2xs border border-indigo-100">
               <span className="w-2 h-2 bg-indigo-600 rounded-full animate-pulse" />
               Brandex Community & Education
             </span>
 
-            <div className="min-h-[60px] sm:min-h-[75px] flex items-center">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-slate-900 tracking-tight leading-tight flex flex-wrap gap-x-3 items-center">
+            <div className="min-h-[48px] sm:min-h-[75px] flex items-center">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-display font-bold text-slate-900 tracking-tight leading-tight flex flex-wrap gap-x-3 items-center">
                 <span>Learn.</span>
                 <span>Build.</span>
                 <TypewriterText words={["Share.", "Showcase.", "Scale.", "Grow."]} />
               </h1>
             </div>
 
-            <p className="text-lg sm:text-xl text-slate-600 max-w-lg leading-relaxed font-medium">
+            <p className="text-sm sm:text-xl text-slate-600 max-w-lg leading-relaxed font-medium">
               A community space for everyone—bringing people together to learn new skills, share stories, celebrate student achievements, and build the future together.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-4 pt-2 sm:pt-4">
               <button
                 onClick={() => openModal('community')}
-                className="btn-primary w-full sm:w-auto justify-center px-8 py-4 group hover:shadow-indigo-500/30 hover:shadow-md"
+                className="btn-primary w-full sm:w-auto justify-center px-6 sm:px-8 py-3 sm:py-4 text-xs sm:text-sm group hover:shadow-indigo-500/30 hover:shadow-md"
               >
                 <span>Access Member Portal</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1.5 transition-transform" />
               </button>
 
               <NavLink
                 to="/education"
-                className="btn-secondary w-full sm:w-auto justify-center px-8 py-4 bg-white border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all hover:scale-[1.02] text-center"
+                className="btn-secondary w-full sm:w-auto justify-center px-6 sm:px-8 py-3 sm:py-4 text-xs sm:text-sm bg-white border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all hover:scale-[1.02] text-center"
               >
                 <span>View Academic Courses</span>
               </NavLink>
@@ -168,12 +168,14 @@ export const Home: React.FC = () => {
 
           {/* Right Column: Hero Visual Showcase */}
           <div className="lg:col-span-6 flex items-center justify-center">
-            <div className="relative w-full overflow-hidden">
+            <div className="relative w-full overflow-hidden rounded-2xl">
               <div className="absolute inset-0 bg-purple-600/15 mix-blend-color z-20 pointer-events-none" />
               <img 
                 src="/geniusphere-collab-indigo.webp" 
                 alt="Geniusphere School Coding Workshop" 
                 className="w-full h-auto object-cover relative z-10"
+                loading="eager"
+                decoding="async"
               />
             </div>
           </div>
@@ -198,44 +200,44 @@ export const Home: React.FC = () => {
       {/* ==========================================
           03. WHAT BRANDEX OFFERS (Bento Grid Visual Hierarchy)
          ========================================== */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-12">
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-6 sm:py-12">
         <FadeIn>
           <SectionHeading
             tag="SHOWCASE PILLARS"
             title="Core Platform Ecosystem"
-            subtitle="Explore our specialized initiatives structured across foundational education, engineering cohorts, community circles, and live tech summits."
+            subtitle="Explore specialized initiatives across education, cohorts, circles, and summits."
           />
         </FadeIn>
 
         {/* Bento Grid with Asymmetric Hierarchy & Brand Palette */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mt-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-3 sm:gap-6 mt-6 sm:mt-8">
           
           {/* Bento Card 1: Community (Hero Wide Card - 7 cols) */}
           <FadeIn className="md:col-span-7" delay={0.1}>
             <NavLink
               to="/community"
-              className="group relative h-full min-h-[300px] bg-white border-2 border-indigo-100 rounded-2xl p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-sm hover:border-indigo-300 hover:shadow-md transition-all duration-300"
+              className="group relative h-full min-h-0 sm:min-h-[280px] bg-white border border-indigo-100 rounded-2xl p-5 sm:p-8 flex flex-col justify-between overflow-hidden shadow-2xs hover:border-indigo-300 hover:shadow-md transition-all duration-300"
             >
-              <div className="space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 rounded-full text-indigo-700 text-xs font-bold uppercase tracking-wider border border-indigo-100">
-                  <Users className="w-3.5 h-3.5 text-indigo-600" />
+              <div className="space-y-2.5 sm:space-y-4">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-indigo-50 rounded-full text-indigo-700 text-[11px] font-bold uppercase tracking-wider border border-indigo-100">
+                  <Users className="w-3 h-3 text-indigo-600" />
                   <span>Domain Guilds & Circles</span>
                 </div>
                 
-                <h3 className="font-display font-bold text-2xl sm:text-3xl text-slate-900 tracking-tight leading-snug group-hover:text-indigo-600 transition-colors">
+                <h3 className="font-display font-bold text-lg sm:text-2xl text-slate-900 tracking-tight leading-snug group-hover:text-indigo-600 transition-colors">
                   Collaborative circles for AI, Cybersecurity & Swiss UX.
                 </h3>
                 
-                <p className="text-sm text-slate-600 max-w-xl leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-600 max-w-xl leading-relaxed">
                   Connect with student builders and research mentors. Share code snippets, participate in weekly teardowns, and build production projects together.
                 </p>
               </div>
 
-              <div className="pt-6 flex items-center justify-between border-t border-slate-100">
-                <span className="text-xs font-bold text-indigo-600 tracking-wider uppercase">15+ Active Circles</span>
-                <span className="inline-flex items-center gap-2 bg-indigo-600 text-white px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-indigo-700 transition-colors shadow-sm">
-                  <span>Explore Community</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <div className="pt-4 sm:pt-6 flex items-center justify-between border-t border-slate-100 mt-3">
+                <span className="text-[11px] sm:text-xs font-bold text-indigo-600 tracking-wider uppercase">15+ Active Circles</span>
+                <span className="inline-flex items-center gap-1.5 bg-indigo-600 text-white px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-xl text-xs font-bold hover:bg-indigo-700 transition-colors shadow-2xs">
+                  <span>Explore</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </span>
               </div>
             </NavLink>
@@ -245,16 +247,16 @@ export const Home: React.FC = () => {
           <FadeIn className="md:col-span-5" delay={0.2}>
             <NavLink
               to="/training"
-              className="group relative h-full min-h-[300px] bg-slate-50 border border-slate-200 rounded-2xl p-8 flex flex-col justify-between hover:border-indigo-300 hover:bg-white hover:shadow-md transition-all duration-300"
+              className="group relative h-full min-h-0 sm:min-h-[280px] bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-8 flex flex-col justify-between hover:border-indigo-300 hover:bg-white hover:shadow-md transition-all duration-300"
             >
-              <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center">
-                  <Terminal className="w-6 h-6" />
+              <div className="space-y-2.5 sm:space-y-4">
+                <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center">
+                  <Terminal className="w-4 h-4 sm:w-6 sm:h-6" />
                 </div>
                 
-                <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider block">Cohort Training</span>
+                <span className="text-[11px] sm:text-xs font-bold text-indigo-600 uppercase tracking-wider block">Cohort Training</span>
                 
-                <h3 className="font-display font-bold text-2xl text-slate-900 group-hover:text-indigo-600 transition-colors">
+                <h3 className="font-display font-bold text-lg sm:text-2xl text-slate-900 group-hover:text-indigo-600 transition-colors">
                   Production-grade cohort engineering.
                 </h3>
                 
@@ -263,11 +265,11 @@ export const Home: React.FC = () => {
                 </p>
               </div>
 
-              <div className="pt-6 flex items-center justify-between border-t border-slate-200/60">
-                <span className="text-xs font-semibold text-slate-500">Applications Open</span>
+              <div className="pt-4 sm:pt-6 flex items-center justify-between border-t border-slate-200/60 mt-3">
+                <span className="text-[11px] sm:text-xs font-semibold text-slate-500">Applications Open</span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 group-hover:bg-indigo-600 group-hover:text-white text-indigo-700 text-xs font-bold rounded-xl transition-all shadow-2xs">
                   <span>View Syllabus</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </div>
             </NavLink>
@@ -277,16 +279,16 @@ export const Home: React.FC = () => {
           <FadeIn className="md:col-span-5" delay={0.3}>
             <NavLink
               to="/education"
-              className="group relative h-full min-h-[260px] bg-slate-50 border border-slate-200 rounded-2xl p-8 flex flex-col justify-between hover:border-indigo-300 hover:bg-white hover:shadow-md transition-all duration-300"
+              className="group relative h-full min-h-0 sm:min-h-[260px] bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-8 flex flex-col justify-between hover:border-indigo-300 hover:bg-white hover:shadow-md transition-all duration-300"
             >
-              <div className="space-y-3">
-                <div className="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center">
-                  <BookOpen className="w-5 h-5" />
+              <div className="space-y-2.5 sm:space-y-3">
+                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center">
+                  <BookOpen className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
                 
-                <span className="text-xs font-bold text-blue-600 uppercase tracking-wider block">Geniusphere Series</span>
+                <span className="text-[11px] sm:text-xs font-bold text-blue-600 uppercase tracking-wider block">Geniusphere Series</span>
                 
-                <h3 className="font-display font-bold text-xl sm:text-2xl text-slate-900 group-hover:text-indigo-600 transition-colors">
+                <h3 className="font-display font-bold text-lg sm:text-xl text-slate-900 group-hover:text-indigo-600 transition-colors">
                   Secondary School & College Pathways
                 </h3>
                 
@@ -295,11 +297,11 @@ export const Home: React.FC = () => {
                 </p>
               </div>
 
-              <div className="pt-4 flex items-center justify-between border-t border-slate-200/60">
-                <span className="text-xs text-slate-500">Geniusphere Series</span>
+              <div className="pt-3 sm:pt-4 flex items-center justify-between border-t border-slate-200/60 mt-3">
+                <span className="text-[11px] sm:text-xs text-slate-500">Geniusphere</span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 group-hover:bg-indigo-600 group-hover:text-white text-indigo-700 text-xs font-bold rounded-xl transition-all shadow-2xs">
                   <span>Explore Tracks</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </div>
             </NavLink>
@@ -309,16 +311,16 @@ export const Home: React.FC = () => {
           <FadeIn className="md:col-span-7" delay={0.4}>
             <NavLink
               to="/events"
-              className="group relative h-full min-h-[260px] bg-white border-2 border-slate-200 rounded-2xl p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 hover:border-indigo-300 hover:shadow-md transition-all duration-300"
+              className="group relative h-full min-h-0 sm:min-h-[260px] bg-white border border-slate-200 rounded-2xl p-5 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6 hover:border-indigo-300 hover:shadow-md transition-all duration-300"
             >
-              <div className="space-y-3 max-w-md">
-                <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center">
-                  <Calendar className="w-5 h-5" />
+              <div className="space-y-2.5 sm:space-y-3 max-w-md">
+                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center">
+                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
                 
-                <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider block">Summits & Wargames</span>
+                <span className="text-[11px] sm:text-xs font-bold text-emerald-700 uppercase tracking-wider block">Summits & Wargames</span>
                 
-                <h3 className="font-display font-bold text-2xl text-slate-900 group-hover:text-indigo-600 transition-colors">
+                <h3 className="font-display font-bold text-lg sm:text-2xl text-slate-900 group-hover:text-indigo-600 transition-colors">
                   Live Summits, Hackathons & CTF Wargames
                 </h3>
                 
@@ -327,10 +329,10 @@ export const Home: React.FC = () => {
                 </p>
               </div>
 
-              <div className="shrink-0 flex sm:flex-col items-end justify-between sm:justify-center gap-4 w-full sm:w-auto border-t sm:border-t-0 border-slate-100 pt-4 sm:pt-0">
-                <span className="inline-flex items-center gap-2 bg-indigo-600 text-white px-5 py-3 rounded-xl text-xs font-bold hover:bg-indigo-700 transition-colors shadow-sm">
+              <div className="shrink-0 flex sm:flex-col items-end justify-between sm:justify-center gap-4 w-full sm:w-auto border-t sm:border-t-0 border-slate-100 pt-3 sm:pt-0">
+                <span className="inline-flex items-center gap-1.5 bg-indigo-600 text-white px-4 py-2 sm:px-5 sm:py-3 rounded-xl text-xs font-bold hover:bg-indigo-700 transition-colors shadow-2xs">
                   <span>View Events</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </span>
               </div>
             </NavLink>
@@ -342,7 +344,7 @@ export const Home: React.FC = () => {
       {/* ==========================================
           04. UPCOMING EVENTS
          ========================================== */}
-      <div className="bg-slate-50/50 py-10">
+      <div className="bg-slate-50/50 py-6 sm:py-10">
         <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
           <FadeIn>
             <SectionHeading
@@ -368,7 +370,7 @@ export const Home: React.FC = () => {
       {/* ==========================================
           05. STORIES & ACHIEVEMENTS SHOWCASE
          ========================================== */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-10">
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-6 sm:py-10">
         <FadeIn>
           <SectionHeading
             tag="STORIES & ACHIEVEMENTS"
@@ -379,28 +381,30 @@ export const Home: React.FC = () => {
           />
         </FadeIn>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 mt-5 sm:mt-8">
           {/* Stories Column */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="lg:col-span-7 space-y-3 sm:space-y-6">
             {stories.map((story, idx) => (
               <FadeIn key={story.id} delay={idx * 0.1}>
                 <NavLink
                   to={`/stories/${story.slug}`}
-                className="bg-white border border-slate-200 rounded-xl p-5 flex flex-col sm:flex-row gap-5 hover:border-indigo-300 hover:shadow-md transition-all group"
+                className="bg-white border border-slate-200 rounded-xl p-3.5 sm:p-5 flex flex-col sm:flex-row gap-3 sm:gap-5 hover:border-indigo-300 hover:shadow-md transition-all group shadow-2xs"
               >
                 <img
                   src={story.coverImage || '/brandex-full-logo.webp'}
                   alt={story.title}
-                  className="w-full sm:w-44 h-32 object-cover rounded-lg shrink-0"
+                  className="w-full sm:w-44 h-28 sm:h-32 object-cover rounded-lg shrink-0"
+                  loading="lazy"
+                  decoding="async"
                 />
-                <div className="space-y-2 flex-1">
-                  <span className="text-[11px] font-semibold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">
+                <div className="space-y-1.5 sm:space-y-2 flex-1">
+                  <span className="text-[10px] sm:text-[11px] font-semibold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">
                     {story.category}
                   </span>
-                  <h4 className="font-display font-bold text-base text-slate-900 group-hover:text-indigo-600 transition-colors leading-snug">
+                  <h4 className="font-display font-bold text-sm sm:text-base text-slate-900 group-hover:text-indigo-600 transition-colors leading-snug">
                     {story.title}
                   </h4>
-                  <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                  <p className="text-[11px] sm:text-xs text-slate-600 line-clamp-2 leading-relaxed">
                     {story.excerpt}
                   </p>
                 </div>
@@ -410,23 +414,23 @@ export const Home: React.FC = () => {
           </div>
 
           {/* Achievements Sidebar */}
-          <div className="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-xl p-6 space-y-4">
-            <h3 className="font-display font-bold text-lg text-slate-900 border-b border-slate-200 pb-3 flex items-center gap-2">
-              <Award className="w-5 h-5 text-indigo-600" />
+          <div className="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-6 space-y-3 sm:space-y-4">
+            <h3 className="font-display font-bold text-base sm:text-lg text-slate-900 border-b border-slate-200 pb-2 sm:pb-3 flex items-center gap-2">
+              <Award className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600" />
               <span>Recognitions and Awards</span>
             </h3>
 
-            <div className="space-y-4">
+            <div className="space-y-2.5 sm:space-y-4">
               {achievements.map((ach) => (
-                <div key={ach.id} className="bg-white border border-slate-200 rounded-lg p-4 space-y-1">
-                  <div className="flex items-center justify-between text-[11px] text-slate-500 font-medium">
+                <div key={ach.id} className="bg-white border border-slate-200 rounded-lg p-3 sm:p-4 space-y-1 shadow-2xs">
+                  <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-slate-500 font-medium">
                     <span className="text-indigo-600 font-semibold">{ach.category}</span>
                     <span>{ach.date}</span>
                   </div>
-                  <h4 className="font-display font-bold text-sm text-slate-900">
+                  <h4 className="font-display font-bold text-xs sm:text-sm text-slate-900">
                     {ach.title}
                   </h4>
-                  <p className="text-xs text-slate-600">
+                  <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed">
                     {ach.description}
                   </p>
                 </div>
@@ -439,7 +443,7 @@ export const Home: React.FC = () => {
       {/* ==========================================
           06. BRANDEX IN ACTION (MEDIA HUB)
          ========================================== */}
-      <div className="bg-slate-50/50 py-10 !mt-8 sm:!mt-12">
+      <div className="bg-slate-50/50 py-6 sm:py-10 !mt-4 sm:!mt-8">
         <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
           <SectionHeading
             tag="MEDIA VAULT"
@@ -465,7 +469,7 @@ export const Home: React.FC = () => {
       {/* ==========================================
           06b. FAQ SECTION
          ========================================== */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-10 border-t border-slate-200">
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-6 sm:py-10 border-t border-slate-200">
         <FadeIn>
           <SectionHeading
             tag="FAQ"
@@ -474,7 +478,7 @@ export const Home: React.FC = () => {
           />
         </FadeIn>
 
-        <div className="w-full space-y-3 mt-8">
+        <div className="w-full space-y-2.5 sm:space-y-3 mt-4 sm:mt-8">
           {[
             {
               q: "What is the Brandex Showcase Ecosystem?",
@@ -503,16 +507,16 @@ export const Home: React.FC = () => {
           ].map((item, idx) => {
             const isOpen = openFaq === idx;
             return (
-              <div key={idx} className="border border-slate-200 bg-white transition-all rounded-xl overflow-hidden shadow-sm">
+              <div key={idx} className="border border-slate-200 bg-white transition-all rounded-xl overflow-hidden shadow-2xs">
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : idx)}
-                  className="w-full px-4 py-4 sm:px-6 sm:py-5 flex items-center justify-between text-left focus:outline-none gap-3"
+                  className="w-full px-3.5 py-3 sm:px-6 sm:py-5 flex items-center justify-between text-left focus:outline-none gap-3"
                 >
-                  <span className="font-display font-bold text-sm sm:text-base text-slate-900 leading-snug">{item.q}</span>
+                  <span className="font-display font-bold text-xs sm:text-base text-slate-900 leading-snug">{item.q}</span>
                   {isOpen ? <ChevronUp className="w-4 h-4 text-indigo-600 shrink-0" /> : <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />}
                 </button>
                 {isOpen && (
-                  <div className="px-4 pb-4 sm:px-6 sm:pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3 text-left">
+                  <div className="px-3.5 pb-3.5 sm:px-6 sm:pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-2.5 text-left">
                     {item.a}
                   </div>
                 )}
@@ -525,8 +529,8 @@ export const Home: React.FC = () => {
       {/* ==========================================
           07. FINAL JOIN CTA
          ========================================== */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-10 !mt-4 sm:!mt-6">
-        <div className="bg-indigo-50/50 border border-indigo-100 rounded-[2rem] p-6 sm:p-12 text-left shadow-sm relative overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-6 sm:py-10 !mt-2 sm:!mt-6">
+        <div className="bg-indigo-50/50 border border-indigo-100 rounded-[2rem] p-5 sm:p-10 text-left shadow-sm relative overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
           <div className="absolute inset-0 bg-gradient-to-tr from-indigo-100/30 to-purple-100/30 mix-blend-overlay pointer-events-none"></div>
           
           {/* Left Column: Text & Action */}

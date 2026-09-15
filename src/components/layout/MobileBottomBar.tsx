@@ -30,7 +30,7 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({ onOpenMenu }) 
               className={({ isActive }) =>
                 `flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 min-w-[56px] ${
                   isActive
-                    ? 'text-indigo-600 dark:text-indigo-400 font-bold'
+                    ? 'text-indigo-600 dark:text-indigo-400 font-bold bg-indigo-50/90 dark:bg-indigo-950/70 shadow-2xs'
                     : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
                 }`
               }

@@ -66,21 +66,21 @@ export const ImpactStatisticsSection: React.FC = () => {
   if (stats.length === 0) return null;
 
   return (
-    <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-8">
-      <div className="bg-slate-50 border border-slate-200 rounded-2xl p-8 sm:p-10 shadow-sm space-y-8">
-        <div className="space-y-2 max-w-2xl">
-          <span className="inline-block px-3 py-1 bg-indigo-50 text-indigo-600 text-xs font-semibold rounded-full uppercase tracking-wider">
+    <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-5 sm:py-8">
+      <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-8 shadow-sm space-y-5 sm:space-y-8">
+        <div className="space-y-1.5 max-w-2xl">
+          <span className="inline-block px-2.5 py-0.5 bg-indigo-50 text-indigo-600 text-[11px] font-semibold rounded-full uppercase tracking-wider">
             Verified Community Impact
           </span>
-          <h2 className="text-2xl sm:text-3xl font-display font-bold text-slate-900">
+          <h2 className="text-xl sm:text-3xl font-display font-bold text-slate-900">
             Real Numbers & Verified Outcomes
           </h2>
-          <p className="text-sm text-slate-600">
+          <p className="text-xs sm:text-sm text-slate-600">
             Published platform telemetry representing active student participants, technology circles, and community builds.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
           {stats.map((stat, index) => {
             const icons = [Users, Building2, Calendar, FolderGit2];
             const colors = ['text-blue-600 bg-blue-50', 'text-purple-600 bg-purple-50', 'text-emerald-600 bg-emerald-50', 'text-orange-600 bg-orange-50'];
@@ -90,20 +90,20 @@ export const ImpactStatisticsSection: React.FC = () => {
             return (
               <div
                 key={stat.id}
-                className="bg-white border border-slate-200 rounded-xl p-6 space-y-3 hover-lift"
+                className="bg-white border border-slate-200 rounded-xl p-3.5 sm:p-6 space-y-2 sm:space-y-3 hover-lift shadow-2xs"
               >
                 <div className="flex items-center justify-between">
                   <AnimatedCounter endValue={stat.number} suffix={stat.suffix} />
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-sm border border-black/5 ${colorClass}`}>
-                    <Icon className="w-5 h-5" />
+                  <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center shadow-xs border border-black/5 ${colorClass}`}>
+                    <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
                 </div>
 
-                <div className="space-y-1">
-                  <h4 className="font-display font-semibold text-sm text-slate-900">
+                <div className="space-y-0.5 sm:space-y-1">
+                  <h4 className="font-display font-semibold text-xs sm:text-sm text-slate-900 truncate">
                     {stat.label}
                   </h4>
-                  <p className="text-xs text-slate-500 leading-relaxed">
+                  <p className="text-[11px] sm:text-xs text-slate-500 leading-relaxed line-clamp-2">
                     {stat.description}
                   </p>
                 </div>
