@@ -53,8 +53,13 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { name: 'Services', path: '/services' },
+    { name: 'Education', path: '/education' },
+    { name: 'Training', path: '/training' },
+    { name: 'Events', path: '/events' },
     { name: 'Open Source', path: '/projects' },
     { name: 'Community', path: '/community' },
+    { name: 'Blog', path: '/blog' },
+    { name: 'About', path: '/about' },
     { name: 'Careers', path: '/careers' },
     { name: 'Track Status', path: '/status' },
   ];
@@ -89,13 +94,13 @@ export const Navbar: React.FC = () => {
           </NavLink>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex flex-nowrap items-center space-x-1 whitespace-nowrap">
+          <nav className="hidden lg:flex flex-nowrap items-center space-x-0.5 xl:space-x-1 whitespace-nowrap">
             {navLinks.map((link) => (
               <NavLink
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
-                  `group relative px-3 py-1.5 text-xs font-semibold transition-colors inline-flex items-center ${
+                  `group relative px-2 xl:px-2.5 py-1.5 text-[11px] xl:text-xs font-semibold transition-colors inline-flex items-center ${
                     isActive
                       ? 'text-indigo-600 dark:text-indigo-400 font-bold'
                       : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'

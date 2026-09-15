@@ -16,7 +16,13 @@ import {
   ChevronRight,
   Zap,
   Lock,
-  UserCheck
+  UserCheck,
+  FileText,
+  Sparkles,
+  Award,
+  Info,
+  Mail,
+  HeartHandshake
 } from 'lucide-react';
 import { useRegistration } from '../../contexts/RegistrationContext';
 import {
@@ -77,7 +83,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
 
   const primarySections: Section[] = [
     {
-      title: 'Platform Navigation',
+      title: 'Platform Core',
       links: [
         { name: 'Home', path: '/', icon: Home },
         { name: 'Services & Booking', path: '/services', icon: Layers },
@@ -87,18 +93,29 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
       ]
     },
     {
-      title: 'Programs & Careers',
+      title: 'Education & Knowledge',
       links: [
-        { name: 'Careers & Fellowships', path: '/careers', icon: Briefcase },
         { name: 'Education & Schools', path: '/education', icon: BookOpen },
-        { name: 'Training Bootcamps', path: '/training', icon: Zap },
-        { name: 'Events & Summits', path: '/events', icon: Calendar }
+        { name: 'Training & Cohorts', path: '/training', icon: Zap },
+        { name: 'Events & Summits', path: '/events', icon: Calendar },
+        { name: 'Member Stories', path: '/stories', icon: Sparkles },
+        { name: 'Blog & Articles', path: '/blog', icon: FileText }
+      ]
+    },
+    {
+      title: 'Organization & Careers',
+      links: [
+        { name: 'About Brandex', path: '/about', icon: Info },
+        { name: 'Careers & Fellowships', path: '/careers', icon: Briefcase },
+        { name: 'Campus Ambassadors', path: '/ambassador', icon: Award },
+        { name: 'Work With Us', path: '/work-with-us', icon: HeartHandshake },
+        { name: 'Contact Us', path: '/contact', icon: Mail }
       ]
     }
   ];
 
   // Derive currently active section
-  const currentLink = [...primarySections[0].links, ...primarySections[1].links].find((l) =>
+  const currentLink = primarySections.flatMap((s) => s.links).find((l) =>
     l.path === '/' ? location.pathname === '/' : location.pathname.startsWith(l.path)
   );
   const currentSectionName = currentLink ? currentLink.name : 'Brandex Platform';
