@@ -121,59 +121,59 @@ export const Home: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-8 sm:space-y-16 pb-12 pt-20 sm:pt-28 bg-white text-slate-900">
+    <div className="space-y-6 sm:space-y-14 pb-8 sm:pb-12 pt-16 sm:pt-24 bg-white text-slate-900">
       
       {/* ==========================================
           01. HERO SECTION (High Quality Institutional Media + Messaging)
          ========================================== */}
       <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-16 items-center">
           
           {/* Left Column */}
-          <div className="lg:col-span-6 space-y-4 sm:space-y-8">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1 bg-indigo-50 text-indigo-700 text-xs sm:text-sm font-semibold rounded-full uppercase tracking-wider shadow-2xs border border-indigo-100">
-              <span className="w-2 h-2 bg-indigo-600 rounded-full animate-pulse" />
+          <div className="lg:col-span-6 space-y-3 sm:space-y-6">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 text-indigo-700 text-xs sm:text-sm font-semibold rounded-full uppercase tracking-wider shadow-2xs border border-indigo-100">
+              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-indigo-600 rounded-full animate-pulse" />
               Brandex Community & Education
             </span>
 
-            <div className="min-h-[48px] sm:min-h-[75px] flex items-center">
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-display font-bold text-slate-900 tracking-tight leading-tight flex flex-wrap gap-x-3 items-center">
+            <div className="min-h-[40px] sm:min-h-[75px] flex items-center">
+              <h1 className="text-2xl sm:text-5xl lg:text-6xl font-display font-bold text-slate-900 tracking-tight leading-tight flex flex-wrap gap-x-2 sm:gap-x-3 items-center">
                 <span>Learn.</span>
                 <span>Build.</span>
                 <TypewriterText words={["Share.", "Showcase.", "Scale.", "Grow."]} />
               </h1>
             </div>
 
-            <p className="text-sm sm:text-xl text-slate-600 max-w-lg leading-relaxed font-medium">
+            <p className="text-xs sm:text-lg text-slate-600 max-w-lg leading-relaxed font-medium">
               A community space for everyone—bringing people together to learn new skills, share stories, celebrate student achievements, and build the future together.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-4 pt-2 sm:pt-4">
+            <div className="flex flex-row items-center gap-2 sm:gap-4 pt-1 sm:pt-3">
               <button
                 onClick={() => openModal('community')}
-                className="btn-primary w-full sm:w-auto justify-center px-6 sm:px-8 py-3 sm:py-4 text-xs sm:text-sm group hover:shadow-indigo-500/30 hover:shadow-md"
+                className="btn-primary flex-1 sm:flex-initial justify-center px-4 sm:px-8 py-2.5 sm:py-3.5 text-xs sm:text-sm group hover:shadow-indigo-500/30 hover:shadow-md"
               >
-                <span>Access Member Portal</span>
-                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1.5 transition-transform" />
+                <span>Member Portal</span>
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
               </button>
 
               <NavLink
                 to="/education"
-                className="btn-secondary w-full sm:w-auto justify-center px-6 sm:px-8 py-3 sm:py-4 text-xs sm:text-sm bg-white border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all hover:scale-[1.02] text-center"
+                className="btn-secondary flex-1 sm:flex-initial justify-center px-4 sm:px-8 py-2.5 sm:py-3.5 text-xs sm:text-sm bg-white border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all text-center"
               >
-                <span>View Academic Courses</span>
+                <span>Courses</span>
               </NavLink>
             </div>
           </div>
 
           {/* Right Column: Hero Visual Showcase */}
           <div className="lg:col-span-6 flex items-center justify-center">
-            <div className="relative w-full overflow-hidden rounded-2xl">
+            <div className="relative w-full overflow-hidden rounded-xl sm:rounded-2xl shadow-xs">
               <div className="absolute inset-0 bg-purple-600/15 mix-blend-color z-20 pointer-events-none" />
               <img 
                 src="/geniusphere-collab-indigo.webp" 
                 alt="Geniusphere School Coding Workshop" 
-                className="w-full h-auto object-cover relative z-10"
+                className="w-full h-auto object-cover relative z-10 max-h-[260px] sm:max-h-none"
                 loading="eager"
                 decoding="async"
               />
@@ -200,7 +200,7 @@ export const Home: React.FC = () => {
       {/* ==========================================
           03. WHAT BRANDEX OFFERS (Bento Grid Visual Hierarchy)
          ========================================== */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-6 sm:py-12">
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-4 sm:py-10">
         <FadeIn>
           <SectionHeading
             tag="SHOWCASE PILLARS"
@@ -210,34 +210,34 @@ export const Home: React.FC = () => {
         </FadeIn>
 
         {/* Bento Grid with Asymmetric Hierarchy & Brand Palette */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-3 sm:gap-6 mt-6 sm:mt-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-3 sm:gap-6 mt-4 sm:mt-6">
           
           {/* Bento Card 1: Community (Hero Wide Card - 7 cols) */}
           <FadeIn className="md:col-span-7" delay={0.1}>
             <NavLink
               to="/community"
-              className="group relative h-full min-h-0 sm:min-h-[280px] bg-white border border-indigo-100 rounded-2xl p-5 sm:p-8 flex flex-col justify-between overflow-hidden shadow-2xs hover:border-indigo-300 hover:shadow-md transition-all duration-300"
+              className="group relative h-full min-h-0 sm:min-h-[260px] bg-white border border-indigo-100 rounded-xl sm:rounded-2xl p-4 sm:p-7 flex flex-col justify-between overflow-hidden shadow-2xs hover:border-indigo-300 hover:shadow-md transition-all duration-300"
             >
-              <div className="space-y-2.5 sm:space-y-4">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-indigo-50 rounded-full text-indigo-700 text-[11px] font-bold uppercase tracking-wider border border-indigo-100">
+              <div className="space-y-2 sm:space-y-3">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-indigo-50 rounded-full text-indigo-700 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider border border-indigo-100">
                   <Users className="w-3 h-3 text-indigo-600" />
                   <span>Domain Guilds & Circles</span>
                 </div>
                 
-                <h3 className="font-display font-bold text-lg sm:text-2xl text-slate-900 tracking-tight leading-snug group-hover:text-indigo-600 transition-colors">
+                <h3 className="font-display font-bold text-base sm:text-2xl text-slate-900 tracking-tight leading-snug group-hover:text-indigo-600 transition-colors">
                   Collaborative circles for AI, Cybersecurity & Swiss UX.
                 </h3>
                 
-                <p className="text-xs sm:text-sm text-slate-600 max-w-xl leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-600 max-w-xl leading-relaxed line-clamp-2 sm:line-clamp-none">
                   Connect with student builders and research mentors. Share code snippets, participate in weekly teardowns, and build production projects together.
                 </p>
               </div>
 
-              <div className="pt-4 sm:pt-6 flex items-center justify-between border-t border-slate-100 mt-3">
-                <span className="text-[11px] sm:text-xs font-bold text-indigo-600 tracking-wider uppercase">15+ Active Circles</span>
-                <span className="inline-flex items-center gap-1.5 bg-indigo-600 text-white px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-xl text-xs font-bold hover:bg-indigo-700 transition-colors shadow-2xs">
+              <div className="pt-3 sm:pt-5 flex items-center justify-between border-t border-slate-100 mt-2.5">
+                <span className="text-[10px] sm:text-xs font-bold text-indigo-600 tracking-wider uppercase">15+ Active Circles</span>
+                <span className="inline-flex items-center gap-1 bg-indigo-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl text-xs font-bold hover:bg-indigo-700 transition-colors shadow-2xs">
                   <span>Explore</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 group-hover:translate-x-0.5 transition-transform" />
                 </span>
               </div>
             </NavLink>
@@ -247,29 +247,29 @@ export const Home: React.FC = () => {
           <FadeIn className="md:col-span-5" delay={0.2}>
             <NavLink
               to="/training"
-              className="group relative h-full min-h-0 sm:min-h-[280px] bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-8 flex flex-col justify-between hover:border-indigo-300 hover:bg-white hover:shadow-md transition-all duration-300"
+              className="group relative h-full min-h-0 sm:min-h-[260px] bg-slate-50 border border-slate-200 rounded-xl sm:rounded-2xl p-4 sm:p-7 flex flex-col justify-between hover:border-indigo-300 hover:bg-white hover:shadow-md transition-all duration-300"
             >
-              <div className="space-y-2.5 sm:space-y-4">
-                <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center">
-                  <Terminal className="w-4 h-4 sm:w-6 sm:h-6" />
+              <div className="space-y-2 sm:space-y-3">
+                <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center">
+                  <Terminal className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
                 
-                <span className="text-[11px] sm:text-xs font-bold text-indigo-600 uppercase tracking-wider block">Cohort Training</span>
+                <span className="text-[10px] sm:text-xs font-bold text-indigo-600 uppercase tracking-wider block">Cohort Training</span>
                 
-                <h3 className="font-display font-bold text-lg sm:text-2xl text-slate-900 group-hover:text-indigo-600 transition-colors">
+                <h3 className="font-display font-bold text-base sm:text-2xl text-slate-900 group-hover:text-indigo-600 transition-colors">
                   Production-grade cohort engineering.
                 </h3>
                 
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-2 sm:line-clamp-none">
                   Rigorous technical courses engineered by industry leads covering AI agent pipelines, zero-trust infrastructure, and distributed concurrency.
                 </p>
               </div>
 
-              <div className="pt-4 sm:pt-6 flex items-center justify-between border-t border-slate-200/60 mt-3">
-                <span className="text-[11px] sm:text-xs font-semibold text-slate-500">Applications Open</span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 group-hover:bg-indigo-600 group-hover:text-white text-indigo-700 text-xs font-bold rounded-xl transition-all shadow-2xs">
-                  <span>View Syllabus</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+              <div className="pt-3 sm:pt-5 flex items-center justify-between border-t border-slate-200/60 mt-2.5">
+                <span className="text-[10px] sm:text-xs font-semibold text-slate-500">Applications Open</span>
+                <span className="inline-flex items-center gap-1 px-3 py-1.5 bg-indigo-50 group-hover:bg-indigo-600 group-hover:text-white text-indigo-700 text-xs font-bold rounded-lg sm:rounded-xl transition-all shadow-2xs">
+                  <span>Syllabus</span>
+                  <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                 </span>
               </div>
             </NavLink>
@@ -279,29 +279,29 @@ export const Home: React.FC = () => {
           <FadeIn className="md:col-span-5" delay={0.3}>
             <NavLink
               to="/education"
-              className="group relative h-full min-h-0 sm:min-h-[260px] bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-8 flex flex-col justify-between hover:border-indigo-300 hover:bg-white hover:shadow-md transition-all duration-300"
+              className="group relative h-full min-h-0 sm:min-h-[240px] bg-slate-50 border border-slate-200 rounded-xl sm:rounded-2xl p-4 sm:p-7 flex flex-col justify-between hover:border-indigo-300 hover:bg-white hover:shadow-md transition-all duration-300"
             >
-              <div className="space-y-2.5 sm:space-y-3">
-                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center">
+              <div className="space-y-2 sm:space-y-3">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center">
                   <BookOpen className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
                 
-                <span className="text-[11px] sm:text-xs font-bold text-blue-600 uppercase tracking-wider block">Geniusphere Series</span>
+                <span className="text-[10px] sm:text-xs font-bold text-blue-600 uppercase tracking-wider block">Geniusphere Series</span>
                 
-                <h3 className="font-display font-bold text-lg sm:text-xl text-slate-900 group-hover:text-indigo-600 transition-colors">
+                <h3 className="font-display font-bold text-base sm:text-xl text-slate-900 group-hover:text-indigo-600 transition-colors">
                   Secondary School & College Pathways
                 </h3>
                 
-                <p className="text-xs text-slate-600 leading-relaxed">
+                <p className="text-xs text-slate-600 leading-relaxed line-clamp-2 sm:line-clamp-none">
                   Structured robotics logic, algorithmic thinking, and campus lab partnerships for youth innovators.
                 </p>
               </div>
 
-              <div className="pt-3 sm:pt-4 flex items-center justify-between border-t border-slate-200/60 mt-3">
-                <span className="text-[11px] sm:text-xs text-slate-500">Geniusphere</span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 group-hover:bg-indigo-600 group-hover:text-white text-indigo-700 text-xs font-bold rounded-xl transition-all shadow-2xs">
-                  <span>Explore Tracks</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+              <div className="pt-2.5 sm:pt-4 flex items-center justify-between border-t border-slate-200/60 mt-2.5">
+                <span className="text-[10px] sm:text-xs text-slate-500">Geniusphere</span>
+                <span className="inline-flex items-center gap-1 px-3 py-1.5 bg-indigo-50 group-hover:bg-indigo-600 group-hover:text-white text-indigo-700 text-xs font-bold rounded-lg sm:rounded-xl transition-all shadow-2xs">
+                  <span>Tracks</span>
+                  <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                 </span>
               </div>
             </NavLink>
@@ -311,28 +311,28 @@ export const Home: React.FC = () => {
           <FadeIn className="md:col-span-7" delay={0.4}>
             <NavLink
               to="/events"
-              className="group relative h-full min-h-0 sm:min-h-[260px] bg-white border border-slate-200 rounded-2xl p-5 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6 hover:border-indigo-300 hover:shadow-md transition-all duration-300"
+              className="group relative h-full min-h-0 sm:min-h-[240px] bg-white border border-slate-200 rounded-xl sm:rounded-2xl p-4 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-6 hover:border-indigo-300 hover:shadow-md transition-all duration-300"
             >
-              <div className="space-y-2.5 sm:space-y-3 max-w-md">
-                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center">
+              <div className="space-y-2 sm:space-y-3 max-w-md">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center">
                   <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
                 
-                <span className="text-[11px] sm:text-xs font-bold text-emerald-700 uppercase tracking-wider block">Summits & Wargames</span>
+                <span className="text-[10px] sm:text-xs font-bold text-emerald-700 uppercase tracking-wider block">Summits & Wargames</span>
                 
-                <h3 className="font-display font-bold text-lg sm:text-2xl text-slate-900 group-hover:text-indigo-600 transition-colors">
+                <h3 className="font-display font-bold text-base sm:text-2xl text-slate-900 group-hover:text-indigo-600 transition-colors">
                   Live Summits, Hackathons & CTF Wargames
                 </h3>
                 
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-2 sm:line-clamp-none">
                   Annual technology summits, capture-the-flag defensive simulations, and institutional buildathon championships.
                 </p>
               </div>
 
-              <div className="shrink-0 flex sm:flex-col items-end justify-between sm:justify-center gap-4 w-full sm:w-auto border-t sm:border-t-0 border-slate-100 pt-3 sm:pt-0">
-                <span className="inline-flex items-center gap-1.5 bg-indigo-600 text-white px-4 py-2 sm:px-5 sm:py-3 rounded-xl text-xs font-bold hover:bg-indigo-700 transition-colors shadow-2xs">
+              <div className="shrink-0 flex sm:flex-col items-end justify-between sm:justify-center gap-3 w-full sm:w-auto border-t sm:border-t-0 border-slate-100 pt-2.5 sm:pt-0">
+                <span className="inline-flex items-center gap-1 bg-indigo-600 text-white px-3.5 py-1.5 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-xl text-xs font-bold hover:bg-indigo-700 transition-colors shadow-2xs">
                   <span>View Events</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 group-hover:translate-x-0.5 transition-transform" />
                 </span>
               </div>
             </NavLink>
@@ -344,7 +344,7 @@ export const Home: React.FC = () => {
       {/* ==========================================
           04. UPCOMING EVENTS
          ========================================== */}
-      <div className="bg-slate-50/50 py-6 sm:py-10">
+      <div className="bg-slate-50/50 py-4 sm:py-8">
         <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
           <FadeIn>
             <SectionHeading
@@ -356,7 +356,7 @@ export const Home: React.FC = () => {
             />
           </FadeIn>
 
-          <div className="grid grid-cols-1 gap-4 max-w-4xl mx-auto mt-8">
+          <div className="grid grid-cols-1 gap-2.5 sm:gap-4 max-w-4xl mx-auto mt-4 sm:mt-6">
             {upcomingEvents.map((evt, idx) => (
               <FadeIn key={evt.id} delay={idx * 0.1}>
                 <EventCard event={evt} onRegisterClick={openRsvp} />
@@ -367,10 +367,9 @@ export const Home: React.FC = () => {
       </div>
 
       {/* ==========================================
-      {/* ==========================================
           05. STORIES & ACHIEVEMENTS SHOWCASE
          ========================================== */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-6 sm:py-10">
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-4 sm:py-8">
         <FadeIn>
           <SectionHeading
             tag="STORIES & ACHIEVEMENTS"
@@ -381,56 +380,56 @@ export const Home: React.FC = () => {
           />
         </FadeIn>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 mt-5 sm:mt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-8 mt-4 sm:mt-6">
           {/* Stories Column */}
-          <div className="lg:col-span-7 space-y-3 sm:space-y-6">
+          <div className="lg:col-span-7 space-y-2.5 sm:space-y-4">
             {stories.map((story, idx) => (
               <FadeIn key={story.id} delay={idx * 0.1}>
                 <NavLink
                   to={`/stories/${story.slug}`}
-                className="bg-white border border-slate-200 rounded-xl p-3.5 sm:p-5 flex flex-col sm:flex-row gap-3 sm:gap-5 hover:border-indigo-300 hover:shadow-md transition-all group shadow-2xs"
-              >
-                <img
-                  src={story.coverImage || '/brandex-full-logo.webp'}
-                  alt={story.title}
-                  className="w-full sm:w-44 h-28 sm:h-32 object-cover rounded-lg shrink-0"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div className="space-y-1.5 sm:space-y-2 flex-1">
-                  <span className="text-[10px] sm:text-[11px] font-semibold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">
-                    {story.category}
-                  </span>
-                  <h4 className="font-display font-bold text-sm sm:text-base text-slate-900 group-hover:text-indigo-600 transition-colors leading-snug">
-                    {story.title}
-                  </h4>
-                  <p className="text-[11px] sm:text-xs text-slate-600 line-clamp-2 leading-relaxed">
-                    {story.excerpt}
-                  </p>
-                </div>
-              </NavLink>
+                  className="bg-white border border-slate-200 rounded-xl p-3 sm:p-4 flex flex-row gap-3 sm:gap-4 hover:border-indigo-300 hover:shadow-md transition-all group shadow-2xs items-center"
+                >
+                  <img
+                    src={story.coverImage || '/brandex-full-logo.webp'}
+                    alt={story.title}
+                    className="w-20 h-20 sm:w-36 sm:h-28 object-cover rounded-lg shrink-0"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="space-y-1 sm:space-y-1.5 flex-1 min-w-0">
+                    <span className="text-[9px] sm:text-[10px] font-semibold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded">
+                      {story.category}
+                    </span>
+                    <h4 className="font-display font-bold text-xs sm:text-sm text-slate-900 group-hover:text-indigo-600 transition-colors leading-snug line-clamp-2">
+                      {story.title}
+                    </h4>
+                    <p className="text-[10px] sm:text-xs text-slate-600 line-clamp-1 sm:line-clamp-2 leading-relaxed">
+                      {story.excerpt}
+                    </p>
+                  </div>
+                </NavLink>
               </FadeIn>
             ))}
           </div>
 
           {/* Achievements Sidebar */}
-          <div className="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-6 space-y-3 sm:space-y-4">
-            <h3 className="font-display font-bold text-base sm:text-lg text-slate-900 border-b border-slate-200 pb-2 sm:pb-3 flex items-center gap-2">
-              <Award className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600" />
-              <span>Recognitions and Awards</span>
+          <div className="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-xl p-3.5 sm:p-5 space-y-2.5 sm:space-y-3">
+            <h3 className="font-display font-bold text-sm sm:text-base text-slate-900 border-b border-slate-200 pb-2 flex items-center gap-1.5">
+              <Award className="w-4 h-4 text-indigo-600" />
+              <span>Recognitions & Awards</span>
             </h3>
 
-            <div className="space-y-2.5 sm:space-y-4">
+            <div className="space-y-2 sm:space-y-3">
               {achievements.map((ach) => (
-                <div key={ach.id} className="bg-white border border-slate-200 rounded-lg p-3 sm:p-4 space-y-1 shadow-2xs">
-                  <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-slate-500 font-medium">
+                <div key={ach.id} className="bg-white border border-slate-200 rounded-lg p-2.5 sm:p-3 space-y-1 shadow-2xs">
+                  <div className="flex items-center justify-between text-[9px] sm:text-[10px] text-slate-500 font-medium">
                     <span className="text-indigo-600 font-semibold">{ach.category}</span>
                     <span>{ach.date}</span>
                   </div>
-                  <h4 className="font-display font-bold text-xs sm:text-sm text-slate-900">
+                  <h4 className="font-display font-bold text-xs text-slate-900">
                     {ach.title}
                   </h4>
-                  <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed">
+                  <p className="text-[10px] sm:text-xs text-slate-600 leading-relaxed line-clamp-2">
                     {ach.description}
                   </p>
                 </div>
@@ -443,7 +442,7 @@ export const Home: React.FC = () => {
       {/* ==========================================
           06. BRANDEX IN ACTION (MEDIA HUB)
          ========================================== */}
-      <div className="bg-slate-50/50 py-6 sm:py-10 !mt-4 sm:!mt-8">
+      <div className="bg-slate-50/50 py-4 sm:py-8 !mt-2 sm:!mt-6">
         <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
           <SectionHeading
             tag="MEDIA VAULT"
@@ -454,10 +453,10 @@ export const Home: React.FC = () => {
             asButton={true}
           />
 
-          <div className="relative w-full overflow-hidden pb-4 pt-2 mt-4 -mx-4 px-4 sm:mx-0 sm:px-0">
-            <div className="flex gap-6 w-max animate-marquee hover:[animation-play-state:paused]">
+          <div className="relative w-full overflow-hidden pb-2 pt-1 mt-2 -mx-4 px-4 sm:mx-0 sm:px-0">
+            <div className="flex gap-4 sm:gap-6 w-max animate-marquee hover:[animation-play-state:paused]">
               {[...featuredMedia, ...featuredMedia, ...featuredMedia, ...featuredMedia].map((m, idx) => (
-                <div key={`${m.id}-${idx}`} className="w-[300px] sm:w-[360px] shrink-0">
+                <div key={`${m.id}-${idx}`} className="w-[260px] sm:w-[340px] shrink-0">
                   <MediaCard media={m} onPlayClick={openVideo} />
                 </div>
               ))}
@@ -469,7 +468,7 @@ export const Home: React.FC = () => {
       {/* ==========================================
           06b. FAQ SECTION
          ========================================== */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-6 sm:py-10 border-t border-slate-200">
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-4 sm:py-8 border-t border-slate-200">
         <FadeIn>
           <SectionHeading
             tag="FAQ"
@@ -478,7 +477,7 @@ export const Home: React.FC = () => {
           />
         </FadeIn>
 
-        <div className="w-full space-y-2.5 sm:space-y-3 mt-4 sm:mt-8">
+        <div className="w-full space-y-2 sm:space-y-2.5 mt-3 sm:mt-6">
           {[
             {
               q: "What is the Brandex Showcase Ecosystem?",
@@ -510,13 +509,13 @@ export const Home: React.FC = () => {
               <div key={idx} className="border border-slate-200 bg-white transition-all rounded-xl overflow-hidden shadow-2xs">
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : idx)}
-                  className="w-full px-3.5 py-3 sm:px-6 sm:py-5 flex items-center justify-between text-left focus:outline-none gap-3"
+                  className="w-full px-3 py-2.5 sm:px-5 sm:py-3.5 flex items-center justify-between text-left focus:outline-none gap-2.5"
                 >
-                  <span className="font-display font-bold text-xs sm:text-base text-slate-900 leading-snug">{item.q}</span>
+                  <span className="font-display font-bold text-xs sm:text-sm text-slate-900 leading-snug">{item.q}</span>
                   {isOpen ? <ChevronUp className="w-4 h-4 text-indigo-600 shrink-0" /> : <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />}
                 </button>
                 {isOpen && (
-                  <div className="px-3.5 pb-3.5 sm:px-6 sm:pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-2.5 text-left">
+                  <div className="px-3 pb-3 sm:px-5 sm:pb-4 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-2 text-left">
                     {item.a}
                   </div>
                 )}
@@ -529,58 +528,58 @@ export const Home: React.FC = () => {
       {/* ==========================================
           07. FINAL JOIN CTA
          ========================================== */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-6 sm:py-10 !mt-2 sm:!mt-6">
-        <div className="bg-indigo-50/50 border border-indigo-100 rounded-[2rem] p-5 sm:p-10 text-left shadow-sm relative overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-24 py-4 sm:py-8 !mt-2 sm:!mt-4">
+        <div className="bg-indigo-50/50 border border-indigo-100 rounded-2xl sm:rounded-[2rem] p-4 sm:p-8 text-left shadow-xs relative overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8 items-center">
           <div className="absolute inset-0 bg-gradient-to-tr from-indigo-100/30 to-purple-100/30 mix-blend-overlay pointer-events-none"></div>
           
           {/* Left Column: Text & Action */}
-          <div className="lg:col-span-7 space-y-6 relative z-10">
-            <div className="space-y-3">
-              <span className="inline-block px-3 py-1 bg-white text-indigo-600 text-xs font-semibold rounded-full uppercase tracking-wider border border-indigo-100 shadow-sm">
+          <div className="lg:col-span-7 space-y-3 sm:space-y-4 relative z-10">
+            <div className="space-y-1.5 sm:space-y-2">
+              <span className="inline-block px-2.5 py-0.5 bg-white text-indigo-600 text-[10px] sm:text-xs font-semibold rounded-full uppercase tracking-wider border border-indigo-100 shadow-2xs">
                 Get Connected
               </span>
-              <h2 className="text-2xl sm:text-4xl font-display font-bold text-slate-900 leading-tight">
+              <h2 className="text-xl sm:text-3xl font-display font-bold text-slate-900 leading-tight">
                 Access Member Ecosystem
               </h2>
-              <p className="text-xs sm:text-base text-slate-600 leading-relaxed max-w-xl">
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xl">
                 Participate in upcoming workshops, explore community initiatives, and connect with peers.
               </p>
             </div>
 
-            <div className="pt-2 flex flex-col sm:flex-row justify-start">
+            <div className="pt-1 flex flex-col sm:flex-row justify-start">
               <button
                 onClick={() => openModal('community')}
-                className="btn-primary w-full sm:w-auto justify-center"
+                className="btn-primary w-full sm:w-auto justify-center px-4 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm"
               >
                 <span>Access Member Portal</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
           </div>
 
           {/* Right Column: Visual graphics / Social Proof / Stats to fill the space */}
           <div className="lg:col-span-5 relative z-10 flex justify-center lg:justify-end">
-            <div className="bg-white/90 backdrop-blur-md border border-indigo-100/60 p-6 rounded-2xl shadow-xl max-w-sm w-full space-y-4">
+            <div className="bg-white/90 backdrop-blur-md border border-indigo-100/60 p-4 sm:p-5 rounded-xl sm:rounded-2xl shadow-sm max-w-sm w-full space-y-3">
               <div className="flex items-center gap-3">
-                <div className="flex -space-x-3">
-                  <div className="w-9 h-9 rounded-full bg-indigo-600 border-2 border-white flex items-center justify-center text-[10px] font-bold text-white shadow-sm">PK</div>
-                  <div className="w-9 h-9 rounded-full bg-purple-600 border-2 border-white flex items-center justify-center text-[10px] font-bold text-white shadow-sm">SN</div>
-                  <div className="w-9 h-9 rounded-full bg-indigo-50 border-2 border-white flex items-center justify-center text-xs font-bold text-indigo-600 shadow-sm">+</div>
+                <div className="flex -space-x-2.5">
+                  <div className="w-8 h-8 rounded-full bg-indigo-600 border-2 border-white flex items-center justify-center text-[9px] font-bold text-white shadow-2xs">PK</div>
+                  <div className="w-8 h-8 rounded-full bg-purple-600 border-2 border-white flex items-center justify-center text-[9px] font-bold text-white shadow-2xs">SN</div>
+                  <div className="w-8 h-8 rounded-full bg-indigo-50 border-2 border-white flex items-center justify-center text-xs font-bold text-indigo-600 shadow-2xs">+</div>
                 </div>
                 <div className="text-xs">
                   <p className="font-bold text-slate-900">1,200+ Active Builders</p>
-                  <p className="text-slate-500">Collaborating on projects</p>
+                  <p className="text-slate-500 text-[11px]">Collaborating on projects</p>
                 </div>
               </div>
               
-              <div className="border-t border-slate-100 pt-3 flex items-center justify-between text-xs text-slate-600">
+              <div className="border-t border-slate-100 pt-2.5 flex items-center justify-between text-xs text-slate-600">
                 <div>
-                  <span className="font-bold text-indigo-600 block text-sm">15+ Circles</span>
-                  <span>Active Domains</span>
+                  <span className="font-bold text-indigo-600 block text-xs sm:text-sm">15+ Circles</span>
+                  <span className="text-[10px] text-slate-500">Active Domains</span>
                 </div>
-                <div className="border-l border-slate-150 pl-4 flex-1">
-                  <span className="font-bold text-indigo-600 block text-sm">Weekly Labs</span>
-                  <span>Interactive Workshops</span>
+                <div className="border-l border-slate-150 pl-3 flex-1">
+                  <span className="font-bold text-indigo-600 block text-xs sm:text-sm">Weekly Labs</span>
+                  <span className="text-[10px] text-slate-500">Interactive Workshops</span>
                 </div>
               </div>
             </div>

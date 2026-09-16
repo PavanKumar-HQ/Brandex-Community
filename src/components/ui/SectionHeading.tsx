@@ -25,11 +25,11 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
   onActionClick,
   className = '',
 }) => {
-  const linkClasses = "w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-indigo-600 border border-indigo-700 text-white hover:bg-indigo-700 px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 active:scale-95 group text-center";
+  const linkClasses = "w-full sm:w-auto inline-flex items-center justify-center gap-1.5 bg-indigo-600 border border-indigo-700 text-white hover:bg-indigo-700 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-xs hover:shadow-md hover:-translate-y-0.5 active:scale-95 group text-center";
 
   return (
-    <div className={`mb-8 sm:mb-12 ${className}`}>
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className={`mb-4 sm:mb-8 ${className}`}>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div className="space-y-1.5 max-w-3xl">
           {tag && (
             <span className="inline-block px-2.5 py-0.5 bg-indigo-50 text-indigo-700 text-[10px] font-bold rounded border border-indigo-100/50 uppercase tracking-widest">

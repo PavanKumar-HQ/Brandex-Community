@@ -48,21 +48,21 @@ export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-900 text-slate-300 border-t border-slate-800 pt-16 pb-12 font-sans w-full">
-      <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 space-y-12">
+    <footer className="bg-slate-900 text-slate-300 border-t border-slate-800 pt-10 sm:pt-16 pb-24 sm:pb-12 font-sans w-full">
+      <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 space-y-8 sm:space-y-12">
         
         {/* Top Grid: 3 balanced sections */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10">
           
           {/* Column 1: Brand & Socials (5 cols) */}
-          <div className="lg:col-span-5 space-y-5">
-            <NavLink to="/" className="inline-flex items-center gap-3 group">
+          <div className="lg:col-span-5 space-y-4 sm:space-y-5">
+            <NavLink to="/" className="inline-flex items-center gap-2.5 group">
               <img
                 src="/brandex-logo.webp"
                 alt="Brandex Logo"
-                className="h-9 w-auto object-contain brightness-0 invert"
+                className="h-8 sm:h-9 w-auto object-contain brightness-0 invert"
               />
-              <span className="font-display font-bold text-xl text-white tracking-tight">
+              <span className="font-display font-bold text-lg sm:text-xl text-white tracking-tight">
                 Brandex
               </span>
             </NavLink>
@@ -71,7 +71,7 @@ export const Footer: React.FC = () => {
               The digital showcase and education platform for emerging technology communities, school workshops, student research cohorts, and live engineering summits.
             </p>
 
-            <div className="pt-1 flex flex-wrap items-center gap-3">
+            <div className="pt-0.5 flex flex-wrap items-center gap-2 sm:gap-3">
               {[
                 { icon: GithubIcon, href: 'https://github.com/PavanKumar-HQ/Brandex-Community', label: 'GitHub', hoverClass: 'hover:bg-white hover:text-[#181717] hover:border-white' },
                 { icon: XIcon, href: 'https://x.com/brandexlabs', label: 'Twitter (X)', hoverClass: 'hover:bg-white hover:text-black hover:border-white' },
@@ -87,15 +87,15 @@ export const Footer: React.FC = () => {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={s.label}
-                  className={`w-9 h-9 rounded-full bg-slate-800/80 border border-slate-700/50 text-slate-400 flex items-center justify-center transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/10 ${s.hoverClass}`}
+                  className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-800/80 border border-slate-700/50 text-slate-400 flex items-center justify-center transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-md ${s.hoverClass}`}
                 >
-                  <s.icon className="w-4 h-4 shrink-0" />
+                  <s.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                 </a>
               ))}
             </div>
 
             {/* Brandex Parent HQ Backlink Chip */}
-            <div className="pt-2">
+            <div className="pt-1">
               <a
                 href="https://www.brandex.co.in/"
                 target="_blank"
@@ -109,11 +109,11 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Column 2: Platform Directory & Navigation (4 cols) */}
-          <div className="lg:col-span-4 space-y-3">
-            <h4 className="font-display font-bold text-sm text-white uppercase tracking-wider">
+          <div className="lg:col-span-4 space-y-2.5 sm:space-y-3">
+            <h4 className="font-display font-bold text-xs sm:text-sm text-white uppercase tracking-wider">
               Platform Directory
             </h4>
-            <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-xs font-medium">
+            <div className="grid grid-cols-2 gap-x-4 sm:gap-x-6 gap-y-1.5 sm:gap-y-2 text-[11px] sm:text-xs font-medium">
               {[
                 { name: '12 Core Services', path: '/services' },
                 { name: 'Track Status', path: '/status' },
@@ -142,28 +142,28 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Column 3: Location & Corporate Info (3 cols) */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="font-display font-bold text-sm text-white uppercase tracking-wider">
+          <div className="lg:col-span-3 space-y-3 sm:space-y-4">
+            <h4 className="font-display font-bold text-xs sm:text-sm text-white uppercase tracking-wider">
               Location & Contact
             </h4>
             
-            <div className="space-y-3 text-xs text-slate-400 font-medium">
-              <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
-                <span className="leading-relaxed">#121, 13th main Binny layout<br/>Vijaynagar Bangalore-560040</span>
+            <div className="space-y-2.5 sm:space-y-3 text-[11px] sm:text-xs text-slate-400 font-medium">
+              <div className="flex items-start gap-2 sm:gap-2.5">
+                <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-400 shrink-0 mt-0.5" />
+                <span className="leading-relaxed">#121, 13th main Binny layout<br className="hidden sm:inline"/> Vijaynagar Bangalore-560040</span>
               </div>
-              <div className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-indigo-400 shrink-0" />
+              <div className="flex items-center gap-2 sm:gap-2.5">
+                <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-400 shrink-0" />
                 <a href="mailto:brandexhq@gmail.com" className="hover:text-white transition-colors">
                   brandexhq@gmail.com
                 </a>
               </div>
-              <div className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-indigo-400 shrink-0" />
+              <div className="flex items-center gap-2 sm:gap-2.5">
+                <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-400 shrink-0" />
                 <span className="text-slate-300 font-mono">+91 99868 80072</span>
               </div>
-              <div className="flex items-center gap-2.5">
-                <ArrowUpRight className="w-4 h-4 text-indigo-400 shrink-0" />
+              <div className="flex items-center gap-2 sm:gap-2.5">
+                <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-400 shrink-0" />
                 <a 
                   href="https://www.brandex.co.in/" 
                   target="_blank" 
@@ -176,36 +176,36 @@ export const Footer: React.FC = () => {
             </div>
 
             {/* Subtle Minimal Entity & Verification Note */}
-            <div className="pt-2 text-[11px] text-slate-500 font-mono flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-slate-400" />
-              <span>GST Registered: 29OGNPS8060K1Z5</span>
+            <div className="pt-1 text-[10px] sm:text-[11px] text-slate-500 font-mono flex items-center gap-1.5">
+              <ShieldCheck className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400" />
+              <span>GST: 29OGNPS8060K1Z5</span>
             </div>
           </div>
 
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between text-xs text-slate-400 gap-6">
-          <div className="space-y-0.5 text-center md:text-left md:w-1/3">
+        <div className="pt-6 sm:pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between text-[11px] sm:text-xs text-slate-400 gap-4 sm:gap-6">
+          <div className="space-y-0.5 text-center md:text-left md:w-1/3 order-2 md:order-1">
             <div>© {currentYear} Brandex. All Rights Reserved.</div>
-            <div className="text-slate-500 font-mono text-[11px]">Entity ID: 29OGNPS8060K1Z5</div>
+            <div className="text-slate-500 font-mono text-[10px] sm:text-[11px]">Entity ID: 29OGNPS8060K1Z5</div>
           </div>
 
-          <div className="flex justify-center md:w-1/3">
+          <div className="flex justify-center md:w-1/3 order-1 md:order-2">
             <a 
               href="https://www.brandex.co.in/" 
               target="_blank" 
               rel="noopener"
-              className="flex items-center gap-3 opacity-90 hover:opacity-100 transition-opacity group"
+              className="flex items-center gap-2.5 opacity-90 hover:opacity-100 transition-opacity group"
             >
-              <span className="text-xs text-slate-400 group-hover:text-slate-200 font-bold tracking-widest transition-colors">A PRODUCT OF</span>
-              <img src="/brandex-footer-logo.webp" alt="Brandex Logo" className="h-6" />
+              <span className="text-[10px] sm:text-xs text-slate-400 group-hover:text-slate-200 font-bold tracking-widest transition-colors">A PRODUCT OF</span>
+              <img src="/brandex-footer-logo.webp" alt="Brandex Logo" className="h-5 sm:h-6" />
             </a>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-6 gap-y-2 text-xs font-medium md:w-1/3">
+          <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-4 sm:gap-x-6 gap-y-1.5 text-[11px] sm:text-xs font-medium md:w-1/3 order-3">
             <NavLink to="/privacy" className="hover:text-white transition-colors">Privacy Policy</NavLink>
-            <NavLink to="/terms" className="hover:text-white transition-colors">Terms of Service</NavLink>
+            <NavLink to="/terms" className="hover:text-white transition-colors">Terms</NavLink>
             <NavLink to="/community/guidelines" className="hover:text-white transition-colors">Guidelines</NavLink>
           </div>
         </div>
