@@ -113,13 +113,27 @@ export const EventsPage: React.FC = () => {
         widgetStatusText="Open for RSVPs"
       />
 
-      {/* Split Tabs */}
+      {/* Filter / View Selector */}
       <section className="space-y-6">
-        <div className="flex items-center justify-between border-b border-slate-200 pb-3 gap-2">
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 max-w-full">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between border-b border-slate-200 pb-3 gap-3">
+          {/* Mobile Select Dropdown Menu */}
+          <div className="block sm:hidden w-full">
+            <select
+              value={activeTab}
+              onChange={(e) => setActiveTab(e.target.value as any)}
+              className="w-full px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-slate-50 border border-slate-300 text-slate-800 shadow-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              <option value="upcoming">Upcoming Events</option>
+              <option value="past">Past Event Archive</option>
+              <option value="calendar">Interactive Calendar View</option>
+            </select>
+          </div>
+
+          {/* Desktop & Tablet Segmented Selector (Zero horizontal scroll) */}
+          <div className="hidden sm:flex items-center gap-2">
             <button
               onClick={() => setActiveTab('upcoming')}
-              className={`px-4 sm:px-5 py-2 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap ${
+              className={`px-4 py-2 text-xs font-semibold rounded-xl transition-all shadow-xs ${
                 activeTab === 'upcoming'
                   ? 'bg-slate-900 text-white shadow-sm'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -129,7 +143,7 @@ export const EventsPage: React.FC = () => {
             </button>
             <button
               onClick={() => setActiveTab('past')}
-              className={`px-4 sm:px-5 py-2 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap ${
+              className={`px-4 py-2 text-xs font-semibold rounded-xl transition-all shadow-xs ${
                 activeTab === 'past'
                   ? 'bg-slate-900 text-white shadow-sm'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -139,7 +153,7 @@ export const EventsPage: React.FC = () => {
             </button>
             <button
               onClick={() => setActiveTab('calendar')}
-              className={`px-4 sm:px-5 py-2 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap ${
+              className={`px-4 py-2 text-xs font-semibold rounded-xl transition-all shadow-xs ${
                 activeTab === 'calendar'
                   ? 'bg-slate-900 text-white shadow-sm'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -149,9 +163,9 @@ export const EventsPage: React.FC = () => {
             </button>
           </div>
 
-          <span className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-bold rounded-full uppercase tracking-wider shadow-sm hidden md:inline-flex shrink-0">
+          <span className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-bold rounded-full uppercase tracking-wider shadow-sm self-start sm:self-auto shrink-0">
             <span className="w-1.5 h-1.5 bg-indigo-600 rounded-full animate-pulse" />
-            {activeTab === 'calendar' ? 'Interactive Calendar Mode' : `Showing ${events.length} ${activeTab === 'upcoming' ? 'Upcoming Event(s)' : 'Archived Event(s)'}`}
+            {activeTab === 'calendar' ? 'Calendar Mode' : `Showing ${events.length} ${activeTab === 'upcoming' ? 'Upcoming Events' : 'Archived Events'}`}
           </span>
         </div>
 
@@ -251,7 +265,7 @@ export const EventsPage: React.FC = () => {
                     onClick={() => handleOpenRsvp(selectedCalendarEvent)}
                     className="btn-primary w-full py-2.5 text-xs font-semibold rounded-lg flex items-center justify-center gap-2 mt-4"
                   >
-                    <span>Register / RSVP Now</span>
+                    <span>Register for Event</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>

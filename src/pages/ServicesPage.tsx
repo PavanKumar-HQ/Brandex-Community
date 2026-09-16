@@ -403,28 +403,19 @@ export const ServicesPage: React.FC = () => {
                 </p>
               </div>
 
-              {/* Small Category Filter Pills */}
-              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar shrink-0">
-                {[
-                  { id: 'all', label: 'All (12)' },
-                  { id: 'dev', label: 'Web & Apps' },
-                  { id: 'ai', label: 'AI & Automation' },
-                  { id: 'consulting', label: 'Consulting' },
-                  { id: 'ecosystem', label: 'Community' },
-                ].map((tab) => (
-                  <button
-                    key={tab.id}
-                    type="button"
-                    onClick={() => setActiveCategory(tab.id)}
-                    className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold whitespace-nowrap transition-all border shadow-xs ${
-                      activeCategory === tab.id
-                        ? 'bg-slate-900 text-white border-slate-900 dark:bg-indigo-600 dark:border-indigo-500'
-                        : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-300 hover:bg-slate-50'
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
+              {/* Category Filter Dropdown */}
+              <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto">
+                <select
+                  value={activeCategory}
+                  onChange={(e) => setActiveCategory(e.target.value)}
+                  className="w-full sm:w-auto px-3.5 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700 shadow-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
+                >
+                  <option value="all">All Services (12)</option>
+                  <option value="dev">Web and Applications</option>
+                  <option value="ai">AI and Automation</option>
+                  <option value="consulting">Consulting & Architecture</option>
+                  <option value="ecosystem">Community Ecosystem</option>
+                </select>
               </div>
             </div>
 
@@ -598,13 +589,13 @@ export const ServicesPage: React.FC = () => {
                 {/* 2. Contact Info */}
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
-                    Contact (Email / Phone / Telegram / @handle) <span className="text-red-500">*</span>
+                    Contact Email or Phone <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
                     value={contactInfo}
                     onChange={(e) => setContactInfo(e.target.value)}
-                    placeholder="e.g. contact@apex.io or @apex_team"
+                    placeholder="e.g. contact@apex.io or @handle"
                     required
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-2xs"
                   />
@@ -641,7 +632,7 @@ export const ServicesPage: React.FC = () => {
                     <option value="Immediate (Next 2-4 weeks)">Immediate (Next 2-4 weeks)</option>
                     <option value="Within 1-2 Months">Within 1-2 Months</option>
                     <option value="Quarterly Exploration">Quarterly Exploration</option>
-                    <option value="Flexible / Ongoing">Flexible / Ongoing</option>
+                    <option value="Flexible Timeline">Flexible Timeline</option>
                   </select>
                 </div>
 

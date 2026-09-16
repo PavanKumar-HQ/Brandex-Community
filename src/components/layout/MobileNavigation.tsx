@@ -121,7 +121,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
   const currentSectionName = currentLink ? currentLink.name : 'Brandex Platform';
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-white dark:bg-slate-900 text-slate-900 dark:text-white animate-fade-in lg:hidden">
+    <div className="fixed inset-0 z-50 flex flex-col bg-white dark:bg-slate-900 text-slate-900 dark:text-white animate-fade-in md:hidden">
       {/* Top Header Bar */}
       <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md">
         <NavLink to="/" onClick={onClose} className="flex items-center gap-3">

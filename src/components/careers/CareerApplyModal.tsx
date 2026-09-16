@@ -92,7 +92,7 @@ export const CareerApplyModal: React.FC<CareerApplyModalProps> = ({ isOpen, onCl
             </div>
             <div>
               <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                {createdRef ? 'Candidacy Submitted' : 'Submit Candidacy / Resume'}
+                {createdRef ? 'Application Submitted' : 'Submit Application'}
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">
                 {createdRef ? 'Receipt generated for status tracking' : 'Direct admission into the Brandex talent pipeline'}
@@ -199,7 +199,7 @@ export const CareerApplyModal: React.FC<CareerApplyModalProps> = ({ isOpen, onCl
 
               <div className="space-y-1">
                 <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase">
-                  Focus Area / Domain
+                  Focus Area
                 </label>
                 <select
                   value={focusArea}
@@ -209,7 +209,7 @@ export const CareerApplyModal: React.FC<CareerApplyModalProps> = ({ isOpen, onCl
                   <option value="AI Engineering & Systems">AI Engineering & Systems</option>
                   <option value="Full-Stack & Distributed Systems">Full-Stack & Distributed Systems</option>
                   <option value="Cybersecurity & Defense">Cybersecurity & Defense</option>
-                  <option value="Campus Ambassador / Fellow">Campus Ambassador / Fellow</option>
+                  <option value="Campus Ambassador & Fellow">Campus Ambassador & Fellow</option>
                   <option value="Swiss Editorial UX & Design">Swiss Editorial UX & Design</option>
                   <option value="Community & Education Growth">Community & Education Growth</option>
                 </select>
@@ -217,7 +217,7 @@ export const CareerApplyModal: React.FC<CareerApplyModalProps> = ({ isOpen, onCl
 
               <div className="space-y-1">
                 <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase">
-                  GitHub / Portfolio / LinkedIn URL
+                  GitHub, Portfolio or LinkedIn URL
                 </label>
                 <input
                   type="url"

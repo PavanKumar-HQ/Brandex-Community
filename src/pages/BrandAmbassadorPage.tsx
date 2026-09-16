@@ -176,7 +176,7 @@ export const BrandAmbassadorPage: React.FC = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Phone / WhatsApp Number *</label>
+                <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Phone or WhatsApp Number *</label>
                 <input
                   type="tel"
                   required
@@ -188,13 +188,13 @@ export const BrandAmbassadorPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">School / College / Institution *</label>
+                <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">College or School Name *</label>
                 <input
                   type="text"
                   required
                   value={formData.institution}
                   onChange={(e) => setFormData({ ...formData, institution: e.target.value })}
-                  placeholder="e.g. RV College of Engineering / Vignan High"
+                  placeholder="e.g. RV College of Engineering or Vignan High"
                   className="w-full bg-slate-50 border border-slate-300 rounded-xl p-4 text-slate-900 text-sm focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:bg-white transition-all shadow-sm"
                 />
               </div>
@@ -210,18 +210,18 @@ export const BrandAmbassadorPage: React.FC = () => {
                   style={{ backgroundImage: 'url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'%3e%3c/polyline%3e%3c/svg%3e")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center', backgroundSize: '1.2em' }}
                 >
                   <option value="Student Lead">Student Chapter Lead</option>
-                  <option value="Faculty Sponsor">Faculty / School Coordinator</option>
+                  <option value="Faculty Sponsor">Faculty Coordinator</option>
                   <option value="Community Lead">Local Builder Guild Lead</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Year of Study / Designation</label>
+                <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Year of Study or Designation</label>
                 <input
                   type="text"
                   value={formData.yearOrRole}
                   onChange={(e) => setFormData({ ...formData, yearOrRole: e.target.value })}
-                  placeholder="e.g. 3rd Year CSE / CS Faculty"
+                  placeholder="e.g. 3rd Year CSE or CS Faculty"
                   className="w-full bg-slate-50 border border-slate-300 rounded-xl p-4 text-slate-900 text-sm focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:bg-white transition-all shadow-sm"
                 />
               </div>
@@ -240,7 +240,7 @@ export const BrandAmbassadorPage: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">LinkedIn / GitHub Profile Link</label>
+              <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">LinkedIn or Portfolio Profile Link</label>
               <input
                 type="url"
                 value={formData.socialLinks}

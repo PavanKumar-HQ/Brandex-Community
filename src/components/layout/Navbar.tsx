@@ -52,6 +52,7 @@ export const Navbar: React.FC = () => {
   }, []);
 
   const navLinks = [
+    { name: 'Home', path: '/' },
     { name: 'Services', path: '/services' },
     { name: 'Education', path: '/education' },
     { name: 'Training', path: '/training' },
@@ -94,13 +95,14 @@ export const Navbar: React.FC = () => {
           </NavLink>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex flex-nowrap items-center space-x-0.5 xl:space-x-1 whitespace-nowrap">
+          <nav className="hidden md:flex flex-nowrap items-center space-x-0.5 lg:space-x-1 xl:space-x-1.5 whitespace-nowrap">
             {navLinks.map((link) => (
               <NavLink
                 key={link.path}
                 to={link.path}
+                end={link.path === '/'}
                 className={({ isActive }) =>
-                  `group relative px-2 xl:px-2.5 py-1.5 text-[11px] xl:text-xs font-semibold transition-colors inline-flex items-center ${
+                  `group relative px-1.5 lg:px-2 xl:px-2.5 py-1.5 text-[11px] lg:text-xs font-semibold transition-colors inline-flex items-center ${
                     isActive
                       ? 'text-indigo-600 dark:text-indigo-400 font-bold'
                       : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
@@ -111,7 +113,7 @@ export const Navbar: React.FC = () => {
                   <>
                     <span>{link.name}</span>
                     <span
-                      className={`absolute bottom-0 left-2 right-2 h-[2px] bg-indigo-600 dark:bg-indigo-400 transform origin-left transition-transform duration-200 ease-out ${
+                      className={`absolute bottom-0 left-1.5 right-1.5 lg:left-2 lg:right-2 h-[2px] bg-indigo-600 dark:bg-indigo-400 transform origin-left transition-transform duration-200 ease-out ${
                         isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                       }`}
                     />
@@ -122,7 +124,7 @@ export const Navbar: React.FC = () => {
           </nav>
 
           {/* Desktop Action Buttons */}
-          <div className="hidden lg:flex items-center space-x-3 shrink-0">
+          <div className="hidden md:flex items-center space-x-2 lg:space-x-3 shrink-0">
             {/* Offline Status */}
             {!isOnline && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800">
@@ -141,7 +143,7 @@ export const Navbar: React.FC = () => {
                   setIdentity(getOrCreateIdentity());
                   setIdentityModalOpen(true);
                 }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-xs font-mono group"
+                className="inline-flex items-center gap-2 px-2.5 lg:px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-xs font-mono group"
                 title="View Brandex Identity & Points"
               >
                 <img
@@ -149,7 +151,7 @@ export const Navbar: React.FC = () => {
                   alt="Avatar"
                   className="w-5 h-5 rounded-md object-cover border border-slate-300 dark:border-slate-600"
                 />
-                <span className="font-bold text-slate-700 dark:text-slate-200 max-w-[110px] truncate">
+                <span className="font-bold text-slate-700 dark:text-slate-200 max-w-[90px] lg:max-w-[110px] truncate">
                   {identity.handle}
                 </span>
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" title="Registered Builder" />
@@ -160,7 +162,7 @@ export const Navbar: React.FC = () => {
                   setAuthIntent('general');
                   setAuthModalOpen(true);
                 }}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                className="inline-flex items-center gap-1.5 px-2.5 lg:px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                 title="Create Account Handle"
               >
                 <User className="w-3.5 h-3.5 text-slate-500" />
@@ -171,7 +173,7 @@ export const Navbar: React.FC = () => {
             {/* Primary CTA: Join Circle (Account Guarded) */}
             <button
               onClick={handleJoinCircleClick}
-              className="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shadow-xs active:scale-95"
+              className="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white px-3 lg:px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shadow-xs active:scale-95"
             >
               <span>Join Circle</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -179,7 +181,7 @@ export const Navbar: React.FC = () => {
           </div>
 
           {/* Mobile Header Actions (Clean, Spacious, No Cramming) */}
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-2 md:hidden">
             {/* Notification Bell */}
             <NotificationCenter />
 

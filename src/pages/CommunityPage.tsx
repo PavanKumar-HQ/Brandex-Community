@@ -169,7 +169,7 @@ export const CommunityPage: React.FC = () => {
 
                 {opp.requirements && (
                   <div className="space-y-1 pt-1">
-                    <span className="text-[11px] font-bold text-slate-700">Prerequisites / Commitment:</span>
+                    <span className="text-[11px] font-bold text-slate-700">Prerequisites & Commitment:</span>
                     <ul className="text-xs text-slate-600 space-y-0.5 pl-3 list-disc">
                       {opp.requirements.map((req, idx) => (
                         <li key={idx}>{req}</li>

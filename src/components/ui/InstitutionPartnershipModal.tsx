@@ -79,7 +79,7 @@ export const InstitutionPartnershipModal: React.FC = () => {
   ];
 
   const timelines = [
-    'Immediate / Current Term',
+    'Immediate Term',
     'Upcoming Semester',
     'Annual Institutional Partnership'
   ];
@@ -518,7 +518,7 @@ export const InstitutionPartnershipModal: React.FC = () => {
                         {/* Institution Name */}
                         <div>
                           <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide block mb-1.5">
-                            Institution / College / School Name <span className="text-rose-500">*</span>
+                            Institution or College Name <span className="text-rose-500">*</span>
                           </label>
                           <div className="relative">
                             <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -551,13 +551,13 @@ export const InstitutionPartnershipModal: React.FC = () => {
                         {/* Department / Club */}
                         <div>
                           <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide block mb-1.5">
-                            Department / Student Chapter / Club
+                            Department or Student Chapter
                           </label>
                           <input
                             type="text"
                             value={formData.department}
                             onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                            placeholder="e.g. Dept of Computer Science / ACM Student Chapter"
+                            placeholder="e.g. Dept of Computer Science or ACM Student Chapter"
                             className="w-full px-4 py-3.5 rounded-xl text-base sm:text-sm bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:border-indigo-600"
                           />
                         </div>
@@ -566,7 +566,7 @@ export const InstitutionPartnershipModal: React.FC = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                           <div>
                             <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide block mb-1.5">
-                              Faculty Lead / Coordinator Name <span className="text-rose-500">*</span>
+                              Faculty Coordinator Name <span className="text-rose-500">*</span>
                             </label>
                             <div className="relative">
                               <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -595,13 +595,13 @@ export const InstitutionPartnershipModal: React.FC = () => {
 
                           <div>
                             <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide block mb-1.5">
-                              Designation / Role
+                              Designation or Role
                             </label>
                             <input
                               type="text"
                               value={formData.coordinatorRole}
                               onChange={(e) => setFormData({ ...formData, coordinatorRole: e.target.value })}
-                              placeholder="e.g. Head of Dept / Faculty Mentor"
+                              placeholder="e.g. Head of Dept or Faculty Mentor"
                               className="w-full px-4 py-3 rounded-xl text-base sm:text-sm bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:border-indigo-600"
                             />
                           </div>

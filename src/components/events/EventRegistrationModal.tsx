@@ -296,7 +296,7 @@ export const EventRegistrationModal: React.FC<EventRegistrationModalProps> = ({
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 uppercase tracking-wide">
-                  Institution / Org
+                  Institution or Organization
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
@@ -306,7 +306,7 @@ export const EventRegistrationModal: React.FC<EventRegistrationModalProps> = ({
                     type="text"
                     value={formData.organization}
                     onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
-                    placeholder="e.g. University / Company"
+                    placeholder="e.g. University or Company"
                     className="w-full pl-9 pr-3 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:border-indigo-600"
                   />
                 </div>

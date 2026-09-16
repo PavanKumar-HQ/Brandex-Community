@@ -110,29 +110,55 @@ export const SearchPage: React.FC = () => {
           />
         </div>
 
-        {/* Filter Badges */}
-        <div className="flex items-center gap-2 overflow-x-auto text-xs pb-1">
-          <span className="font-bold text-slate-500 uppercase tracking-wider shrink-0 mr-1">Filter:</span>
-          {[
-            { key: 'all', label: `All (${allItems.length})` },
-            { key: 'event', label: `Events (${events.length})` },
-            { key: 'training', label: `Training (${trainings.length})` },
-            { key: 'story', label: `Stories (${stories.length})` },
-            { key: 'community', label: `Communities (${communities.length})` },
-            { key: 'opportunity', label: `Opportunities (${opportunities.length})` }
-          ].map(f => (
-            <button
-              key={f.key}
-              onClick={() => setActiveFilter(f.key)}
-              className={`px-3.5 py-1.5 rounded-full font-semibold whitespace-nowrap transition-colors ${
-                activeFilter === f.key
-                  ? 'bg-indigo-600 text-white shadow-sm'
-                  : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-100'
-              }`}
+        {/* Filter Badges & Dropdown */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 text-xs">
+          <span className="font-bold text-slate-500 uppercase tracking-wider shrink-0 mr-1 hidden sm:inline-block">Filter:</span>
+          
+          {/* Mobile Select */}
+          <div className="sm:hidden w-full">
+            <select
+              value={activeFilter}
+              onChange={(e) => setActiveFilter(e.target.value)}
+              className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-800 focus:outline-none focus:border-indigo-600 shadow-xs"
             >
-              {f.label}
-            </button>
-          ))}
+              {[
+                { key: 'all', label: `All Results (${allItems.length})` },
+                { key: 'event', label: `Events (${events.length})` },
+                { key: 'training', label: `Training (${trainings.length})` },
+                { key: 'story', label: `Stories (${stories.length})` },
+                { key: 'community', label: `Communities (${communities.length})` },
+                { key: 'opportunity', label: `Opportunities (${opportunities.length})` }
+              ].map(f => (
+                <option key={f.key} value={f.key}>
+                  {f.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Desktop Wrapped Badges */}
+          <div className="hidden sm:flex flex-wrap items-center gap-2">
+            {[
+              { key: 'all', label: `All (${allItems.length})` },
+              { key: 'event', label: `Events (${events.length})` },
+              { key: 'training', label: `Training (${trainings.length})` },
+              { key: 'story', label: `Stories (${stories.length})` },
+              { key: 'community', label: `Communities (${communities.length})` },
+              { key: 'opportunity', label: `Opportunities (${opportunities.length})` }
+            ].map(f => (
+              <button
+                key={f.key}
+                onClick={() => setActiveFilter(f.key)}
+                className={`px-3.5 py-1.5 rounded-full font-semibold transition-colors ${
+                  activeFilter === f.key
+                    ? 'bg-indigo-600 text-white shadow-sm'
+                    : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-100'
+                }`}
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 

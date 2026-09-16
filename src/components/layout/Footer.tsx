@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Mail, MapPin, Phone, ArrowUpRight, ShieldCheck } from 'lucide-react';
+import { Mail, MapPin, Phone, ArrowUpRight, ShieldCheck, ChevronDown } from 'lucide-react';
 
 const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -46,32 +46,35 @@ const DiscordIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
+  const [isDirOpen, setIsDirOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
 
   return (
-    <footer className="bg-slate-900 text-slate-300 border-t border-slate-800 pt-10 sm:pt-16 pb-24 sm:pb-12 font-sans w-full">
-      <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 space-y-8 sm:space-y-12">
+    <footer className="bg-slate-900 text-slate-300 border-t border-slate-800 pt-6 sm:pt-14 pb-20 sm:pb-12 font-sans w-full">
+      <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 space-y-4 sm:space-y-10">
         
         {/* Top Grid: 3 balanced sections */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-8 lg:gap-10">
           
           {/* Column 1: Brand & Socials (5 cols) */}
-          <div className="lg:col-span-5 space-y-4 sm:space-y-5">
-            <NavLink to="/" className="inline-flex items-center gap-2.5 group">
+          <div className="lg:col-span-5 space-y-3 sm:space-y-4">
+            <NavLink to="/" className="inline-flex items-center gap-2 group">
               <img
                 src="/brandex-logo.webp"
                 alt="Brandex Logo"
-                className="h-8 sm:h-9 w-auto object-contain brightness-0 invert"
+                className="h-7 sm:h-9 w-auto object-contain brightness-0 invert"
               />
-              <span className="font-display font-bold text-lg sm:text-xl text-white tracking-tight">
+              <span className="font-display font-bold text-base sm:text-xl text-white tracking-tight">
                 Brandex
               </span>
             </NavLink>
 
-            <p className="text-xs text-slate-400 leading-relaxed max-w-md">
-              The digital showcase and education platform for emerging technology communities, school workshops, student research cohorts, and live engineering summits.
+            <p className="text-[11px] sm:text-xs text-slate-400 leading-relaxed max-w-md line-clamp-2 sm:line-clamp-none">
+              The digital showcase and education platform for emerging technology communities, school workshops, and student research cohorts.
             </p>
 
-            <div className="pt-0.5 flex flex-wrap items-center gap-2 sm:gap-3">
+            {/* Social Icons Row */}
+            <div className="pt-0.5 flex flex-wrap items-center gap-1.5 sm:gap-2.5">
               {[
                 { icon: GithubIcon, href: 'https://github.com/PavanKumar-HQ/Brandex-Community', label: 'GitHub', hoverClass: 'hover:bg-white hover:text-[#181717] hover:border-white' },
                 { icon: XIcon, href: 'https://x.com/brandexlabs', label: 'Twitter (X)', hoverClass: 'hover:bg-white hover:text-black hover:border-white' },
@@ -87,7 +90,7 @@ export const Footer: React.FC = () => {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={s.label}
-                  className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-800/80 border border-slate-700/50 text-slate-400 flex items-center justify-center transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-md ${s.hoverClass}`}
+                  className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-slate-800/80 border border-slate-700/50 text-slate-400 flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${s.hoverClass}`}
                 >
                   <s.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                 </a>
@@ -95,25 +98,44 @@ export const Footer: React.FC = () => {
             </div>
 
             {/* Brandex Parent HQ Backlink Chip */}
-            <div className="pt-1">
+            <div className="pt-0.5">
               <a
                 href="https://www.brandex.co.in/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 text-slate-300 hover:text-white text-xs transition-colors"
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 text-slate-300 hover:text-white text-[11px] sm:text-xs transition-colors"
               >
-                <span>Visit Official Brandex Portal (brandex.co.in)</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
+                <span>brandex.co.in</span>
+                <ArrowUpRight className="w-3 h-3 text-slate-400" />
               </a>
             </div>
           </div>
 
           {/* Column 2: Platform Directory & Navigation (4 cols) */}
-          <div className="lg:col-span-4 space-y-2.5 sm:space-y-3">
-            <h4 className="font-display font-bold text-xs sm:text-sm text-white uppercase tracking-wider">
-              Platform Directory
-            </h4>
-            <div className="grid grid-cols-2 gap-x-4 sm:gap-x-6 gap-y-1.5 sm:gap-y-2 text-[11px] sm:text-xs font-medium">
+          <div className="lg:col-span-4 border-t border-slate-800/80 pt-3 md:border-t-0 md:pt-0 space-y-2 sm:space-y-3">
+            {/* Header: Collapsible Toggle on Mobile, Static Header on Desktop */}
+            <button
+              onClick={() => setIsDirOpen(!isDirOpen)}
+              className="w-full flex items-center justify-between text-left md:pointer-events-none group"
+              aria-expanded={isDirOpen}
+            >
+              <h4 className="font-display font-bold text-xs sm:text-sm text-white uppercase tracking-wider flex items-center gap-1.5">
+                <span>Platform Directory</span>
+                <span className="text-[10px] text-slate-500 font-mono font-normal lowercase md:hidden">({isDirOpen ? 'tap to close' : '14 links'})</span>
+              </h4>
+              <ChevronDown
+                className={`w-4 h-4 text-slate-400 transition-transform duration-200 md:hidden ${
+                  isDirOpen ? 'rotate-180 text-indigo-400' : ''
+                }`}
+              />
+            </button>
+
+            {/* Directory Links: Collapsible on Mobile, Always visible on Desktop */}
+            <div
+              className={`${
+                isDirOpen ? 'grid' : 'hidden md:grid'
+              } grid-cols-2 gap-x-4 sm:gap-x-6 gap-y-1 sm:gap-y-2 text-[11px] sm:text-xs font-medium pt-1 sm:pt-0`}
+            >
               {[
                 { name: '12 Core Services', path: '/services' },
                 { name: 'Track Status', path: '/status' },
@@ -142,28 +164,46 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Column 3: Location & Corporate Info (3 cols) */}
-          <div className="lg:col-span-3 space-y-3 sm:space-y-4">
-            <h4 className="font-display font-bold text-xs sm:text-sm text-white uppercase tracking-wider">
-              Location & Contact
-            </h4>
+          <div className="lg:col-span-3 border-t border-slate-800/80 pt-3 md:border-t-0 md:pt-0 space-y-2 sm:space-y-3">
+            {/* Header: Collapsible Toggle on Mobile, Static Header on Desktop */}
+            <button
+              onClick={() => setIsContactOpen(!isContactOpen)}
+              className="w-full flex items-center justify-between text-left md:pointer-events-none group"
+              aria-expanded={isContactOpen}
+            >
+              <h4 className="font-display font-bold text-xs sm:text-sm text-white uppercase tracking-wider flex items-center gap-1.5">
+                <span>Location & Contact</span>
+                <span className="text-[10px] text-slate-500 font-mono font-normal lowercase md:hidden">({isContactOpen ? 'tap to close' : 'view info'})</span>
+              </h4>
+              <ChevronDown
+                className={`w-4 h-4 text-slate-400 transition-transform duration-200 md:hidden ${
+                  isContactOpen ? 'rotate-180 text-indigo-400' : ''
+                }`}
+              />
+            </button>
             
-            <div className="space-y-2.5 sm:space-y-3 text-[11px] sm:text-xs text-slate-400 font-medium">
-              <div className="flex items-start gap-2 sm:gap-2.5">
-                <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-400 shrink-0 mt-0.5" />
+            {/* Contact Details: Collapsible on Mobile, Always visible on Desktop */}
+            <div
+              className={`${
+                isContactOpen ? 'space-y-2' : 'hidden md:block md:space-y-2.5'
+              } text-[11px] sm:text-xs text-slate-400 font-medium pt-1 sm:pt-0`}
+            >
+              <div className="flex items-start gap-2">
+                <MapPin className="w-3.5 h-3.5 text-indigo-400 shrink-0 mt-0.5" />
                 <span className="leading-relaxed">#121, 13th main Binny layout<br className="hidden sm:inline"/> Vijaynagar Bangalore-560040</span>
               </div>
-              <div className="flex items-center gap-2 sm:gap-2.5">
-                <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-400 shrink-0" />
+              <div className="flex items-center gap-2">
+                <Mail className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
                 <a href="mailto:brandexhq@gmail.com" className="hover:text-white transition-colors">
                   brandexhq@gmail.com
                 </a>
               </div>
-              <div className="flex items-center gap-2 sm:gap-2.5">
-                <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-400 shrink-0" />
+              <div className="flex items-center gap-2">
+                <Phone className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
                 <span className="text-slate-300 font-mono">+91 99868 80072</span>
               </div>
-              <div className="flex items-center gap-2 sm:gap-2.5">
-                <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-400 shrink-0" />
+              <div className="flex items-center gap-2">
+                <ArrowUpRight className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
                 <a 
                   href="https://www.brandex.co.in/" 
                   target="_blank" 
@@ -173,38 +213,37 @@ export const Footer: React.FC = () => {
                   www.brandex.co.in
                 </a>
               </div>
-            </div>
-
-            {/* Subtle Minimal Entity & Verification Note */}
-            <div className="pt-1 text-[10px] sm:text-[11px] text-slate-500 font-mono flex items-center gap-1.5">
-              <ShieldCheck className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400" />
-              <span>GST: 29OGNPS8060K1Z5</span>
+              <div className="pt-0.5 text-[10px] sm:text-[11px] text-slate-500 font-mono flex items-center gap-1.5">
+                <ShieldCheck className="w-3 h-3 text-slate-400" />
+                <span>GST: 29OGNPS8060K1Z5</span>
+              </div>
             </div>
           </div>
 
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-6 sm:pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between text-[11px] sm:text-xs text-slate-400 gap-4 sm:gap-6">
-          <div className="space-y-0.5 text-center md:text-left md:w-1/3 order-2 md:order-1">
-            <div>© {currentYear} Brandex. All Rights Reserved.</div>
-            <div className="text-slate-500 font-mono text-[10px] sm:text-[11px]">Entity ID: 29OGNPS8060K1Z5</div>
+        {/* Bottom Bar: Super Sleek & Compact */}
+        <div className="pt-4 sm:pt-6 border-t border-slate-800/80 flex flex-col md:flex-row items-center justify-between text-[10px] sm:text-xs text-slate-400 gap-2.5 sm:gap-6">
+          <div className="flex items-center gap-2 text-center md:text-left order-2 md:order-1">
+            <span>© {currentYear} Brandex.</span>
+            <span className="text-slate-600">·</span>
+            <span className="text-slate-500 font-mono text-[10px]">29OGNPS8060K1Z5</span>
           </div>
 
-          <div className="flex justify-center md:w-1/3 order-1 md:order-2">
+          <div className="flex items-center justify-center order-1 md:order-2">
             <a 
               href="https://www.brandex.co.in/" 
               target="_blank" 
               rel="noopener"
-              className="flex items-center gap-2.5 opacity-90 hover:opacity-100 transition-opacity group"
+              className="flex items-center gap-2 opacity-90 hover:opacity-100 transition-opacity group"
             >
-              <span className="text-[10px] sm:text-xs text-slate-400 group-hover:text-slate-200 font-bold tracking-widest transition-colors">A PRODUCT OF</span>
-              <img src="/brandex-footer-logo.webp" alt="Brandex Logo" className="h-5 sm:h-6" />
+              <span className="text-[9px] sm:text-[10px] text-slate-500 group-hover:text-slate-300 font-bold tracking-widest transition-colors">A PRODUCT OF</span>
+              <img src="/brandex-footer-logo.webp" alt="Brandex Logo" className="h-4 sm:h-5" />
             </a>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-4 sm:gap-x-6 gap-y-1.5 text-[11px] sm:text-xs font-medium md:w-1/3 order-3">
-            <NavLink to="/privacy" className="hover:text-white transition-colors">Privacy Policy</NavLink>
+          <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-3 sm:gap-x-5 text-[10px] sm:text-xs font-medium order-3">
+            <NavLink to="/privacy" className="hover:text-white transition-colors">Privacy</NavLink>
             <NavLink to="/terms" className="hover:text-white transition-colors">Terms</NavLink>
             <NavLink to="/community/guidelines" className="hover:text-white transition-colors">Guidelines</NavLink>
           </div>

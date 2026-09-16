@@ -122,10 +122,10 @@ export const ApplicationStatusPage: React.FC = () => {
             id: data.id,
             typeCategory: 'application',
             title: 'CAREER & TALENT SUBMISSION',
-            subtitle: data.program || 'Brandex Engineering / Campus Fellow Track',
+            subtitle: data.program || 'Brandex Engineering Track',
             handleOrName: data.userHandle || data.email,
             status: data.status,
-            metaLabel1: 'Candidate Name / Handle',
+            metaLabel1: 'Candidate Name',
             metaValue1: data.userHandle || data.email,
             metaLabel2: 'Registered Email',
             metaValue2: data.email || 'Confidential',
@@ -175,7 +175,7 @@ export const ApplicationStatusPage: React.FC = () => {
         typeCategory: 'partnership',
         title: 'College & School Institutional Partnership Proposal',
         subtitle: 'Academic Syllabus & Campus Buildathon Collaboration',
-        handleOrName: 'Faculty Coordinator / Institution Lead',
+        handleOrName: 'Institution Coordinator',
         status: 'Under Review',
         metaLabel1: 'Program Track',
         metaValue1: 'College Research Lab & Campus Hackathon Track',
@@ -196,7 +196,7 @@ export const ApplicationStatusPage: React.FC = () => {
         metaValue1: 'Campus Guild Lead & Workshop Organizer',
         metaLabel2: 'Admissions Window',
         metaValue2: 'Active 2026 Cohort Screening',
-        notes: 'Ambassador screening received. Community team reviews submissions weekly and will reach out via WhatsApp / Email.',
+        notes: 'Ambassador screening received. Community team reviews submissions weekly and will reach out via WhatsApp or Email.',
         submittedAt: 'Verified in Queue'
       });
     } else if (cleanId.startsWith('BX-ENR-')) {
@@ -424,7 +424,7 @@ export const ApplicationStatusPage: React.FC = () => {
             <div className="p-3.5 bg-indigo-50/40 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/60 rounded-xl space-y-1">
               <div className="flex items-center gap-2 text-xs font-bold text-indigo-900 dark:text-indigo-300 uppercase tracking-wide">
                 <FileCheck className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                <span>Reviewer / Lead Notes</span>
+                <span>Reviewer Feedback</span>
               </div>
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
                 {result.notes}

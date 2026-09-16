@@ -109,7 +109,7 @@ export const CareersPage: React.FC = () => {
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-98 text-white font-bold text-xs shadow-md shadow-indigo-500/20 transition-all cursor-pointer"
             >
               <Send className="w-4 h-4 text-white" />
-              <span>Submit Candidacy / Send Resume</span>
+              <span>Submit Application</span>
             </button>
             <a
               href="mailto:careers@brandex.network?subject=Brandex%20Talent%20Pool%20Candidacy"
@@ -311,7 +311,7 @@ const FusedCareerTracker: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <span className="text-[11px] font-mono text-slate-500 uppercase">Program / Role</span>
+              <span className="text-[11px] font-mono text-slate-500 uppercase">Program Role</span>
               <p className="text-sm font-semibold text-slate-900 mt-0.5">
                 {record.program || record.serviceTitle || record.applicationType || 'Talent Application'}
               </p>
@@ -326,7 +326,7 @@ const FusedCareerTracker: React.FC = () => {
 
           {(record.notes || record.reviewerNotes) && (
             <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-700 space-y-1">
-              <span className="font-bold text-slate-900">Admissions / Evaluation Notes:</span>
+              <span className="font-bold text-slate-900">Evaluation Notes:</span>
               <p className="text-slate-600 leading-relaxed">{record.notes || record.reviewerNotes}</p>
             </div>
           )}
